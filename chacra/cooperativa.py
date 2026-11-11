@@ -85,10 +85,17 @@ def distancia_km(a, b):
     return 2 * 6371 * math.asin(math.sqrt(h))
 
 
-def prioridades(gdf, base):
-    """Orden de visitas: primero mayor riesgo; dentro del mismo riesgo, la más cercana a la anterior.
+# Pueblo desde donde sale el técnico en cada zona (coordenadas aproximadas de la plaza)
+BASES = {"sandia": ("San Juan del Oro", (-14.2219, -69.1517)),
+         "carabaya": ("San Gabán", (-13.4366, -70.4028)),
+         "altomayo": ("Moyobamba", (-6.0342, -76.9717))}
 
-    base: (latitud, longitud) de la oficina de la cooperativa, desde donde sale el técnico.
+
+def prioridades(gdf):
+    """Orden de visitas por zona: primero mayor riesgo y, dentro del mismo riesgo, la más cercana a la anterior.
+
+    Cada zona tiene su propia ruta, que sale de su pueblo base: no tiene sentido ir y volver entre valles.
+    Las distancias son en línea recta; por camino suelen ser mayores.
     """
     pendientes = gdf[gdf["estado"].isin(["posible", "revisar"])].copy()
     if len(pendientes) == 0:
@@ -97,17 +104,20 @@ def prioridades(gdf, base):
     pendientes["lat"] = centros.y
     pendientes["lon"] = centros.x
     pendientes["perdida_ha"] = pendientes["analisis"].apply(lambda a: a["perdida_acordada_ha"])
-    orden, actual = [], base
-    for estado in ["posible", "revisar"]:
-        grupo = pendientes[pendientes["estado"] == estado].copy()
-        while len(grupo):
-            grupo["dist"] = grupo.apply(lambda f: distancia_km(actual, (f["lat"], f["lon"])), axis=1)
-            elegida = grupo.sort_values(["dist", "perdida_ha"], ascending=[True, False]).iloc[0]
-            orden.append({"orden": len(orden) + 1, "codigo_parcela": elegida["codigo_parcela"],
-                          "codigo_productor": elegida["codigo_productor"], "estado": elegida["texto_estado"],
-                          "perdida_ha": round(elegida["perdida_ha"], 2),
-                          "km_desde_anterior": round(elegida["dist"], 1),
-                          "lat": round(elegida["lat"], 6), "lon": round(elegida["lon"], 6)})
-            actual = (elegida["lat"], elegida["lon"])
-            grupo = grupo.drop(index=elegida.name)
+    orden = []
+    for zona, de_zona in pendientes.groupby("zona"):
+        nombre_base, actual = BASES.get(zona, ("centro de las parcelas", (de_zona["lat"].mean(), de_zona["lon"].mean())))
+        for estado in ["posible", "revisar"]:
+            grupo = de_zona[de_zona["estado"] == estado].copy()
+            while len(grupo):
+                grupo["dist"] = grupo.apply(lambda f: distancia_km(actual, (f["lat"], f["lon"])), axis=1)
+                elegida = grupo.sort_values(["dist", "perdida_ha"], ascending=[True, False]).iloc[0]
+                orden.append({"zona": zona, "base": nombre_base, "orden": len(orden) + 1,
+                              "codigo_parcela": elegida["codigo_parcela"],
+                              "codigo_productor": elegida["codigo_productor"], "estado": elegida["texto_estado"],
+                              "perdida_ha": round(elegida["perdida_ha"], 2),
+                              "km_desde_anterior": round(elegida["dist"], 1),
+                              "lat": round(elegida["lat"], 6), "lon": round(elegida["lon"], 6)})
+                actual = (elegida["lat"], elegida["lon"])
+                grupo = grupo.drop(index=elegida.name)
     return pd.DataFrame(orden)

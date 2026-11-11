@@ -24,10 +24,10 @@ st.set_page_config(page_title="Chacra Clara · EUDR para cooperativas", page_ico
 ONE_LINER = ("Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, "
              "para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se "
              "convierte en el expediente de debida diligencia que pide la EUDR.")
-# Cooperativas de demo (ficticias): nombre y oficina desde donde sale el técnico (plaza del pueblo)
+# Cooperativas de demo (ficticias)
 COOPERATIVAS_DEMO = {
-    "puno": {"nombre": "Central Demo Valle Alto, Puno (ficticia)", "oficina": (-14.2238, -69.1527)},
-    "sanmartin": {"nombre": "Cooperativa Demo Alto Mayo, San Martín (ficticia)", "oficina": (-6.0346, -76.9717)},
+    "puno": {"nombre": "Central Demo Valle Alto, Puno (ficticia)"},
+    "sanmartin": {"nombre": "Cooperativa Demo Alto Mayo, San Martín (ficticia)"},
 }
 
 
@@ -362,22 +362,21 @@ def pagina_tablero():
                "para micro y pequeñas empresas. El porcentaje de volumen usa la producción declarada de cada parcela.")
 
     st.markdown("## Visitas de campo, en orden")
-    clave = st.session_state.get("cooperativa")
-    if clave in COOPERATIVAS_DEMO:
-        base = COOPERATIVAS_DEMO[clave]["oficina"]
-    else:
-        base = (gdf.geometry.centroid.y.mean(), gdf.geometry.centroid.x.mean())
-    orden = cooperativa.prioridades(gdf, base)
+    orden = cooperativa.prioridades(gdf)
     if len(orden) == 0:
         st.success("No hay parcelas por visitar.")
     else:
-        st.write("Primero las de posible deforestación y luego las de revisar. Dentro de cada grupo, la más cercana "
-                 "a la anterior, saliendo de la oficina de la cooperativa (distancia en línea recta).")
-        mostrar = orden[["orden", "codigo_parcela", "estado", "km_desde_anterior"]].copy()
+        st.write("Una ruta por zona. Primero las de posible deforestación y luego las de revisar; dentro de cada "
+                 "grupo, la más cercana a la anterior (distancia en línea recta: por camino suele ser mayor).")
         cortos = {ESTADOS[k]["texto"]: ESTADOS[k]["icono"] + " " + ESTADOS[k]["corto"] for k in ESTADOS}
-        mostrar["estado"] = mostrar["estado"].map(cortos)
-        mostrar.columns = ["N.º", "Parcela", "Estado", "Km desde la anterior"]
-        st.table(mostrar.set_index("N.º"))
+        zonas = zonas_disponibles()
+        for zona, ruta in orden.groupby("zona", sort=False):
+            nombre = zonas.get(zona, {}).get("nombre", zona)
+            st.markdown(f"**{nombre}**: sale de {ruta['base'].iloc[0]}")
+            mostrar = pd.DataFrame({"N.º": range(1, len(ruta) + 1), "Parcela": ruta["codigo_parcela"].values,
+                                    "Estado": ruta["estado"].map(cortos).values,
+                                    "Km desde la anterior": [f"{km:.1f}" for km in ruta["km_desde_anterior"]]})
+            st.table(mostrar.set_index("N.º"))
         st.download_button("Descargar la ruta (CSV con coordenadas)", orden.to_csv(index=False).encode("utf-8-sig"),
                            file_name="ruta_visitas.csv", mime="text/csv")
         st.markdown("**Qué llevar a cada visita:** celular con GPS para fotos con fecha y ubicación, la ficha PDF "

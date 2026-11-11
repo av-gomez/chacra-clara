@@ -56,7 +56,7 @@ def test_informe_plantilla_y_ruta():
     inf = informe.informe_plantilla(informe.datos_para_informe("Prueba", gdf, r))
     assert inf.nivel_riesgo == "alto"
     assert len(inf.hallazgos) == r["revisar"] + r["posible"]
-    orden = cooperativa.prioridades(gdf, (-14.2238, -69.1527))
+    orden = cooperativa.prioridades(gdf)
     assert list(orden["estado"])[0].startswith("Posible")
 
 
