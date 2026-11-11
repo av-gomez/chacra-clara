@@ -77,6 +77,33 @@ def test_validacion_detecta_errores():
     assert not v.loc[0, "valida"] and not v.loc[1, "valida"]
 
 
+class Archivo:
+    """Imita el archivo que entrega st.file_uploader."""
+    def __init__(self, nombre, contenido):
+        self.name = nombre
+        self._contenido = contenido
+
+    def getvalue(self):
+        return self._contenido
+
+
+def test_plantilla_csv_se_lee_y_analiza():
+    gdf = geometria.leer_archivo(Archivo("plantilla.csv", geometria.plantilla_csv()))
+    v = cooperativa.analizar_todas(geometria.validar(gdf))
+    assert len(v) == 2 and v["valida"].all() and v["estado"].notna().all()
+
+
+def test_kml_se_lee():
+    kml = b"""<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><name>K-1</name><Polygon><outerBoundaryIs>
+<LinearRing><coordinates>-69.150101,-14.200101,0 -69.148101,-14.200101,0 -69.148101,-14.198101,0
+-69.150101,-14.198101,0 -69.150101,-14.200101,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+</Placemark></Document></kml>"""
+    v = geometria.validar(geometria.leer_archivo(Archivo("parcela.kml", kml)))
+    assert v.loc[0, "codigo_parcela"] == "K-1" and v.loc[0, "valida"]
+    assert 4 < v.loc[0, "area_calculada_ha"] < 5
+
+
 if __name__ == "__main__":
     for nombre, prueba in list(globals().items()):
         if nombre.startswith("test_"):
