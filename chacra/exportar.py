@@ -11,7 +11,7 @@ from shapely.geometry import Point, mapping
 from chacra.estado import ESTADOS
 from chacra.rutas import RAIZ
 
-FUENTE = RAIZ / "assets" / "fuentes" / "PublicSans.ttf"
+FUENTES = RAIZ / "assets" / "fuentes"
 CAFE = (59, 42, 32)
 GRIS = (90, 84, 78)
 AVISO = ("Herramienta de tamizaje y apoyo a la debida diligencia. No es una certificación oficial: "
@@ -61,8 +61,8 @@ class Documento(FPDF):
     def __init__(self, titulo):
         super().__init__(format="A4")
         self.titulo = titulo
-        self.add_font("Public", "", str(FUENTE))
-        self.add_font("Public", "B", str(FUENTE))
+        self.add_font("Public", "", str(FUENTES / "PublicSans-Regular.ttf"))
+        self.add_font("Public", "B", str(FUENTES / "PublicSans-Bold.ttf"))
         self.set_auto_page_break(True, margin=18)
         self.set_margins(18, 16, 18)
         self.set_title(titulo)
@@ -126,6 +126,8 @@ def ficha_pdf(fila, analisis, imagenes=None):
         doc.parrafo(f"•  {razon}")
 
     doc.titulo_seccion("Evidencia por fuente")
+    doc.set_fill_color(241, 233, 220)
+    doc.set_font("Public", "", 9)
     with doc.table(col_widths=(70, 32, 32, 40), text_align=("LEFT", "RIGHT", "RIGHT", "LEFT"),
                    line_height=5.5) as tabla:
         tabla.row(["Fuente", "Pérdida en bosque 2020 (ha)", "Pérdida total (ha)", "Años"])
@@ -147,9 +149,9 @@ def ficha_pdf(fila, analisis, imagenes=None):
     if imagenes:
         doc.titulo_seccion("Sentinel-2: antes (2020) y después (2025)")
         y = doc.get_y()
-        doc.image(imagenes["antes"], x=18, y=y, w=84, alt_text="Imagen satelital de la parcela en 2020")
-        doc.image(imagenes["despues"], x=108, y=y, w=84, alt_text="Imagen satelital de la parcela en 2025")
-        doc.set_y(y + 86)
+        doc.image(imagenes["antes"], x=18, y=y, w=62, alt_text="Imagen satelital de la parcela en 2020")
+        doc.image(imagenes["despues"], x=86, y=y, w=62, alt_text="Imagen satelital de la parcela en 2025")
+        doc.set_y(y + 63)
         doc.set_font("Public", "", 8)
         doc.cell(0, 4, "Contorno amarillo: la parcela. Fuente: Copernicus Sentinel-2 L2A (ESA), mediana de la "
                        "estación seca.", new_x="LMARGIN", new_y="NEXT")
@@ -199,6 +201,8 @@ def reporte_cooperativa_pdf(nombre, parcelas, resumen):
     doc.parrafo(f"Faltan {resumen['dias_grandes']} días para el 30/12/2026 (operadores grandes y medianos) y "
                 f"{resumen['dias_pequenos']} días para el 30/06/2027 (micro y pequeñas empresas).")
     doc.titulo_seccion("Parcelas")
+    doc.set_fill_color(241, 233, 220)
+    doc.set_font("Public", "", 9)
     with doc.table(col_widths=(28, 24, 18, 52, 20, 22), line_height=5,
                    text_align=("LEFT", "LEFT", "RIGHT", "LEFT", "LEFT", "RIGHT")) as tabla:
         tabla.row(["Parcela", "Productor", "Área (ha)", "Estado", "Confianza", "Pérdida (ha)"])

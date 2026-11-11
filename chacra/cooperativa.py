@@ -72,6 +72,12 @@ def resumen(gdf, hoy=None):
     }
 
 
+def centroides(gdf):
+    """Centro de cada parcela calculado en metros (UTM) y devuelto en grados."""
+    utm = gdf.estimate_utm_crs()
+    return gdf.to_crs(utm).centroid.to_crs("EPSG:4326")
+
+
 def distancia_km(a, b):
     """Distancia en línea recta (fórmula del haversine). Por camino suele ser mayor."""
     lat1, lon1, lat2, lon2 = map(math.radians, [a[0], a[1], b[0], b[1]])
@@ -87,8 +93,9 @@ def prioridades(gdf, base):
     pendientes = gdf[gdf["estado"].isin(["posible", "revisar"])].copy()
     if len(pendientes) == 0:
         return pd.DataFrame()
-    pendientes["lat"] = pendientes.geometry.centroid.y
-    pendientes["lon"] = pendientes.geometry.centroid.x
+    centros = centroides(pendientes)
+    pendientes["lat"] = centros.y
+    pendientes["lon"] = centros.x
     pendientes["perdida_ha"] = pendientes["analisis"].apply(lambda a: a["perdida_acordada_ha"])
     orden, actual = [], base
     for estado in ["posible", "revisar"]:
