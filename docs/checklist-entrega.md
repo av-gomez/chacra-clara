@@ -50,7 +50,9 @@ Revisado contra el enunciado del issue #204. ✅ = hecho · 🙋 = te toca a ti,
 | 6:00 p. m. | Demo estable y sin cambios. |
 | **6:30 p. m.** | **Abrir la URL para despertar la app** y pulsar «Cargar cooperativa de ejemplo» una vez. |
 | 6:45 p. m. | Si es por Zoom: probar «Compartir sonido». |
-| 7:00 p. m. | Presentación. |
+| 7:00 p. m. | Conectarte con el demo abierto y probado. |
+| 7:19 p. m. | Mientras presenta la n.º 6, recargar la URL y pulsar «Cargar cooperativa de ejemplo». |
+| **~7:26 p. m.** | **Tu turno (7.ª en la lista).** Si alguien falta, se adelanta. |
 
 ## Desplegar en Streamlit Community Cloud (5 minutos)
 

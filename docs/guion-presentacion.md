@@ -4,6 +4,15 @@
 
 | Hora | Qué hacer |
 |---|---|
+| **6:30 p. m.** | **Abrir la URL pública para despertar la app.** Las apps gratuitas de Streamlit se duermen si nadie las usa y tardan 1 o 2 minutos en despertar. Esperar a que cargue Inicio y pulsar **Cargar cooperativa de ejemplo** una vez. |
+| 6:35 p. m. | En otra pestaña, dejar abierto el **video de respaldo** (`video/demo_respaldo.mp4`, también guardado en la laptop). |
+| 6:40 p. m. | Plan B local: doble clic en `correr_local.bat`, que abre http://localhost:8501. Dejarlo en una tercera pestaña. |
+| 6:45 p. m. | Si es por **Zoom**: probar **Compartir pantalla** con la casilla **«Compartir sonido»** marcada, reproduciendo una nota de voz. |
+| 7:00 p. m. | Conectarse con la app abierta en **Inicio**, ventana limpia y volumen activado (el curso lo pide así). |
+| **7:19 p. m.** | **Me toca 7.ª (turno aproximado: 7:26 p. m., después de Ximena Pinillos).** Mientras presenta la persona n.º 6: recargar la URL, pulsar **Cargar cooperativa de ejemplo**, volver a **Inicio** y tener la pantalla compartida lista. Si alguien falta, el turno se adelanta. |
+| 7:26 p. m. | Presentar: 3 minutos exactos, y a las 3:00 se corta. |
+
+---|---|
 | **6:30 p. m.** | **Abrir la URL pública para despertar la app.** Las apps gratuitas de Streamlit se duermen si nadie las usa y tardan 1 o 2 minutos en despertar. Esperar a que cargue Inicio y pulsar **Cargar cooperativa de ejemplo** una vez, para dejarla lista. |
 | 6:35 p. m. | En otra pestaña, dejar abierto el **video de respaldo** (`video/demo_respaldo.mp4`, también guardado en la laptop). |
 | 6:40 p. m. | Plan B local: doble clic en `correr_local.bat`, que abre http://localhost:8501. Dejarlo en una tercera pestaña. |
