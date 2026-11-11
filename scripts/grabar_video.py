@@ -45,7 +45,14 @@ def esperar_app(pagina, ms=1500):
 
 
 def mapa(pagina):
-    marco = next(f for f in pagina.frames if f != pagina.main_frame and "leaflet" in f.content())
+    for _ in range(90):  # el mapa carga en un iframe aparte; en una PC ocupada puede tardar
+        marco = next((f for f in pagina.frames if f != pagina.main_frame and "leaflet" in f.content()), None)
+        if marco:
+            break
+        pagina.wait_for_timeout(1000)
+    else:
+        raise RuntimeError("El mapa no cargó en 90 s")
+    marco.locator(".leaflet-container").first.wait_for(timeout=60_000)
     return marco, marco.locator(".leaflet-container").first
 
 
@@ -58,7 +65,9 @@ def grabar(url, salida_cruda):
                                          record_video_dir=str(salida_cruda), record_video_size={"width": 1280, "height": 720})
         pagina = contexto.new_page()
         pagina.goto(url, wait_until="networkidle", timeout=120_000)
-        esperar_app(pagina, 4000)
+        # La primera carga puede tardar (servidor frío o PC ocupada): esperar a que la portada esté completa
+        pagina.get_by_role("button", name="Ingresar mis parcelas").wait_for(timeout=180_000)
+        esperar_app(pagina, 2000)
         pagina.evaluate(AVISO)
         cero = time.time()
 
