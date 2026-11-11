@@ -18,3 +18,6 @@ algonuevo*
 # Descargas temporales de datos crudos (los recortes finales sí se suben)
 datos/crudos/
 salidas_tmp/
+
+# Video: la grabación cruda de Playwright no se sube
+video/crudo/

@@ -222,9 +222,9 @@ def pagina_resultados():
             st.rerun()
         return
     r = cooperativa.resumen(gdf)
-    st.markdown(f"**Resumen:** de {r['total']} parcelas analizadas, {r['sin']} no muestran deforestación, "
-                f"{r['revisar']} hay que revisarlas y {r['posible']} muestran posible deforestación después de 2020."
-                + (f" {r['fuera']} quedaron sin analizar (fuera de zona o con errores)." if r["fuera"] else ""))
+    st.markdown(f"**Resumen.** Parcelas analizadas: {r['total']}. ✓ Sin deforestación detectada: {r['sin']}. "
+                f"! Revisar: {r['revisar']}. ✕ Posible deforestación después de 2020: {r['posible']}."
+                + (f" Sin analizar (fuera de zona o con errores): {r['fuera']}." if r["fuera"] else ""))
     tabla_validacion(gdf)
 
     codigos = list(gdf["codigo_parcela"])
