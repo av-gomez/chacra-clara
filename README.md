@@ -157,7 +157,7 @@ uv pip install --python .venv-voz/Scripts/python qwen-tts faster-whisper soundfi
 
 ```mermaid
 flowchart LR
-    subgraph Fuentes abiertas
+    subgraph fuentes ["Fuentes abiertas"]
         JRC[JRC GFC2020 V4<br/>bosque 2020, 10 m]
         HAN[Hansen/UMD v1.13<br/>pérdida 2001-2025, 30 m]
         GLAD[GLAD-S2<br/>alertas, 10 m]
