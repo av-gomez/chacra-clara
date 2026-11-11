@@ -92,7 +92,7 @@ def _color_bosque(datos):
 
 def _color_perdida(datos):
     rgba = np.zeros(datos.shape + (4,), dtype="uint8")
-    rgba[(datos > 20) & (datos != 255)] = (255, 0, 200, 230)   # magenta: distinto de los tres estados
+    rgba[(datos > 20) & (datos != 255)] = (255, 0, 200, 150)   # magenta: distinto de los tres estados
     return rgba
 
 
@@ -126,10 +126,13 @@ def agregar_legalidad(m, zona):
 
 def mapa_resultados(parcelas, ligero=False, seleccion=None):
     """parcelas: GeoDataFrame con columnas codigo_parcela, estado, texto_estado, confianza."""
-    centro = [parcelas.geometry.centroid.y.mean(), parcelas.geometry.centroid.x.mean()]
-    m = mapa_base(centro, 14, ligero)
-    zonas = [z for z in parcelas["zona"].dropna().unique()]
-    for zona in zonas:
+    elegida = parcelas[parcelas["codigo_parcela"] == seleccion]
+    if len(elegida) == 0 or elegida["zona"].isna().all():
+        elegida = parcelas[parcelas["zona"].notna()].head(1)
+    oeste, sur, este, norte = elegida.total_bounds
+    m = mapa_base([(sur + norte) / 2, (oeste + este) / 2], 15, ligero)
+    # Solo las capas de la zona de la parcela elegida: menos datos para un celular con poca señal
+    for zona in elegida["zona"].dropna().unique():
         agregar_capas_raster(m, zona, ligero)
         agregar_legalidad(m, zona)
     patrones = _patrones(m)
@@ -164,8 +167,8 @@ def mapa_resultados(parcelas, ligero=False, seleccion=None):
         folium.Marker([fila.geometry.y, fila.geometry.x], icon=folium.DivIcon(html=html, icon_size=(26, 26),
                                                                                icon_anchor=(13, 13)),
                       tooltip=f"{fila['codigo_parcela']}: {fila['texto_estado']}").add_to(m)
-    m.fit_bounds([[datos.total_bounds[1], datos.total_bounds[0]], [datos.total_bounds[3], datos.total_bounds[2]]],
-                 padding=(20, 20))
+    margen = 0.002   # unos 220 m alrededor de la parcela elegida, para ver su entorno
+    m.fit_bounds([[sur - margen, oeste - margen], [norte + margen, este + margen]])
     folium.LayerControl(collapsed=True).add_to(m)
     return m
 

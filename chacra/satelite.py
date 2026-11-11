@@ -28,7 +28,7 @@ NODATA = 255
 # Fuentes de pérdida. 'archivo' guarda el año de pérdida menos 2000 (21 = 2021); 0 = sin pérdida.
 FUENTES_PERDIDA = [
     {"clave": "hansen", "nombre": "Hansen/UMD (Landsat, 30 m)", "archivo": "hansen_perdida.tif"},
-    {"clave": "alertas", "nombre": "Alertas GLAD (Landsat y Sentinel-2)", "archivo": "alertas_perdida.tif"},
+    {"clave": "alertas", "nombre": "Alertas GLAD-S2 (Sentinel-2, 10 m)", "archivo": "alertas_perdida.tif"},
     {"clave": "io", "nombre": "Impact Observatory (Sentinel-2, 10 m)", "archivo": "io_perdida.tif"},
     {"clave": "geobosques", "nombre": "Geobosques MINAM (Landsat, 30 m)", "archivo": "geobosques_perdida.tif"},
 ]
