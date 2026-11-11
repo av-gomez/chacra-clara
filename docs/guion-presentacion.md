@@ -23,7 +23,7 @@
 
 ## Versión para leer en pantalla (letra grande)
 
-209 palabras habladas (límite: 380): deja aire para los clics. Entre corchetes va lo que hago, que no se dice.
+218 palabras habladas (límite: 380): deja aire para los clics. Entre corchetes va lo que hago, que no se dice.
 
 ### 0:00 – 0:30 · El problema
 
@@ -49,11 +49,11 @@
 
 [Bajo hasta la insignia roja y la tabla **Evidencia por fuente**]
 
-# En segundos se cruza con cinco fuentes satelitales abiertas.
+# En segundos se cruza con dos tipos de satélite y con mapas de bosque natural.
 
-# Resultado: posible deforestación. Con ícono, texto y patrón, no solo color.
+# Resultado: posible deforestación. Las capas dicen que era bosque natural alto, no un cafetal.
 
-# Si las fuentes no coinciden, o puede ser café bajo sombra, va a «Revisar».
+# Si puede ser café bajo sombra o una renovación, va a «Revisar», no a deforestación.
 
 [Bajo a **Imágenes Sentinel-2: antes y después**]
 
@@ -71,9 +71,9 @@
 
 [Inicio → **Cargar cooperativa de ejemplo** → menú **3. Tablero y visitas**]
 
-# Para la cooperativa: siete parcelas listas, dos por revisar, tres con alerta.
+# Para la cooperativa: siete sin deforestación, tres por revisar, dos con alerta.
 
-# Hoy podrían exportar el 48 % de su volumen. Y esta es la ruta del técnico.
+# La mitad del valor exportado está en riesgo. Y esta es la ruta de visitas.
 
 ### 2:30 – 3:00 · El negocio
 

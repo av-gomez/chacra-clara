@@ -35,7 +35,9 @@ def analizar_todas(parcelas):
         if not fila.get("valida", True):
             a = {"error": "Geometría con errores: corríjala antes de analizar."}
         else:
-            a = satelite.analizar(fila.geometry, fila.get("area_declarada_ha"))
+            renovacion = fila.get("anio_renovacion")
+            renovacion = None if renovacion is None or pd.isna(renovacion) else int(renovacion)
+            a = satelite.analizar(fila.geometry, fila.get("area_declarada_ha"), renovacion)
             if a.get("zona"):
                 a["legalidad"] = alertas_legalidad(fila.geometry, a["zona"])
         analisis.append(a)
@@ -52,21 +54,58 @@ def analizar_todas(parcelas):
     return gdf
 
 
+# Supuestos para estimar volumen y valor (citados en el README y en la app)
+RENDIMIENTO_KG_HA = {"café": 671, "cacao": 678}
+# café verde: 671 kg/ha (proyección 2025, Junta Nacional del Café, Agraria.pe 22/08/2025)
+# cacao en grano: 678 kg/ha (consultora Recursos, Agraria.pe 26/01/2026)
+PRECIO_USD_KG = {"café": 336 / 46, "cacao": 8.11}
+# café: US$ 336 por quintal de 46 kg, precio FOB promedio proyectado 2025 (Agraria.pe 31/12/2025) = US$ 7,30/kg
+# cacao en grano: US$ 8,11/kg, precio promedio de exportación 2025 (CIEN-ADEX, abril de 2026)
+
+
+def cultivo_de(texto):
+    return "cacao" if "cacao" in str(texto) else "café"
+
+
+def volumen_kg(fila, area_ha):
+    """Producción declarada; si falta, área x rendimiento promedio del cultivo."""
+    declarada = pd.to_numeric(fila.get("produccion_kg_anual"), errors="coerce")
+    if pd.notna(declarada) and declarada > 0:
+        return float(declarada)
+    return float(area_ha * RENDIMIENTO_KG_HA[cultivo_de(fila.get("cultivo"))])
+
+
 def resumen(gdf, hoy=None):
+    """Cifras del tablero: por estado, parcelas, % del área, % del volumen y valor de exportación."""
     hoy = hoy or date.today()
     analizadas = gdf[gdf["estado"].notna()]
-    kg = pd.to_numeric(analizadas["produccion_kg_anual"], errors="coerce").fillna(0)
-    kg_listos = float(kg[analizadas["estado"] == "sin"].sum())
-    kg_total = float(kg.sum())
+    por_estado = {e: {"parcelas": 0, "ha": 0.0, "kg": 0.0, "usd": 0.0} for e in ["sin", "revisar", "posible"]}
+    for _, fila in analizadas.iterrows():
+        area = fila["analisis"]["area_analizada_ha"]
+        kg = volumen_kg(fila, area)
+        d = por_estado[fila["estado"]]
+        d["parcelas"] += 1
+        d["ha"] += area
+        d["kg"] += kg
+        d["usd"] += kg * PRECIO_USD_KG[cultivo_de(fila.get("cultivo"))]
+    total_ha = sum(d["ha"] for d in por_estado.values())
+    total_kg = sum(d["kg"] for d in por_estado.values())
+    total_usd = sum(d["usd"] for d in por_estado.values())
+    for d in por_estado.values():
+        d["pct_ha"] = 100 * d["ha"] / total_ha if total_ha else 0.0
+        d["pct_kg"] = 100 * d["kg"] / total_kg if total_kg else 0.0
     return {
         "total": int(len(analizadas)),
-        "sin": int((analizadas["estado"] == "sin").sum()),
-        "revisar": int((analizadas["estado"] == "revisar").sum()),
-        "posible": int((analizadas["estado"] == "posible").sum()),
+        "sin": por_estado["sin"]["parcelas"],
+        "revisar": por_estado["revisar"]["parcelas"],
+        "posible": por_estado["posible"]["parcelas"],
         "fuera": int(gdf["estado"].isna().sum()),
-        "kg_listos": kg_listos,
-        "kg_total": kg_total,
-        "pct_volumen": 100 * kg_listos / kg_total if kg_total > 0 else 0.0,
+        "por_estado": por_estado,
+        "kg_listos": por_estado["sin"]["kg"],
+        "kg_total": total_kg,
+        "pct_volumen": por_estado["sin"]["pct_kg"],
+        "usd_total": total_usd,
+        "usd_en_riesgo": por_estado["revisar"]["usd"] + por_estado["posible"]["usd"],
         "dias_grandes": (FECHA_GRANDES - hoy).days,
         "dias_pequenos": (FECHA_PEQUENOS - hoy).days,
     }

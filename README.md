@@ -81,16 +81,15 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
    - polígono obligatorio desde 4 ha y al menos 6 decimales;
    - dentro del Perú;
    - sin autointersecciones, agujeros, duplicados ni superposiciones.
-3. **Cruce con 5 fuentes satelitales abiertas**, y para cada parcela:
-   - si había bosque al 31/12/2020;
+3. **Cruce con fuentes satelitales abiertas de dos tipos de sensor** (Landsat y Sentinel-2) y con capas de **bosque natural** y **altura del dosel**, y para cada parcela:
+   - si había bosque, y si era bosque natural, al 31/12/2020;
    - cuánta área perdió después;
-   - en qué año y según qué fuente.
+   - en qué año, según qué fuente y qué sensor.
 4. **Tres estados**, nunca solo por color (ícono, texto y patrón): ✓ **Sin deforestación detectada**, ! **Revisar** y ✕ **Posible deforestación después de 2020**. Cada uno muestra un **nivel de confianza** y la **evidencia por fuente**.
 5. **Mapa y tabla equivalente**, con imágenes Sentinel-2 de antes (2020) y después (2025).
 6. **Tablero de la cooperativa:**
-   - cuántas parcelas están listas, por revisar y con posible deforestación;
-   - días que faltan para el 30/12/2026 y el 30/06/2027;
-   - **qué porcentaje del volumen podría ir hoy a Europa**.
+   - por estado: parcelas, % del área, % del volumen estimado y **valor de exportación en riesgo**, con supuestos citados de rendimiento y precio;
+   - días que faltan para que la EUDR rija a los importadores de la UE (30/12/2026 y 30/06/2027).
 7. **Ruta de visitas para el técnico**, ordenada por riesgo y cercanía, con lo que debe verificar y qué evidencia recoger.
 8. **Descargas:**
    - ficha PDF por parcela;
@@ -237,11 +236,14 @@ flowchart LR
 | Pieza | Qué uso | Por qué |
 |---|---|---|
 | Bosque en 2020 | **JRC Global Forest Cover 2020 V4**, 10 m, CC BY 4.0 | Es el mapa de referencia que publica la Comisión Europea para la EUDR. La propia Comisión aclara que es **no exclusivo y no vinculante** ([JRC](https://publications.jrc.ec.europa.eu/repository/handle/JRC142855)), por eso no es la única fuente. |
-| Pérdida (1) | **Hansen/UMD Global Forest Change v1.13** (hasta 2025), 30 m, CC BY 4.0 | Es la serie global más usada, con año de pérdida. |
-| Pérdida (2) | **Alertas GLAD-S2** (UMD), 10 m, solo confianza media y alta | Otro sensor (Sentinel-2) con 10 m: ve pérdidas pequeñas, que son la mayoría en el Perú. |
+| Pérdida (1) | **Hansen/UMD Global Forest Change v1.13** (2001–2025), 30 m, CC BY 4.0 | Es la serie global más usada, con año de pérdida. La versión y el año 2025 están confirmados en la [página oficial](https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/download.html). Sensor: Landsat. |
+| Pérdida (2) | **Alertas GLAD-S2** (UMD), 10 m, solo confianza media y alta | Otro sensor (Sentinel-2) con 10 m: ve pérdidas pequeñas, que son la mayoría en el Perú. Sensor: Sentinel-2. |
 | Pérdida (3) | **Impact Observatory**, uso del suelo anual (io-lulc-annual-v02), 10 m, CC BY 4.0 | Cambio de «árboles» a cultivo, suelo o pasto que se mantiene hasta 2023. **Solo llega a 2023**: no ve las pérdidas de 2024 y 2025. |
 | Pérdida (4) | **Geobosques (MINAM)**, pérdida de bosque húmedo 2021-2025 | Es el dato oficial peruano. El raster original pide registro; uso la imagen pública por año de su servicio de mapas (es una máscara renderizada, no el valor original). |
 | Uso del suelo 2020 | **ESA WorldCover 2020**, 10 m, CC BY 4.0 | Distingue chacra (cultivo, pasto o arbustal) de árboles para detectar renovación, poda o quema. |
+| Bosque natural 2020 | **Natural Forests of the World 2020** (WRI y Google DeepMind), 10 m, CC BY 4.0, [Figshare+](https://plus.figshare.com/articles/dataset/Natural_forests_of_the_world_2020_-_probability_maps/28881731) | Separa bosque natural de plantaciones y cultivos arbóreos. Solo está en zips de 9 a 12 GB por zona UTM: el script baja un solo mosaico por rangos de bytes. **Límite:** en Sandia y Carabaya marca natural casi toda la zona; sus autores advierten que falla con agroforestería bajo sombra. |
+| Altura del dosel 2020 | **ETH Global Canopy Height 2020** (Lang et al.), 10 m, CC BY 4.0 | El bosque natural de la selva alta es más alto (20 a 30 m) que la sombra del café. Con menos de 20 m donde hubo pérdida, la parcela va a «Revisar». |
+| Café y cacao (no usado) | Modelos de probabilidad del **Forest Data Partnership** (2017–2025) | Serían ideales, pero están en un bucket de Google *requester pays*: hace falta una cuenta de Google Cloud con facturación o Earth Engine. Queda como mejora. |
 | Evidencia visual | **Sentinel-2 L2A** (Copernicus), mediana de junio a octubre de 2020 y de 2025 | Para que el técnico vea el antes y el después. |
 | Legalidad | **SERNANP** (ANP, zonas de amortiguamiento, ACP, ACR, comunidades nativas, BPP), servicio público ArcGIS | Alerta de superposición. No resuelve toda la legalidad (art. 2.40). La licencia no está declarada en el servicio: se cita «MINAM - SERNANP». |
 | Descarga | **Microsoft Planetary Computer** (STAC) y lectura por ventanas sobre HTTP (GDAL `/vsicurl/`) | Gratis y sin claves. Es lo mismo que usé en la sesión 14. |
@@ -249,59 +251,52 @@ flowchart LR
 | Informe | **Claude** (`claude-opus-5-5`, configurable con `LLM_MODELO`), con salida estructurada validada por **Pydantic** | Así el JSON siempre cumple el esquema. Los números no los inventa el modelo: se le pasan calculados y se vuelven a imponer después. |
 | Alertas no usadas | **RADD** (Sentinel-1) y alertas integradas de GFW | Las descargas en GeoTIFF piden clave de API (HTTP 403); las teselas PNG públicas no traen el valor original. Lo dejo como mejora. |
 
-### Método: reglas y umbrales
+### Método: reglas y umbrales (versión 2)
 
-Las reglas están en [`chacra/estado.py`](chacra/estado.py):
+Las reglas están en [`chacra/estado.py`](chacra/estado.py) y el cruce en [`chacra/satelite.py`](chacra/satelite.py). La versión 2 (11/11/2026) corrige un problema de fondo: la versión 1 trataba el mapa JRC como verdad y podía marcar como deforestación la **renovación de cafetales bajo sombra**. Según la Junta Nacional del Café, entre el 70 % y el 75 % del área de café del Perú necesita renovarse ([Agraria.pe, 22/08/2025](https://agraria.pe/noticias/jnc-entre-el-70-y-75-del-area-de-cafe-en-peru-requieren-reno-40483)).
 
-- **Una fuente «ve pérdida»** si encuentra ≥ **0,1 ha** perdidas después de 2020 **donde en 2020 había bosque** según el JRC. Es poco más que un píxel de Landsat (0,09 ha); por debajo de eso se confunde con bordes y errores de registro.
-- **Pérdida significativa:** ≥ **0,5 ha** (el área mínima de «bosque» en la EUDR), o ≥ **0,2 ha** que sean al menos el **10 %** de la parcela. La parcela media es de 1,9 ha, y cortar 0,3 ha de bosque ahí importa.
-- **Posible deforestación:** se cumplen las tres condiciones:
-  - **dos o más fuentes** coinciden **píxel a píxel**, con tolerancia de 1 píxel por la diferencia entre 10 m y 30 m;
-  - la pérdida en la que coinciden es significativa;
-  - menos de la mitad cae donde WorldCover 2020 ya marcaba chacra.
-- **Revisar:**
-  - una sola fuente ve pérdida;
-  - la pérdida es marginal;
-  - ≥ 50 % de la pérdida cae en chacra según WorldCover 2020 (renovación, poda o quema de una chacra existente);
-  - o hay pérdida significativa de árboles **fuera** del bosque 2020.
-- **Sin deforestación detectada:** ninguna fuente ve pérdida de bosque por encima de 0,1 ha.
-- **Confianza:**
-  - alta si están todas las fuentes y coinciden;
-  - media si es un punto (se analiza un círculo con el área declarada) o si falta una fuente;
-  - baja si una sola fuente ve una pérdida grande que las demás no confirman.
-- **Café bajo sombra:** la EUDR considera los sistemas agroforestales como **uso agrícola, no bosque** (art. 2.6 y considerando 37). Pero en el satélite pueden verse como bosque. Por eso:
-  - una parcela «bosque» sin pérdida queda **sin deforestación** y con el aviso de guardar pruebas del sistema agroforestal;
-  - una pérdida que puede ser poda o renovación va a **Revisar**, nunca a «Posible» sin acuerdo entre fuentes.
+1. **El JRC GFC2020 es un primer filtro, no la verdad.** La Comisión dice que no es obligatorio ni vinculante, y en la selva alta marca como bosque el café y el cacao bajo sombra (comisión sobre sistemas agroforestales).
+2. **Bosque natural 2020.** Para «Posible deforestación» la pérdida tiene que caer en **bosque natural**: se usa la capa Natural Forests of the World 2020 y la altura del dosel en 2020 (ver la tabla de fuentes). Si el JRC dice bosque pero esas capas indican cultivo con sombra, la parcela va a **Revisar** con el motivo «probable café o cacao bajo sombra; la pérdida puede ser renovación o poda».
+3. **Fuentes por tipo de sensor.** Hansen y Geobosques usan Landsat de 30 m con métodos parecidos: cuentan como **una** confirmación. GLAD-S2 e Impact Observatory usan Sentinel-2 (otra). «Posible» exige que coincidan **Landsat y Sentinel-2**. No hay fuente de Sentinel-1 (RADD pide clave).
+4. **Periodos sin datos.** Si la pérdida es de un año que una fuente no cubre (Impact Observatory llega a 2023), esa fuente dice «sin datos para ese periodo» y **no cuenta en contra**.
+5. **Área en que coinciden.** Es la **intersección** entre la pérdida vista por Landsat (Hansen o Geobosques) y la vista por Sentinel-2, con **un píxel de tolerancia** (Landsat tiene píxeles de 30 m). Nunca supera lo que ve Landsat. En la versión 1 era la **unión** de los píxeles de cualquier fuente con un vecino de otra; por eso SAN-01 daba 1,31 ha cuando las fuentes marcaban 1,10, 0,84 y 1,08 ha.
+6. **Renovación declarada.** La cooperativa puede declarar el año de siembra o de la última renovación (campo opcional). Si coincide con el año de la pérdida (±1 año), la parcela va a **Revisar**.
+7. **Umbrales:**
+   - una fuente «ve pérdida» desde **0,1 ha** (poco más que un píxel de Landsat);
+   - pérdida **significativa** desde **0,5 ha**, o desde 0,2 ha si es al menos el 10 % de la parcela (la parcela media mide 1,9 ha);
+   - si ≥ 50 % de la pérdida cae donde WorldCover 2020 marcaba cultivo o pasto, va a **Revisar**.
+8. **«Sin deforestación detectada» no habilita la venta.** Falta la **legalidad** (tenencia, permisos, derechos de terceros), que la app marca como pendiente. Nunca dice que una parcela «puede ir a Europa».
 
 ### Validación del método
 
-[`scripts/validar_metodo.py`](scripts/validar_metodo.py) escribe [`docs/validacion/resultados.md`](docs/validacion/resultados.md). Usa **89 parcelas de prueba** en lugares reales de las 3 zonas, elegidas por caso:
-
-- pérdida clara;
-- una sola fuente;
-- bosque intacto;
-- chacra antigua;
-- posible café bajo sombra;
-- renovación.
+[`scripts/validar_metodo.py`](scripts/validar_metodo.py) escribe [`docs/validacion/resultados.md`](docs/validacion/resultados.md). Usa **89 parcelas de prueba** en lugares reales de las 3 zonas, elegidas por caso: pérdida clara, una sola fuente, bosque intacto, chacra antigua, posible café bajo sombra y renovación. La auditoría de las 18 parcelas del ejemplo, antes y después del cambio de método, está en [`docs/auditoria-parcelas.md`](docs/auditoria-parcelas.md).
 
 **Contra la revisión visual de Sentinel-2.** Interpreté a ojo 2020 contra 2025 a 10 m, sin mirar el resultado de la app ([`revision_visual.csv`](docs/validacion/revision_visual.csv)). Excluyendo 17 casos dudosos:
 
-| Referencia visual | Posible deforestación | Revisar | Sin deforestación |
-|---|---:|---:|---:|
-| Pérdida de bosque visible (9) | **8** | 1 | **0** |
-| Sin pérdida visible (63) | **2** | 9 | 52 |
+| Referencia visual | Método | Posible deforestación | Revisar | Sin deforestación |
+|---|---|---:|---:|---:|
+| Pérdida de bosque visible (9) | versión 1 | 8 | 1 | 0 |
+| | **versión 2 (actual)** | **5** | **4** | **0** |
+| Sin pérdida visible (63) | versión 1 | 2 | 9 | 52 |
+| | **versión 2 (actual)** | **2** | **9** | **52** |
 
-- **0 falsos negativos:** las 9 pérdidas visibles quedan marcadas.
-- **2 falsos positivos fuertes** (CAR-PER-35 y ALT-PER-63). Tres fuentes ven pérdida, pero a ojo no se distingue en la mediana de la estación seca. Puede ser tala selectiva o pérdida en el sotobosque que el ojo no ve a 10 m, o un error de las fuentes. Justo para eso existe la visita de campo.
+- **Aciertos:** 0 falsos negativos en las dos versiones. Toda pérdida visible queda al menos en «Revisar» y llega a la lista de visitas.
+- **Lo que cambió:** con la versión 2, 4 de las 9 pérdidas visibles pasan de «Posible» a «Revisar». Son pérdidas sobre dosel bajo (probable sombra de cultivo) o vistas por un solo sensor. Es el costo esperado de un método más prudente con los productores: menos alarmas fuertes, pero ninguna pérdida queda sin visita.
+- **Falsos positivos fuertes: 2** (CAR-PER-35 y ALT-PER-63). Los dos tipos de sensor ven pérdida en bosque alto, pero a ojo no se distingue en la mediana de la estación seca. Puede ser tala selectiva o pérdida en el sotobosque, o un error de las fuentes. Para eso está la visita de campo.
 - **9 alarmas que se resuelven con una visita** (Revisar sin pérdida visible).
 
-**Contra el caso buscado:** acierta 89 de 89. Esta prueba es en parte **circular**, porque los casos se eligieron con las mismas capas: solo demuestra que las reglas hacen lo que dicen.
+**Contra el caso buscado:** acierta 83 de 89. Esta prueba es en parte **circular**, porque los casos se eligieron con las mismas capas: solo demuestra que las reglas hacen lo que dicen. Los 6 «desaciertos» son pérdidas claras que la versión 2 manda a «Revisar» a propósito.
 
-**Límites honestos:**
+**Límite conocido: café y cacao bajo sombra.**
+- El mapa JRC marca como bosque el 100 % de la mayoría de las parcelas de Sandia y Carabaya, y Natural Forests of the World marca como natural entre el 83 % y el 96 % de esas zonas. Ninguna de las dos capas distingue bien un cafetal bajo sombra de un bosque.
+- La versión 2 usa la **altura del dosel** de 2020 (ETH, 10 m) como criterio principal: con menos de 20 m, la parcela va a «Revisar».
+- Ese umbral es un criterio prudente, no una medición de campo: un cafetal con árboles de sombra altos podría seguir saliendo como «Posible», y un bosque bajo o degradado, como «Revisar».
+- Los modelos de probabilidad de café y cacao del Forest Data Partnership ayudarían, pero solo se pueden descargar con una cuenta de Google Cloud con facturación.
 
+**Otros límites:**
 - **No hay verdad de campo:** la referencia es mi interpretación visual, no una visita.
 - La muestra es pequeña y fue elegida con los datos, no al azar.
-- A 10 m no se ve la tala selectiva y el café bajo sombra se confunde con bosque.
+- A 10 m no se ve la tala selectiva.
 
 Todo esto hay que validarlo con parcelas verificadas en campo por una cooperativa.
 

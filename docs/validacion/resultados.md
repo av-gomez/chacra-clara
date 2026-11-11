@@ -8,21 +8,21 @@ Generado por `scripts/validar_metodo.py`. Cada fila es una parcela de prueba en 
 |:---------------|----------:|----------:|------:|
 | chacra_antigua |         0 |         0 |    13 |
 | intacto        |         0 |         0 |    18 |
-| perdida_clara  |        18 |         0 |     0 |
+| perdida_clara  |        12 |         6 |     0 |
 | renovacion     |         0 |         7 |     4 |
 | sombra         |         0 |         0 |    11 |
 | una_fuente     |         0 |        11 |     7 |
 
-Aciertos: **89 de 89** (100 %). Para «una fuente», «sombra» y «renovación» se aceptan dos estados (ver `ESPERADO` en el script).
+Aciertos: **83 de 89** (93 %). Para «una fuente», «sombra» y «renovación» se aceptan dos estados (ver `ESPERADO` en el script).
 
 ## 2. Contra la revisión visual de Sentinel-2 (independiente de las reglas)
 
 | referencia          |   posible |   revisar |   sin |
 |:--------------------|----------:|----------:|------:|
-| pérdida visible     |         8 |         1 |     0 |
+| pérdida visible     |         5 |         4 |     0 |
 | sin pérdida visible |         2 |         9 |    52 |
 
-- Pérdidas visibles: 9. La app las marca como «Posible deforestación» en **8** y como «Posible» o «Revisar» en **9** (falsos negativos: 0).
+- Pérdidas visibles: 9. La app las marca como «Posible deforestación» en **5** y como «Posible» o «Revisar» en **9** (falsos negativos: 0).
 - Parcelas sin pérdida visible: 63. La app marca **2** como «Posible deforestación» (falsos positivos fuertes) y **9** como «Revisar» (alarmas que se resuelven con una visita).
 - Casos dudosos a ojo (excluidos del cálculo): 17.
 

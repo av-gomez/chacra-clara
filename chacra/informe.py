@@ -13,6 +13,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from chacra.formato import num, pct
+
 MODELO = os.getenv("LLM_MODELO", "claude-opus-5-5")
 # Dólares por millón de tokens (entrada, salida). Fuente: precios públicos de Anthropic, noviembre de 2026.
 PRECIOS = {"claude-opus-5-5": (4.00, 20.00), "claude-sonnet-5-5": (2.00, 10.00), "claude-haiku-5-5": (0.10, 0.50)}
@@ -43,7 +45,7 @@ def datos_para_informe(nombre, parcelas, resumen):
         if not a or a.get("error"):
             continue
         filas.append({"parcela": f["codigo_parcela"], "cultivo": f["cultivo"], "estado": a["estado"],
-                      "confianza": a["confianza"], "area_ha": a["area_analizada_ha"],
+                      "confianza": a["confianza"], "area_ha": a["area_analizada_ha"], "motivo": a.get("motivo", ""),
                       "bosque_2020_ha": a["bosque_2020_ha"], "perdida_acordada_ha": a["perdida_acordada_ha"],
                       "anio": a["anio_principal"], "razones": a["razones"], "legalidad": a.get("legalidad", [])})
     return {"organizacion": nombre, "pais": "Perú", "resumen": resumen, "parcelas": filas}
@@ -57,35 +59,51 @@ def nivel(resumen):
     return "bajo"
 
 
+MOTIVOS_EN = {
+    "Renovación declarada en el año de la pérdida": "coffee renewal declared in the year of the loss",
+    "Solo un tipo de sensor": "only one sensor type detects the loss",
+    "Pérdida marginal": "marginal loss",
+    "Probable café o cacao bajo sombra": "probable shade-grown coffee or cocoa (renewal or pruning)",
+    "La pérdida cae en chacra existente": "loss falls on existing farmland",
+    "Sin capa de bosque natural para confirmar": "no natural-forest layer to confirm",
+    "Pérdida de árboles en chacra existente": "tree loss on existing farmland (possible renewal or pruning)",
+}
+
+
 def informe_plantilla(datos):
     """Informe sin API: reglas fijas, siempre disponible."""
     r = datos["resumen"]
     riesgo = nivel(r)
-    riesgo_en = {"bajo": "low", "medio": "medium", "alto": "high"}[riesgo]
     hallazgos = []
     for p in datos["parcelas"]:
         if p["estado"] == "sin":
             continue
         if p["estado"] == "posible":
-            es = (f"Dos o más fuentes satelitales coinciden en {p['perdida_acordada_ha']:.2f} ha de pérdida de bosque "
-                  f"después de 2020 (año principal: {p['anio']}). Excluida del envío hasta verificar en campo.")
-            en = (f"Two or more satellite sources agree on {p['perdida_acordada_ha']:.2f} ha of forest loss after 2020 "
-                  f"(main year: {p['anio']}). Excluded from shipment pending field verification.")
+            es = (f"Dos tipos de sensor (Landsat y Sentinel-2) coinciden en {num(p['perdida_acordada_ha'])} ha de pérdida "
+                  f"en bosque natural después de 2020 (año principal: {p['anio']}). Visita recomendada con prioridad "
+                  "alta; excluida del envío hasta verificar en campo.")
+            en = (f"Two sensor types (Landsat and Sentinel-2) agree on {p['perdida_acordada_ha']:.2f} ha of loss in "
+                  f"natural forest after 2020 (main year: {p['anio']}). High-priority field visit recommended; "
+                  "excluded from shipment until verified.")
         else:
-            es = "Señal no concluyente (una sola fuente, pérdida marginal o posible sistema agroforestal). Visita programada."
-            en = "Inconclusive signal (single source, marginal loss or possible agroforestry). Field visit scheduled."
+            es = f"Revisar: {p['motivo'].lower()}. Visita recomendada."
+            en = f"Under review: {MOTIVOS_EN.get(p['motivo'].split(' (')[0], 'inconclusive evidence')}. Field visit recommended."
         hallazgos.append(Hallazgo(parcela=p["parcela"], estado=p["estado"], explicacion_es=es, explanation_en=en))
+    e = r["por_estado"]
     return InformeComprador(
         nivel_riesgo=riesgo,
-        resumen_es=(f"{datos['organizacion']} revisó {r['total']} parcelas de café y cacao en el Perú con cinco fuentes "
-                    f"satelitales abiertas. {r['sin']} no muestran deforestación después del 31/12/2020, {r['revisar']} "
-                    f"están en revisión y {r['posible']} muestran posible deforestación. El {r['pct_volumen']:.0f} % "
-                    f"del volumen declarado proviene de parcelas sin deforestación detectada. Riesgo: {riesgo}."),
+        resumen_es=(f"{datos['organizacion']} revisó {r['total']} parcelas de café y cacao en el Perú con fuentes "
+                    f"satelitales abiertas de dos tipos de sensor y capas de bosque natural. {e['sin']['parcelas']} "
+                    f"parcelas ({pct(e['sin']['pct_kg'])} del volumen estimado) no muestran deforestación después del "
+                    f"31/12/2020; su legalidad está pendiente de verificar. {e['revisar']['parcelas']} están en revisión "
+                    f"y {e['posible']['parcelas']} muestran posible deforestación ({pct(e['posible']['pct_kg'])} del "
+                    f"volumen). Valor de exportación en riesgo: US$ {num(r['usd_en_riesgo'], 0)} al año."),
         summary_en=(f"{datos['organizacion']} screened {r['total']} coffee and cocoa plots in Peru (standard-risk country "
-                    f"under Regulation (EU) 2023/1115) against five open satellite datasets. {r['sin']} show no "
-                    f"deforestation after 31 Dec 2020, {r['revisar']} are under review and {r['posible']} show possible "
-                    f"deforestation. {r['pct_volumen']:.0f}% of declared volume comes from plots with no deforestation "
-                    f"detected. Risk level: {riesgo_en}."),
+                    f"under Regulation (EU) 2023/1115) with open satellite data from two sensor types and natural-forest "
+                    f"layers. {e['sin']['parcelas']} plots ({e['sin']['pct_kg']:.0f}% of estimated volume) show no "
+                    f"deforestation after 31 Dec 2020; legality is still to be verified. {e['revisar']['parcelas']} are "
+                    f"under review and {e['posible']['parcelas']} show possible deforestation "
+                    f"({e['posible']['pct_kg']:.0f}% of volume). Export value at risk: US$ {r['usd_en_riesgo']:,.0f} per year."),
         hallazgos=hallazgos,
         mitigacion_es=["Solo se declaran lotes de parcelas sin deforestación detectada.",
                        "Las parcelas en revisión o con posible deforestación se visitan con fotos georreferenciadas "
@@ -108,7 +126,7 @@ def informe_llm(datos, gastado_usd, tope_usd):
     """Pide a Claude el informe validado con el esquema. Devuelve (informe, costo_usd)."""
     import anthropic
     if gastado_usd >= tope_usd:
-        raise RuntimeError(f"Se alcanzó el tope de gasto de {tope_usd:.2f} USD en esta sesión.")
+        raise RuntimeError(f"Se alcanzó el tope de gasto de {num(tope_usd)} USD en esta sesión.")
     cliente = anthropic.Anthropic()
     instrucciones = (
         "Eres analista de debida diligencia del Reglamento (UE) 2023/1115 (EUDR). Redacta un informe de riesgo para "

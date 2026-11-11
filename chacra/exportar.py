@@ -9,6 +9,7 @@ from fpdf import FPDF
 from shapely.geometry import Point, mapping
 
 from chacra.estado import ESTADOS
+from chacra.formato import ha, num, pct
 from chacra.rutas import RAIZ
 
 FUENTES = RAIZ / "assets" / "fuentes"
@@ -128,19 +129,31 @@ def ficha_pdf(fila, analisis, imagenes=None):
     doc.titulo_seccion("Evidencia por fuente")
     doc.set_fill_color(241, 233, 220)
     doc.set_font("Public", "", 9)
-    with doc.table(col_widths=(70, 32, 32, 40), text_align=("LEFT", "RIGHT", "RIGHT", "LEFT"),
+    with doc.table(col_widths=(62, 22, 30, 60), text_align=("LEFT", "LEFT", "RIGHT", "LEFT"),
                    line_height=5.5) as tabla:
-        tabla.row(["Fuente", "Pérdida en bosque 2020 (ha)", "Pérdida total (ha)", "Años"])
+        tabla.row(["Fuente", "Sensor", "Pérdida en bosque JRC 2020 (ha)", "Hectáreas por año"])
         for e in analisis["evidencias"]:
             if not e["disponible"]:
-                tabla.row([e["fuente"], "sin datos", "sin datos", ""])
+                tabla.row([e["fuente"], e["sensor"], "sin datos", ""])
                 continue
-            anios = ", ".join(f"{a}: {h:.2f}" for a, h in sorted(e["anios"].items())) or "—"
-            tabla.row([e["fuente"], f"{e['perdida_en_bosque_ha']:.2f}", f"{e['perdida_total_ha']:.2f}", anios])
+            if e.get("sin_datos_periodo"):
+                tabla.row([e["fuente"], e["sensor"], "sin datos para ese periodo", f"cubre hasta {e['cubre_hasta']}"])
+                continue
+            anios = "; ".join(f"{a}: {num(h)}" for a, h in sorted(e["anios"].items())) or "—"
+            tabla.row([e["fuente"], e["sensor"], num(e["perdida_en_bosque_ha"]), anios])
     doc.ln(2)
-    doc.parrafo(f"Área analizada: {analisis['area_analizada_ha']:.2f} ha. Bosque en 2020 (JRC GFC2020): "
-                f"{analisis['bosque_2020_ha']:.2f} ha ({analisis['bosque_2020_pct']:.0f} %). "
-                f"Pérdida en la que coinciden dos o más fuentes: {analisis['perdida_acordada_ha']:.2f} ha.")
+    nat = analisis.get("natural", {})
+    doc.parrafo(f"Área analizada: {ha(analisis['area_analizada_ha'])}. Cobertura de bosque 2020 según el mapa JRC "
+                f"(no vinculante): {ha(analisis['bosque_2020_ha'])} ({pct(analisis['bosque_2020_pct'])})."
+                + (f" Bosque natural 2020 (Natural Forests of the World): {ha(nat.get('bosque_natural_2020_ha', 0))}."
+                   if nat.get("disponible") else "")
+                + (f" Altura del dosel 2020: {num(nat['altura_dosel_2020_m'], 0)} m."
+                   if nat.get("altura_dosel_2020_m") is not None else ""))
+    doc.parrafo(f"Área en que coinciden los sensores: {ha(analisis['perdida_acordada_ha'])}. Se calcula como la "
+                f"INTERSECCIÓN entre la pérdida vista por Landsat (Hansen o Geobosques: "
+                f"{ha(analisis.get('perdida_landsat_ha', 0))}) y la vista por Sentinel-2 (GLAD-S2 o Impact Observatory), "
+                "con una tolerancia de un píxel (10 m) porque Landsat usa píxeles de 30 m. Nunca supera lo que ve "
+                "Landsat. Hansen y Geobosques usan el mismo satélite y cuentan como una sola confirmación.")
     if analisis.get("legalidad"):
         doc.titulo_seccion("Alertas de legalidad (capas del SERNANP)")
         for alerta in analisis["legalidad"]:
@@ -167,8 +180,13 @@ def verificaciones(analisis):
     pasos = []
     if analisis["estado"] == "sin":
         pasos.append("Confirmar con el productor que el contorno es correcto (caminar el lindero si hay dudas).")
+        pasos.append("Verificar la legalidad: documento de posesión o propiedad, permisos y que no haya conflictos "
+                     "con terceros.")
         pasos.append("Guardar esta ficha y el GeoJSON en el expediente de debida diligencia.")
         return pasos
+    if analisis.get("renovacion_anio"):
+        pasos.append(f"Confirmar la renovación declarada ({analisis['renovacion_anio']}): plantas nuevas en hileras, "
+                     "tocones de café viejo y facturas o registros de plantones.")
     pasos.append("Tomar fotos con fecha y ubicación (GPS activado) de la zona marcada y de los cuatro lados.")
     pasos.append("Preguntar al productor qué había antes de 2021 en esa parte y desde cuándo la cultiva.")
     if analisis["bosque_2020_pct"] > 60:
@@ -196,23 +214,30 @@ def reporte_cooperativa_pdf(nombre, parcelas, resumen):
     doc.titulo_seccion("Resumen")
     doc.parrafo(f"{resumen['total']} parcelas analizadas: {resumen['sin']} sin deforestación detectada, "
                 f"{resumen['revisar']} por revisar y {resumen['posible']} con posible deforestación después de 2020.")
-    doc.parrafo(f"Volumen que podría ir hoy a Europa sin riesgo: {resumen['pct_volumen']:.0f} % "
-                f"({resumen['kg_listos']:,.0f} de {resumen['kg_total']:,.0f} kg al año).")
-    doc.parrafo(f"Faltan {resumen['dias_grandes']} días para el 30/12/2026 (operadores grandes y medianos) y "
-                f"{resumen['dias_pequenos']} días para el 30/06/2027 (micro y pequeñas empresas).")
+    e = resumen["por_estado"]
+    doc.parrafo(f"Volumen estimado en parcelas sin deforestación detectada: {pct(e['sin']['pct_kg'])} "
+                f"({num(e['sin']['kg'], 0)} de {num(resumen['kg_total'], 0)} kg al año); su legalidad está pendiente "
+                f"de verificar. Valor de exportación en riesgo (revisar y posible deforestación): "
+                f"US$ {num(resumen['usd_en_riesgo'], 0)} al año.")
+    doc.parrafo("Supuestos: rendimiento café 671 kg/ha (JNC 2025) y cacao 678 kg/ha (Recursos 2026) cuando no hay "
+                "producción declarada; precio café US$ 7,30/kg (US$ 336 por quintal FOB 2025, Agraria.pe) y cacao "
+                "US$ 8,11/kg (CIEN-ADEX 2025).")
+    doc.parrafo(f"La EUDR rige para importadores y comerciantes de la UE desde el 30/12/2026 (grandes y medianos, "
+                f"faltan {resumen['dias_grandes']} días) y el 30/06/2027 (micro y pequeños). La cooperativa entrega la "
+                "evidencia cuando su comprador la pide.")
     doc.titulo_seccion("Parcelas")
     doc.set_fill_color(241, 233, 220)
     doc.set_font("Public", "", 9)
     with doc.table(col_widths=(28, 24, 18, 52, 20, 22), line_height=5,
                    text_align=("LEFT", "LEFT", "RIGHT", "LEFT", "LEFT", "RIGHT")) as tabla:
-        tabla.row(["Parcela", "Productor", "Área (ha)", "Estado", "Confianza", "Pérdida (ha)"])
+        tabla.row(["Parcela", "Productor", "Área (ha)", "Estado", "Confianza", "Coinciden (ha)"])
         for _, fila in parcelas.iterrows():
             a = fila["analisis"]
             if not a or a.get("error"):
                 tabla.row([fila["codigo_parcela"], fila["codigo_productor"], "", "Fuera de zona", "", ""])
                 continue
-            tabla.row([fila["codigo_parcela"], fila["codigo_productor"], f"{a['area_analizada_ha']:.2f}",
-                       ESTADOS[a["estado"]]["texto"], a["confianza"], f"{a['perdida_acordada_ha']:.2f}"])
+            tabla.row([fila["codigo_parcela"], fila["codigo_productor"], num(a["area_analizada_ha"]),
+                       ESTADOS[a["estado"]]["texto"], a["confianza"], num(a["perdida_acordada_ha"])])
     return bytes(doc.output())
 
 

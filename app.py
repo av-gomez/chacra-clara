@@ -15,6 +15,7 @@ from streamlit_folium import st_folium
 
 from chacra import cooperativa, exportar, geometria, informe, mapas, voz
 from chacra.estado import ESTADOS, PERDIDA_MINIMA_HA, SIGNIFICATIVA_CHICA_HA, SIGNIFICATIVA_HA
+from chacra.formato import ha, num, pct
 from chacra.rutas import PARCELAS, RAIZ
 from chacra.satelite import zonas_disponibles
 
@@ -110,25 +111,42 @@ def agregar(gdf):
     cargar(juntas)
 
 
+TABLA_FUENTES = """| Fuente | Qué dice | Sensor y resolución | Cubre |
+|---|---|---|---|
+| JRC Global Forest Cover 2020 V4 (Comisión Europea) | Cobertura de bosque en 2020 (no vinculante) | Varios, 10 m | 2020 |
+| Hansen / UMD Global Forest Change v1.13 | Año de pérdida de cobertura arbórea | Landsat, 30 m | 2001–2025 |
+| Geobosques (MINAM) | Pérdida de bosque húmedo amazónico, dato oficial peruano | Landsat, 30 m | 2001–2025 |
+| Alertas GLAD-S2 (UMD) | Alertas de pérdida, confianza media y alta | Sentinel-2, 10 m | 2019–2026 |
+| Impact Observatory (uso del suelo anual) | Cambio de árboles a cultivo, suelo o pasto | Sentinel-2, 10 m | 2017–2023 |
+| ESA WorldCover 2020 | Uso del suelo en 2020 (cultivo, pasto, árboles) | Sentinel-1 y 2, 10 m | 2020 |
+| Natural Forests of the World 2020 (WRI y Google DeepMind) | Probabilidad de bosque natural (no plantación ni cultivo) | Sentinel-2, 10 m | 2020 |
+| ETH Global Canopy Height | Altura del dosel en metros | Sentinel-2 y GEDI, 10 m | 2020 |
+| SERNANP | Áreas protegidas, zonas de amortiguamiento y comunidades nativas | vector | vigente |"""
+
+
 # ---------- páginas ----------
 
 def pagina_inicio():
     st.markdown(f'<div class="portada"><span class="etiqueta">Reglamento (UE) 2023/1115 · EUDR</span>'
                 f'<h1>Chacra Clara</h1><p>{ONE_LINER}</p></div>', unsafe_allow_html=True)
     hoy = cooperativa.resumen(pd.DataFrame({"estado": [], "produccion_kg_anual": []}))
-    cifras([(f"{hoy['dias_grandes']}", "días para el 30/12/2026 (exportadoras grandes y medianas)"),
-            (f"{hoy['dias_pequenos']}", "días para el 30/06/2027 (micro y pequeñas empresas)"),
+    cifras([(f"{hoy['dias_grandes']}", "días para que la EUDR rija a importadores y comerciantes grandes y medianos "
+                                         "de la UE (30/12/2026). Sus compradores ya piden la evidencia."),
+            (f"{hoy['dias_pequenos']}", "días para que rija a las micro y pequeñas empresas de la UE (30/06/2027)"),
             ("160 mil", "predios de café, cacao y palma aún sin geolocalizar (Junta Nacional del Café, oct. 2026)"),
             ("40 %", "del valor del café peruano exportado en 2025 fue a la Unión Europea")])
     st.markdown("## Cómo funciona, en tres pasos")
     st.markdown(
         "1. **Ingrese sus parcelas.** Dibújelas en el mapa, suba un GeoJSON o KML, o un Excel con coordenadas.\n"
-        "2. **Las cruzamos con cinco fuentes satelitales abiertas**: el mapa de bosques 2020 que usa la Unión Europea "
-        "(JRC), Hansen/UMD, las alertas GLAD de Sentinel-2, Impact Observatory y Geobosques del MINAM.\n"
+        "2. **Las cruzamos con fuentes satelitales abiertas de dos tipos de sensor** (Landsat y Sentinel-2) y con "
+        "capas que separan el **bosque natural** del café o cacao bajo sombra.\n"
         "3. **Reciba el estado de cada parcela con su evidencia**, la lista de visitas para el técnico, la ficha "
         "en PDF, el GeoJSON para la declaración y una nota de voz para el productor.")
     st.markdown("## Pruébelo")
     st.write("Cargue al instante las 12 parcelas de una cooperativa de ejemplo, o ingrese las suyas (opcional).")
+    st.info("La cooperativa de ejemplo es un **escenario de prueba**, no una cooperativa típica: sus parcelas se "
+            "eligieron a propósito para mostrar todos los casos, incluidos lugares con pérdida real de bosque. "
+            "Las ubicaciones son reales; los productores, ficticios.")
     boton_cooperativa_ejemplo("inicio")
     col1, col2 = st.columns(2)
     if col1.button("Ejemplo de San Martín (Alto Mayo)", use_container_width=True):
@@ -137,8 +155,7 @@ def pagina_inicio():
     if col2.button("Ingresar mis parcelas", use_container_width=True):
         st.switch_page(PAGINAS["ingresar"])
     aviso_tamizaje()
-    st.caption("Las parcelas de demo usan ubicaciones reales de zonas cafetaleras de Puno y San Martín con productores "
-               "ficticios. Las capas satelitales son datos reales.")
+    st.caption("Las capas satelitales son datos reales.")
 
 
 def boton_cooperativa_ejemplo(lugar):
@@ -181,6 +198,10 @@ def pagina_ingresar():
             area = c4.number_input("Área declarada (ha)", min_value=0.0, value=2.0, step=0.1,
                                    help="Obligatoria si marca un punto.")
             produccion = c5.number_input("Producción al año (kg)", min_value=0, value=1200, step=100)
+            renovacion = st.number_input("Año de siembra o de la última renovación (opcional)", min_value=0,
+                                         max_value=2030, value=0, step=1,
+                                         help="Déjelo en 0 si no lo sabe. Si declara una renovación en el año de la "
+                                              "pérdida, la parcela va a «Revisar» y no a «Posible deforestación».")
             enviar = st.form_submit_button("Analizar esta parcela", type="primary")
         if enviar:
             if not dibujo:
@@ -189,7 +210,8 @@ def pagina_ingresar():
             gdf = geometria.desde_geojson({"type": "FeatureCollection", "features": [{
                 "type": "Feature", "geometry": dibujo["geometry"],
                 "properties": {"codigo_productor": productor, "codigo_parcela": parcela, "cultivo": cultivo,
-                               "area_ha": area, "produccion_kg_anual": produccion}}]})
+                               "area_ha": area, "produccion_kg_anual": produccion,
+                               "anio_renovacion": renovacion or None}}]})
             agregar(gdf)
             st.session_state.seleccion = parcela
             st.switch_page(PAGINAS["resultados"])
@@ -197,7 +219,8 @@ def pagina_ingresar():
         st.download_button("Descargar plantilla de Excel/CSV", geometria.plantilla_csv(),
                            file_name="plantilla_parcelas.csv", mime="text/csv")
         st.caption("Columnas: codigo_productor, codigo_parcela, cultivo, latitud, longitud, area_ha, "
-                   "produccion_kg_anual. Coordenadas en grados decimales (WGS84) con 6 decimales.")
+                   "produccion_kg_anual y anio_renovacion (opcional: año de siembra o de la última renovación). "
+                   "Coordenadas en grados decimales (WGS84) con 6 decimales.")
         archivo = st.file_uploader("Archivo de parcelas", type=["geojson", "json", "kml", "csv", "xlsx"])
         if archivo is not None:
             try:
@@ -238,6 +261,9 @@ def pagina_resultados():
     st.markdown(f"**Resumen.** Parcelas analizadas: {r['total']}. ✓ Sin deforestación detectada: {r['sin']}. "
                 f"! Revisar: {r['revisar']}. ✕ Posible deforestación después de 2020: {r['posible']}."
                 + (f" Sin analizar (fuera de zona o con errores): {r['fuera']}." if r["fuera"] else ""))
+    if st.session_state.get("cooperativa") in COOPERATIVAS_DEMO:
+        st.caption("Escenario de prueba con casos elegidos a propósito (incluye lugares con pérdida real de bosque); "
+                   "no representa a una cooperativa típica.")
     tabla_validacion(gdf)
 
     codigos = list(gdf["codigo_parcela"])
@@ -261,8 +287,9 @@ def pagina_resultados():
             a = f["analisis"] or {}
             filas.append({"Parcela": f["codigo_parcela"],
                           "Estado": (ESTADOS[f["estado"]]["icono"] + " " + ESTADOS[f["estado"]]["corto"])
-                          if f["estado"] else "Sin analizar", "Confianza": f["confianza"] or "—",
-                          "Pérdida (ha)": f"{a.get('perdida_acordada_ha', 0):.2f}" if f["estado"] else "—"})
+                          if f["estado"] else "Sin analizar",
+                          "Motivo": a.get("motivo", a.get("error", "—")),
+                          "Confianza": f["confianza"] or "—"})
         st.table(pd.DataFrame(filas).set_index("Parcela"))
 
     fila = gdf[gdf["codigo_parcela"] == elegida].iloc[0]
@@ -289,13 +316,30 @@ def detalle_parcela(fila):
         if not e["disponible"]:
             filas.append({"Fuente": e["fuente"], "¿Ve pérdida?": "sin datos", "Hectáreas por año": "—"})
             continue
-        detecta = "Sí" if e["perdida_en_bosque_ha"] >= PERDIDA_MINIMA_HA else "No"
-        filas.append({"Fuente": e["fuente"], "¿Ve pérdida?": f"{detecta} ({e['perdida_en_bosque_ha']:.2f} ha)",
-                      "Hectáreas por año": ", ".join(f"{k}: {v:.2f}" for k, v in sorted(e["anios"].items())) or "—"})
+        if e.get("sin_datos_periodo"):
+            ve = f"Sin datos para ese periodo (cubre hasta {e['cubre_hasta']})"
+        else:
+            ve = ("Sí" if e["perdida_en_bosque_ha"] >= PERDIDA_MINIMA_HA else "No") + f" ({ha(e['perdida_en_bosque_ha'])})"
+        filas.append({"Fuente": e["fuente"], "Sensor": e["sensor"], "¿Ve pérdida?": ve,
+                      "Hectáreas por año": "; ".join(f"{k}: {num(v)}" for k, v in sorted(e["anios"].items())) or "—"})
     st.table(pd.DataFrame(filas).set_index("Fuente"))
-    st.caption(f"Área analizada {a['area_analizada_ha']:.2f} ha · bosque en 2020 (JRC) {a['bosque_2020_ha']:.2f} ha "
-               f"({a['bosque_2020_pct']:.0f} %) · pérdida en la que coinciden dos o más fuentes "
-               f"{a['perdida_acordada_ha']:.2f} ha. Una fuente «detecta» desde {PERDIDA_MINIMA_HA} ha.")
+    nat = a.get("natural", {})
+    lineas_natural = []
+    if nat.get("disponible"):
+        lineas_natural.append(f"bosque natural 2020: {ha(nat.get('bosque_natural_2020_ha', 0))}")
+        if nat.get("altura_dosel_2020_m") is not None:
+            lineas_natural.append(f"altura del dosel 2020: {num(nat['altura_dosel_2020_m'], 0)} m")
+        if nat.get("cultivo_prob_media") is not None:
+            lineas_natural.append(f"probabilidad de café o cacao: {pct(nat['cultivo_prob_media'])}")
+    st.caption(f"Área analizada {ha(a['area_analizada_ha'])} · cobertura de bosque 2020 según JRC "
+               f"{ha(a['bosque_2020_ha'])} ({pct(a['bosque_2020_pct'])})"
+               + (" · " + " · ".join(lineas_natural) if lineas_natural else "") + ".")
+    st.caption(f"**Área en que coinciden los sensores: {ha(a['perdida_acordada_ha'])}.** Es la intersección: píxeles "
+               f"con pérdida según Landsat (Hansen o Geobosques, {ha(a.get('perdida_landsat_ha', 0))} en total) que "
+               f"también tienen pérdida según Sentinel-2 (GLAD-S2 o Impact Observatory) a 10 m o menos. Nunca supera "
+               f"lo que ve Landsat. Una fuente «ve pérdida» desde {ha(PERDIDA_MINIMA_HA, 1)}.")
+    if a.get("renovacion_anio"):
+        st.caption(f"Año de siembra o última renovación declarado por la cooperativa: {a['renovacion_anio']}.")
 
     imagenes = None
     if not st.session_state.ligero:
@@ -354,6 +398,27 @@ def detalle_parcela(fila):
         st.switch_page(PAGINAS["informe"])
 
 
+def tabla_por_estado(r):
+    """Cifras por estado: parcelas, % del área, % del volumen y valor de exportación estimado."""
+    filas = []
+    for clave in ["sin", "revisar", "posible"]:
+        d = r["por_estado"][clave]
+        filas.append({"Estado": ESTADOS[clave]["icono"] + " " + ESTADOS[clave]["corto"],
+                      "Parcelas": d["parcelas"], "% del área": pct(d["pct_ha"]), "% del volumen": pct(d["pct_kg"]),
+                      "Valor estimado (US$)": num(d["usd"], 0)})
+    st.table(pd.DataFrame(filas).set_index("Estado"))
+    st.markdown(f"**Valor de exportación en riesgo** (parcelas en «Revisar» o «Posible deforestación»): "
+                f"**US$ {num(r['usd_en_riesgo'], 0)}** de US$ {num(r['usd_total'], 0)} al año.")
+    st.caption("Cómo se calcula: volumen = producción declarada (o área × rendimiento promedio: café 671 kg/ha, "
+               "Junta Nacional del Café 2025; cacao 678 kg/ha, Recursos 2026) × precio de exportación (café US$ 7,30/kg "
+               "= US$ 336 por quintal FOB 2025, Agraria.pe; cacao en grano US$ 8,11/kg 2025, CIEN-ADEX). "
+               "«Sin deforestación detectada» aún requiere verificar la legalidad.")
+    st.caption(f"La EUDR rige desde el 30/12/2026 para importadores y comerciantes grandes y medianos de la UE "
+               f"(faltan {r['dias_grandes']} días) y desde el 30/06/2027 para los micro y pequeños "
+               f"(faltan {r['dias_pequenos']}). La cooperativa entrega la geolocalización y la evidencia cuando su "
+               "comprador se la pide, y en la práctica ya la están pidiendo.")
+
+
 def pagina_tablero():
     st.title("Tablero de la cooperativa")
     gdf = st.session_state.parcelas
@@ -365,14 +430,7 @@ def pagina_tablero():
         return
     r = cooperativa.resumen(gdf)
     st.markdown(f"**{nombre_cooperativa()}**")
-    cifras([(f"{r['sin']}", "✓ listas: sin deforestación detectada"),
-            (f"{r['revisar']}", "! por revisar en campo"),
-            (f"{r['posible']}", "✕ con posible deforestación"),
-            (f"{r['pct_volumen']:.0f} %", f"del volumen podría ir hoy a Europa ({r['kg_listos']:,.0f} de {r['kg_total']:,.0f} kg)"),
-            (f"{r['dias_grandes']}", "días para el 30/12/2026"),
-            (f"{r['dias_pequenos']}", "días para el 30/06/2027")])
-    st.caption("Fechas del Reglamento (UE) 2025/2650: 30/12/2026 para operadores grandes y medianos, 30/06/2027 "
-               "para micro y pequeñas empresas. El porcentaje de volumen usa la producción declarada de cada parcela.")
+    tabla_por_estado(r)
 
     st.markdown("## Visitas de campo, en orden")
     orden = cooperativa.prioridades(gdf)
@@ -388,7 +446,7 @@ def pagina_tablero():
             st.markdown(f"**{nombre}**: sale de {ruta['base'].iloc[0]}")
             mostrar = pd.DataFrame({"N.º": range(1, len(ruta) + 1), "Parcela": ruta["codigo_parcela"].values,
                                     "Estado": ruta["estado"].map(cortos).values,
-                                    "Km desde la anterior": [f"{km:.1f}" for km in ruta["km_desde_anterior"]]})
+                                    "Km desde la anterior": [num(km, 1) for km in ruta["km_desde_anterior"]]})
             st.table(mostrar.set_index("N.º"))
         st.download_button("Descargar la ruta (CSV con coordenadas)", orden.to_csv(index=False).encode("utf-8-sig"),
                            file_name="ruta_visitas.csv", mime="text/csv")
@@ -422,7 +480,7 @@ def pagina_informe():
                 with st.spinner("Redactando…"):
                     resultado, costo = informe.informe_llm(datos, st.session_state.gasto_llm, tope)
                 st.session_state.gasto_llm += costo
-                nota = f"Redactado por {informe.MODELO}. Costo: {costo:.4f} USD (acumulado {st.session_state.gasto_llm:.3f} de {tope:.2f})."
+                nota = f"Redactado por {informe.MODELO}. Costo: {num(costo, 4)} USD (acumulado {num(st.session_state.gasto_llm, 3)} de {num(tope)})."
             except Exception as error:
                 st.warning(f"No se pudo usar la IA ({error}). Se usa la plantilla.")
     if resultado is None:
@@ -431,14 +489,17 @@ def pagina_informe():
     st.caption(nota)
     pestana_es, pestana_en = st.tabs(["Español", "English"])
     with pestana_es:
-        st.markdown(f"**Nivel de riesgo:** {resultado.nivel_riesgo}")
+        tabla_por_estado(r)
         st.write(resultado.resumen_es)
         for h in resultado.hallazgos:
             st.markdown(f"- {insignia(h.estado)} **{h.parcela}**: {h.explicacion_es}", unsafe_allow_html=True)
         st.markdown("**Mitigación:**\n" + "\n".join(f"- {x}" for x in resultado.mitigacion_es))
         st.markdown("**Límites:**\n" + "\n".join(f"- {x}" for x in resultado.limitaciones_es))
     with pestana_en:
-        st.markdown(f"**Risk level:** {dict(bajo='low', medio='medium', alto='high')[resultado.nivel_riesgo]}")
+        e = r["por_estado"]
+        st.markdown(f"**Plots:** {e['sin']['parcelas']} no deforestation detected, {e['revisar']['parcelas']} to review, "
+                    f"{e['posible']['parcelas']} possible deforestation. Export value at risk: "
+                    f"US$ {r['usd_en_riesgo']:,.0f} of US$ {r['usd_total']:,.0f} per year.")
         st.write(resultado.summary_en)
         for h in resultado.hallazgos:
             st.markdown(f"- **{h.parcela}**: {h.explanation_en}")
@@ -464,24 +525,37 @@ def cargar_clave_api():
 def pagina_guia():
     st.title("Guía en lenguaje claro")
     st.markdown("""
-## ¿Qué pide Europa?
-Desde el **30 de diciembre de 2026**, las empresas grandes y medianas que vendan café o cacao en la Unión Europea
-deben demostrar que no viene de tierras donde se cortó bosque **después del 31 de diciembre de 2020**.
-Las micro y pequeñas empresas tienen hasta el **30 de junio de 2027**. La norma es el Reglamento (UE) 2023/1115,
-conocido como **EUDR** (por sus siglas en inglés: *EU Deforestation Regulation*).
+## ¿Qué pide Europa y a quién?
+La norma es el Reglamento (UE) 2023/1115, conocido como **EUDR** (por sus siglas en inglés: *EU Deforestation
+Regulation*). Obliga a las **empresas que venden café o cacao dentro de la Unión Europea** (importadores y comerciantes)
+a demostrar que no viene de tierras donde se cortó bosque **después del 31 de diciembre de 2020**.
 
-## ¿Qué hay que entregar?
-- **La ubicación de cada parcela.** Si mide **más de 4 hectáreas**, hay que dar su contorno (un polígono).
-  Si mide 4 hectáreas o menos, basta un punto. Las coordenadas van con **6 decimales**.
-- **Que no hubo deforestación** después de 2020 y que se cumplió la ley peruana (por ejemplo, permisos y
-  derechos de comunidades).
-- El Perú está en la categoría de **riesgo estándar**: el comprador debe evaluar y reducir el riesgo,
-  y las autoridades revisan al 3 % de los importadores.
+- **30 de diciembre de 2026:** empieza a regir para los importadores y comerciantes **grandes y medianos de la UE**.
+- **30 de junio de 2027:** para los **micro y pequeños de la UE**.
+- **¿Y la cooperativa peruana?** No tiene un plazo propio en la norma: entrega la ubicación de sus parcelas y la
+  evidencia **cuando su comprador europeo se la pide**. En la práctica ya la están pidiendo, y sin ella el lote no se vende.
+
+## ¿Qué hay que entregar al comprador?
+- **La ubicación de cada parcela.** Si mide **más de 4 hectáreas**, su contorno (un polígono). Si mide 4 hectáreas o
+  menos, basta un punto. Las coordenadas van con **6 decimales**.
+- **Que no hubo deforestación** después de 2020.
+- **Que se cumplió la ley peruana** (legalidad): posesión de la tierra, permisos y derechos de terceros, entre otros.
+  Chacra Clara solo revisa la deforestación y la superposición con áreas protegidas: **la legalidad queda pendiente**.
+- El Perú está en la categoría de **riesgo estándar**: el comprador debe evaluar y reducir el riesgo, y las autoridades
+  europeas revisan al 3 % de los operadores.
 
 ## ¿Qué es «bosque» para la norma?
 Un área de **más de media hectárea** con árboles de **más de 5 metros** que cubren **más del 10 %** del suelo.
-**No** cuenta como bosque la tierra de uso agrícola. Los sistemas agroforestales (como el café bajo sombra) se
-consideran uso agrícola. Pero en el satélite el café bajo sombra puede **parecer** bosque: por eso esos casos van a «Revisar».
+**No** es bosque la tierra de uso agrícola, y los **sistemas agroforestales (como el café o el cacao bajo sombra)
+son uso agrícola**.
+
+## Renovación del cafetal y poda de sombra: no son deforestación
+Entre el 70 % y el 75 % del café del Perú necesita renovarse (Junta Nacional del Café, 2025). Cuando se cortan las
+plantas viejas o se poda la sombra, el satélite ve **árboles que desaparecen** y puede confundirlo con deforestación.
+Por eso Chacra Clara exige pruebas de **bosque natural** antes de alertar. Para demostrar que fue una renovación:
+fotos con fecha de las plantas nuevas en hileras y de los tocones viejos, facturas de plantones, el registro de la
+cooperativa y el testimonio del productor y de un vecino. Puede declarar el **año de siembra o de la última
+renovación** al ingresar la parcela.
 
 ## ¿Qué significa cada estado?
 """)
@@ -490,24 +564,25 @@ consideran uso agrícola. Pero en el satélite el café bajo sombra puede **pare
         st.write(ESTADOS[clave]["que_hacer"])
     st.markdown(f"""
 ## ¿Cómo decide Chacra Clara?
-- Una fuente **ve pérdida** si encuentra al menos **{PERDIDA_MINIMA_HA} ha** perdidas después de 2020 donde en 2020 había bosque.
-- **Posible deforestación:** dos o más fuentes coinciden, en el mismo lugar, en una pérdida **significativa**:
-  {SIGNIFICATIVA_HA} ha o más, o {SIGNIFICATIVA_CHICA_HA} ha que sean al menos el 10 % de la parcela.
-- **Revisar:** solo una fuente ve la pérdida, la pérdida es pequeña, o la mitad o más cae donde en 2020 ya había
-  cultivo o pasto (renovación, poda o quema de una chacra existente).
-- **Confianza:** alta si están todas las fuentes y coinciden; media o baja si falta alguna, si la parcela es un
-  punto o si las fuentes no se ponen de acuerdo.
+1. **Cobertura de bosque 2020 (JRC).** Es el mapa de referencia de la UE, pero **no es vinculante** y puede marcar
+   como bosque un cafetal bajo sombra. Se usa como primer filtro, no como verdad.
+2. **Pérdida después de 2020, por tipo de sensor.** Hansen y Geobosques usan el satélite **Landsat** (30 m) y cuentan
+   como **una** confirmación; las alertas GLAD-S2 e Impact Observatory usan **Sentinel-2** (10 m) y cuentan como otra.
+   Una fuente «ve pérdida» desde {num(PERDIDA_MINIMA_HA, 1)} ha. Si una fuente no cubre el año de la pérdida (Impact
+   Observatory llega solo a 2023), dice «sin datos para ese periodo» y **no cuenta en contra**.
+3. **Bosque natural 2020.** Se revisa si la pérdida cae en **bosque natural** (capa Natural Forests of the World 2020)
+   y la **altura del dosel** en 2020: el bosque natural es más alto y continuo que la sombra del café.
+4. **Estados:**
+   - **Posible deforestación:** los **dos tipos de sensor** coinciden en una pérdida **significativa**
+     ({num(SIGNIFICATIVA_HA, 1)} ha o más, o {num(SIGNIFICATIVA_CHICA_HA, 1)} ha que sean al menos el 10 % de la parcela)
+     **y** esa pérdida cae en **bosque natural**, sin renovación declarada para ese año.
+   - **Revisar:** solo un sensor ve la pérdida, la pérdida es marginal, es **probable café o cacao bajo sombra**, la
+     cooperativa declaró una **renovación** en ese año, o la pérdida cae en una chacra que ya existía.
+   - **Sin deforestación detectada:** ninguna fuente ve pérdida de bosque. La legalidad sigue pendiente.
+5. **Confianza:** alta, media o baja según cuántas fuentes hay, si coinciden y si la parcela es un polígono o un punto.
 
 ## Fuentes de datos
-| Fuente | Qué dice | Resolución |
-|---|---|---|
-| JRC Global Forest Cover 2020 (Comisión Europea) | Dónde había bosque en 2020 | 10 m |
-| Hansen / UMD Global Forest Change v1.13 | Año de pérdida de cobertura arbórea hasta 2025 | 30 m |
-| Alertas GLAD-S2 (UMD) | Alertas de pérdida con Sentinel-2, confianza media y alta | 10 m |
-| Impact Observatory (uso del suelo anual) | Cambio de árboles a cultivo o pasto entre 2020 y 2023 | 10 m |
-| Geobosques (MINAM) | Pérdida de bosque húmedo amazónico, dato oficial peruano | 30 m |
-| ESA WorldCover 2020 | Uso del suelo en 2020 (cultivo, pasto, árboles) | 10 m |
-| SERNANP | Áreas protegidas, zonas de amortiguamiento y comunidades nativas | vector |
+""" + TABLA_FUENTES + """
 
 El mapa del JRC es una referencia: la propia Comisión dice que no es obligatorio ni legalmente vinculante.
 """)

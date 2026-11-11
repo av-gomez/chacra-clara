@@ -1,0 +1,300 @@
+{
+ "SAN-01": {
+  "estado": "posible",
+  "confianza": "alta",
+  "acordada": 1.309,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 2.03 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "3 fuentes (Hansen/UMD (Landsat, 30 m), Alertas GLAD-S2 (Sentinel-2, 10 m), Geobosques MINAM (Landsat, 30 m)) coinciden en 1.31 ha de pérdida de bosque después de 2020."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 1.102,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.837,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 1.077
+  }
+ },
+ "SAN-02": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 1.45 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela se ve como bosque. Si es café o cacao bajo sombra, guarde pruebas de que el sistema agroforestal existía antes de 2021 (fotos, constancias)."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "SAN-03": {
+  "estado": "sin",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela es un punto: se analizó un círculo con el área declarada. Un polígono daría un resultado más preciso."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "SAN-04": {
+  "estado": "revisar",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 0.71 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Solo Hansen/UMD (Landsat, 30 m) ve pérdida (0.41 ha); las otras fuentes no la confirman.",
+   "Gran parte de la parcela se ve como bosque: puede ser café o cacao bajo sombra (sistema agroforestal). Hay que confirmarlo en campo."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.406,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "SAN-05": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 95.2,
+  "razones": [
+   "En 2020 había 0.99 ha de bosque (95 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela se ve como bosque. Si es café o cacao bajo sombra, guarde pruebas de que el sistema agroforestal existía antes de 2021 (fotos, constancias)."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "SAN-06": {
+  "estado": "posible",
+  "confianza": "alta",
+  "acordada": 0.696,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 1.65 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "3 fuentes (Hansen/UMD (Landsat, 30 m), Alertas GLAD-S2 (Sentinel-2, 10 m), Geobosques MINAM (Landsat, 30 m)) coinciden en 0.70 ha de pérdida de bosque después de 2020."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.671,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.58,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.257
+  }
+ },
+ "SAN-07": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "CAR-01": {
+  "estado": "posible",
+  "confianza": "alta",
+  "acordada": 0.582,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 0.95 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "3 fuentes (Hansen/UMD (Landsat, 30 m), Alertas GLAD-S2 (Sentinel-2, 10 m), Geobosques MINAM (Landsat, 30 m)) coinciden en 0.58 ha de pérdida de bosque después de 2020."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.557,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.333,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.549
+  }
+ },
+ "CAR-02": {
+  "estado": "sin",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 0.22 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela se ve como bosque. Si es café o cacao bajo sombra, guarde pruebas de que el sistema agroforestal existía antes de 2021 (fotos, constancias).",
+   "La parcela es un punto: se analizó un círculo con el área declarada. Un polígono daría un resultado más preciso."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "CAR-03": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "CAR-04": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 54.9,
+  "razones": [
+   "En 2020 había 0.42 ha de bosque (55 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "CAR-05": {
+  "estado": "revisar",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 1.53 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Solo Hansen/UMD (Landsat, 30 m) ve pérdida (0.15 ha); las otras fuentes no la confirman.",
+   "Gran parte de la parcela se ve como bosque: puede ser café o cacao bajo sombra (sistema agroforestal). Hay que confirmarlo en campo."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.15,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-01": {
+  "estado": "posible",
+  "confianza": "alta",
+  "acordada": 1.08,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 1.36 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "2 fuentes (Hansen/UMD (Landsat, 30 m), Impact Observatory (Sentinel-2, 10 m, hasta 2023)) coinciden en 1.08 ha de pérdida de bosque después de 2020."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 1.029,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 1.165,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-02": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 0.37 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela se ve como bosque. Si es café o cacao bajo sombra, guarde pruebas de que el sistema agroforestal existía antes de 2021 (fotos, constancias)."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-03": {
+  "estado": "sin",
+  "confianza": "alta",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-04": {
+  "estado": "revisar",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Hay 0.27 ha con pérdida de árboles después de 2020 en partes que en 2020 no eran bosque. Si era chacra, no es deforestación según la EUDR: puede ser renovación del cafetal, poda de sombra o quema. Hay que confirmarlo."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-05": {
+  "estado": "revisar",
+  "confianza": "baja",
+  "acordada": 0.0,
+  "jrc_pct": 100.0,
+  "razones": [
+   "En 2020 había 1.85 ha de bosque (100 % de la parcela) según el mapa de referencia de la UE (JRC).",
+   "Solo Hansen/UMD (Landsat, 30 m) ve pérdida (1.10 ha); las otras fuentes no la confirman.",
+   "Gran parte de la parcela se ve como bosque: puede ser café o cacao bajo sombra (sistema agroforestal). Hay que confirmarlo en campo."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 1.105,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ },
+ "AMY-06": {
+  "estado": "sin",
+  "confianza": "media",
+  "acordada": 0.0,
+  "jrc_pct": 0.0,
+  "razones": [
+   "En 2020 casi no había bosque en la parcela según el mapa de referencia de la UE (JRC).",
+   "Ninguna fuente ve pérdida de bosque después de 2020 por encima de 0.1 ha.",
+   "La parcela es un punto: se analizó un círculo con el área declarada. Un polígono daría un resultado más preciso."
+  ],
+  "ev": {
+   "Hansen/UMD (Landsat, 30 m)": 0.0,
+   "Alertas GLAD-S2 (Sentinel-2, 10 m)": 0.0,
+   "Impact Observatory (Sentinel-2, 10 m, hasta 2023)": 0.0,
+   "Geobosques MINAM (Landsat, 30 m)": 0.0
+  }
+ }
+}

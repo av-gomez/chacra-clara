@@ -22,7 +22,7 @@ Revisado contra el enunciado del issue #204. ✅ = hecho · 🙋 = te toca a ti,
 | 14 | No dejar el README del template | ✅ | README propio |
 | 15 | Datos públicos, sintéticos o propios | ✅ | Capas satelitales públicas; parcelas en lugares reales con productores ficticios; tu voz, con tu consentimiento. |
 | 16 | Tope de gasto si la app usa una API de pago | ✅ | `LLM_TOPE_USD` (0,50 USD por sesión) y modo sin API por defecto |
-| 17 | Presentación de 3 minutos, sin diapositivas | 🙋 | `docs/guion-presentacion.md`: 209 palabras habladas, versión en letra grande, ruta de clics y plan si se corta. Ensayar dos veces con cronómetro. |
+| 17 | Presentación de 3 minutos, sin diapositivas | 🙋 | `docs/guion-presentacion.md`: 218 palabras habladas, versión en letra grande, ruta de clics y plan si se corta. Ensayar dos veces con cronómetro. |
 
 ## Lo que pediste además
 

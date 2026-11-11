@@ -21,6 +21,7 @@ from lxml import etree
 from shapely.geometry import Point, Polygon, MultiPolygon, shape
 from shapely.validation import explain_validity
 
+from chacra.formato import num
 from chacra.rutas import DATOS
 
 LIMITE_PUNTO_HA = 4.0          # más de 4 ha exige polígono
@@ -30,16 +31,18 @@ SUPERPOSICION_MINIMA_M2 = 100  # se avisa si dos parcelas comparten más de 100 
 TOLERANCIA_FRONTERA_GRADOS = 0.02  # el contorno del Perú está simplificado: ~2 km de margen
 
 COLUMNAS_PLANTILLA = ["codigo_productor", "codigo_parcela", "cultivo", "latitud", "longitud",
-                      "area_ha", "produccion_kg_anual"]
+                      "area_ha", "produccion_kg_anual", "anio_renovacion"]
 
 
 def plantilla_csv():
     """Plantilla descargable para cargar parcelas desde Excel o CSV."""
     ejemplo = pd.DataFrame([
         {"codigo_productor": "PR-001", "codigo_parcela": "PR-001-A", "cultivo": "café",
-         "latitud": -14.183311, "longitud": -69.185402, "area_ha": 1.8, "produccion_kg_anual": 1100},
+         "latitud": -14.183311, "longitud": -69.185402, "area_ha": 1.8, "produccion_kg_anual": 1100,
+         "anio_renovacion": 2023},
         {"codigo_productor": "PR-002", "codigo_parcela": "PR-002-A", "cultivo": "cacao",
-         "latitud": -14.172520, "longitud": -69.176655, "area_ha": 2.5, "produccion_kg_anual": 1500},
+         "latitud": -14.172520, "longitud": -69.176655, "area_ha": 2.5, "produccion_kg_anual": 1500,
+         "anio_renovacion": None},
     ], columns=COLUMNAS_PLANTILLA)
     return ejemplo.to_csv(index=False).encode("utf-8-sig")
 
@@ -65,6 +68,14 @@ def decimales_minimos_de(geom_dict):
     return max(contar_decimales(n) for n in numeros)
 
 
+def anio_valido(valor):
+    """Año de siembra o de la última renovación (opcional). Devuelve un entero entre 1950 y 2030, o None."""
+    numero = pd.to_numeric(valor, errors="coerce")
+    if pd.isna(numero) or not 1950 <= numero <= 2030:
+        return None
+    return int(numero)
+
+
 def _normalizar_columnas(df):
     df = df.copy()
     df.columns = [str(c).strip().lower() for c in df.columns]
@@ -73,7 +84,8 @@ def _normalizar_columnas(df):
                  "area": "area_ha", "hectareas": "area_ha", "ha": "area_ha", "superficie_ha": "area_ha",
                  "productor": "codigo_productor", "id_productor": "codigo_productor",
                  "parcela": "codigo_parcela", "id_parcela": "codigo_parcela",
-                 "produccion": "produccion_kg_anual", "produccion_kg": "produccion_kg_anual"}
+                 "produccion": "produccion_kg_anual", "produccion_kg": "produccion_kg_anual",
+                 "renovacion": "anio_renovacion", "anio_siembra": "anio_renovacion", "ano_renovacion": "anio_renovacion"}
     df = df.rename(columns={c: sinonimos[c] for c in df.columns if c in sinonimos})
     return df
 
@@ -99,6 +111,7 @@ def leer_tabla(archivo, nombre):
             "cultivo": str(fila.get("cultivo") or "café").strip().lower(),
             "area_declarada_ha": pd.to_numeric(str(fila.get("area_ha", "")).replace(",", "."), errors="coerce"),
             "produccion_kg_anual": pd.to_numeric(fila.get("produccion_kg_anual"), errors="coerce"),
+            "anio_renovacion": anio_valido(fila.get("anio_renovacion")),
             "decimales": max(contar_decimales(lat_txt), contar_decimales(lon_txt)),
             "geometry": geom,
         })
@@ -137,6 +150,7 @@ def desde_geojson(datos_geojson):
             "area_declarada_ha": pd.to_numeric(_propiedad(props, "area_ha", "Area", "area"), errors="coerce"),
             "produccion_kg_anual": pd.to_numeric(_propiedad(props, "produccion_kg_anual", "produccion"),
                                                  errors="coerce"),
+            "anio_renovacion": anio_valido(_propiedad(props, "anio_renovacion", "renovacion", "anio_siembra")),
             "decimales": decimales_minimos_de(f["geometry"]),
             "geometry": shape(f["geometry"]),
         })
@@ -217,18 +231,18 @@ def validar(gdf):
         if not peru.contains(geom.centroid):
             e.append("La parcela está fuera del Perú.")
         if es_punto and pd.notna(area_ref) and area_ref > LIMITE_PUNTO_HA:
-            e.append(f"Tiene {area_ref:.1f} ha: más de 4 ha exige un polígono, no un punto.")
+            e.append(f"Tiene {num(area_ref, 1)} ha: más de 4 ha exige un polígono, no un punto.")
         if es_punto and pd.isna(area_ref):
             a.append("Falta el área: un punto solo vale para parcelas de 4 ha o menos.")
         if fila["decimales"] < DECIMALES_MINIMOS:
             a.append(f"Coordenadas con {fila['decimales']} decimales: la EUDR pide al menos 6.")
         if not es_punto and fila["area_calculada_ha"] > AREA_MAXIMA_HA:
-            e.append(f"Área de {fila['area_calculada_ha']:.0f} ha: revise si el polígono es correcto.")
+            e.append(f"Área de {num(fila['area_calculada_ha'], 0)} ha: revise si el polígono es correcto.")
         if not es_punto and pd.notna(fila["area_declarada_ha"]) and fila["area_declarada_ha"] > 0:
             diferencia = abs(fila["area_calculada_ha"] - fila["area_declarada_ha"]) / fila["area_declarada_ha"]
             if diferencia > 0.25:
-                a.append(f"El área dibujada ({fila['area_calculada_ha']:.2f} ha) difiere en más de 25 % "
-                         f"del área declarada ({fila['area_declarada_ha']:.2f} ha).")
+                a.append(f"El área dibujada ({num(fila['area_calculada_ha'])} ha) difiere en más de 25 % "
+                         f"del área declarada ({num(fila['area_declarada_ha'])} ha).")
         errores.append(e)
         avisos.append(a)
 
@@ -244,9 +258,9 @@ def validar(gdf):
             if gi.geom_type != "Point" and gj.geom_type != "Point" and gi.is_valid and gj.is_valid:
                 comun = gi.intersection(gj).area
                 if comun > SUPERPOSICION_MINIMA_M2:
-                    texto = f"Se superpone {comun:.0f} m² con {gdf.loc[j, 'codigo_parcela']}."
+                    texto = f"Se superpone {num(comun, 0)} m² con {gdf.loc[j, 'codigo_parcela']}."
                     avisos[i].append(texto)
-                    avisos[j].append(f"Se superpone {comun:.0f} m² con {gdf.loc[i, 'codigo_parcela']}.")
+                    avisos[j].append(f"Se superpone {num(comun, 0)} m² con {gdf.loc[i, 'codigo_parcela']}.")
     gdf["errores"] = errores
     gdf["avisos"] = avisos
     gdf["valida"] = [len(e) == 0 for e in errores]

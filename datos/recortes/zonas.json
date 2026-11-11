@@ -11,12 +11,14 @@
     ],
     "capas": [
       "alertas_perdida.tif",
+      "altura2020.tif",
       "geobosques_perdida.tif",
       "hansen_cobertura2000.tif",
       "hansen_perdida.tif",
       "io_perdida.tif",
       "jrc_bosque2020.tif",
       "legalidad.geojson",
+      "natural2020.tif",
       "s2_antes.jpg",
       "s2_despues.jpg",
       "worldcover2020.tif"
@@ -34,12 +36,14 @@
     ],
     "capas": [
       "alertas_perdida.tif",
+      "altura2020.tif",
       "geobosques_perdida.tif",
       "hansen_cobertura2000.tif",
       "hansen_perdida.tif",
       "io_perdida.tif",
       "jrc_bosque2020.tif",
       "legalidad.geojson",
+      "natural2020.tif",
       "s2_antes.jpg",
       "s2_despues.jpg",
       "worldcover2020.tif"
@@ -57,12 +61,14 @@
     ],
     "capas": [
       "alertas_perdida.tif",
+      "altura2020.tif",
       "geobosques_perdida.tif",
       "hansen_cobertura2000.tif",
       "hansen_perdida.tif",
       "io_perdida.tif",
       "jrc_bosque2020.tif",
       "legalidad.geojson",
+      "natural2020.tif",
       "s2_antes.jpg",
       "s2_despues.jpg",
       "worldcover2020.tif"

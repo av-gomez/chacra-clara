@@ -54,8 +54,8 @@ def test_informe_plantilla_y_ruta():
     gdf = demo()
     r = cooperativa.resumen(gdf)
     inf = informe.informe_plantilla(informe.datos_para_informe("Prueba", gdf, r))
-    assert inf.nivel_riesgo == "alto"
     assert len(inf.hallazgos) == r["revisar"] + r["posible"]
+    assert r["usd_en_riesgo"] > 0 and abs(sum(d["pct_kg"] for d in r["por_estado"].values()) - 100) < 0.01
     orden = cooperativa.prioridades(gdf)
     assert list(orden["estado"])[0].startswith("Posible")
 
@@ -102,6 +102,22 @@ def test_kml_se_lee():
     v = geometria.validar(geometria.leer_archivo(Archivo("parcela.kml", kml)))
     assert v.loc[0, "codigo_parcela"] == "K-1" and v.loc[0, "valida"]
     assert 4 < v.loc[0, "area_calculada_ha"] < 5
+
+
+def test_reglas_nuevas_del_metodo():
+    gdf = demo()
+    a = gdf.set_index("codigo_parcela")
+    # SAN-06: renovación declarada en el año de la pérdida -> Revisar, aunque dos sensores vean pérdida
+    assert a.loc["SAN-06", "estado"] == "revisar" and "Renovación" in a.loc["SAN-06", "analisis"]["motivo"]
+    # Impact Observatory no cubre 2024-2025: «sin datos para ese periodo», no «No»
+    io = [e for e in a.loc["SAN-01", "analisis"]["evidencias"] if e["fuente"].startswith("Impact")][0]
+    assert io["sin_datos_periodo"]
+    # El área en que coinciden los sensores nunca supera lo que ve Landsat
+    for _, f in gdf.iterrows():
+        assert f["analisis"]["perdida_acordada_ha"] <= f["analisis"]["perdida_landsat_ha"] + 1e-9
+    # «Sin deforestación detectada» siempre avisa que la legalidad está pendiente
+    for _, f in gdf[gdf["estado"] == "sin"].iterrows():
+        assert any("Legalidad pendiente" in r for r in f["analisis"]["razones"])
 
 
 if __name__ == "__main__":

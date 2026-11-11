@@ -15,21 +15,21 @@ from chacra.rutas import AUDIOS, DATOS
 PLANTILLAS = {
     "sin": ("Hola. Le habla Chacra Clara, de parte de su cooperativa. "
             "Revisamos su parcela{codigo} con imágenes de satélite de varios años. "
-            "Buenas noticias: no encontramos pérdida de bosque después del año 2020. "
-            "Su {cultivo} de esta parcela puede venderse a Europa. "
+            "No encontramos pérdida de bosque después del año 2020. "
+            "Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su {cultivo} a Europa. "
             "Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico."),
     "revisar": ("Hola. Le habla Chacra Clara, de parte de su cooperativa. "
                 "Revisamos su parcela{codigo} con imágenes de satélite. "
                 "Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. "
-                "Puede ser sombra de su {cultivo}, una renovación o una poda. "
-                "Un técnico de la cooperativa la va a visitar. "
-                "Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión."),
+                "Puede ser la sombra de su {cultivo}, una renovación o una poda. "
+                "La cooperativa le recomienda la visita de un técnico. "
+                "Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión."),
     "posible": ("Hola. Le habla Chacra Clara, de parte de su cooperativa. "
                 "Revisamos su parcela{codigo} con imágenes de satélite. "
                 "Varias fuentes muestran que una parte del bosque se cortó después del año 2020. "
                 "Por ahora, el {cultivo} de esa parcela no debe ir a Europa. "
-                "Un técnico la va a visitar para confirmar qué pasó. "
-                "Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos."),
+                "La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. "
+                "Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos."),
 }
 
 IDIOMAS = {"es": "Castellano", "qu": "Quechua", "ay": "Aimara"}

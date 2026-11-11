@@ -14,6 +14,7 @@ Uso:
   python scripts/preparar_recortes.py --capa s2       # una capa
 """
 import argparse
+import io
 import json
 from pathlib import Path
 
@@ -341,8 +342,90 @@ def sentinel2(clave, zona):
         print(f"  {ruta.relative_to(RAIZ)}  {ruta.stat().st_size / 1e6:.1f} MB")
 
 
+# ---------- Bosque natural 2020 y altura del dosel 2020 (para separar bosque natural de café bajo sombra) ----------
+
+# Natural Forests of the World 2020 (WRI y Google DeepMind, 10 m, CC BY 4.0). Solo está en Figshare+ como un zip por
+# zona UTM (9 a 12 GB). Se descarga UN mosaico interno (16 a 23 MB) con pedidos por rangos de bytes.
+# Valores: probabilidad de bosque natural x 250 (0 a 250); 255 = sin dato.
+NFW_MOSAICOS = {"sandia": (54019796, "raster_19L_10_7_4.tif"),
+                "carabaya": (54019796, "raster_19L_10_6_2.tif"),
+                "altomayo": (54019820, "raster_18M_10_7_1.tif")}
+# ETH Global Canopy Height 2020 (Lang et al. 2023, 10 m, CC BY 4.0): metros, 255 = sin dato. Teselas de 3 grados.
+ETH_ALTURA = "/vsicurl/https://libdrive.ethz.ch/public.php/webdav/3deg_cogs/ETH_GlobalCanopyHeight_10m_2020_{tesela}_Map.tif"
+ETH_USUARIO = "cO8or7iOe5dT2Rt:"   # código de la carpeta pública de la ETH (no es una clave privada)
+
+
+class RangoHTTP(io.RawIOBase):
+    """Archivo remoto que se lee por rangos de bytes, para abrir un zip enorme sin descargarlo entero."""
+
+    def __init__(self, url):
+        import requests
+        self.url, self.pos = url, 0
+        respuesta = requests.get(url, headers={"Range": "bytes=0-0"}, timeout=60)
+        self.size = int(respuesta.headers["Content-Range"].split("/")[1])
+
+    def readable(self):
+        return True
+
+    def seekable(self):
+        return True
+
+    def tell(self):
+        return self.pos
+
+    def seek(self, desplazamiento, desde=0):
+        self.pos = [desplazamiento, self.pos + desplazamiento, self.size + desplazamiento][desde]
+        return self.pos
+
+    def readinto(self, b):
+        import requests
+        if self.pos >= self.size:
+            return 0
+        fin = min(self.pos + len(b), self.size) - 1
+        datos = requests.get(self.url, headers={"Range": f"bytes={self.pos}-{fin}"}, timeout=120).content
+        b[:len(datos)] = datos
+        self.pos += len(datos)
+        return len(datos)
+
+
+def natural(clave, zona):
+    """Probabilidad de bosque natural 2020 (0 a 100) en la grilla común."""
+    import zipfile
+    id_archivo, mosaico = NFW_MOSAICOS[clave]
+    crudos = RAIZ / "datos" / "crudos"
+    crudos.mkdir(parents=True, exist_ok=True)
+    local = crudos / mosaico
+    if not local.exists():
+        z = zipfile.ZipFile(io.BufferedReader(RangoHTTP(f"https://ndownloader.figshare.com/files/{id_archivo}"), 1 << 22))
+        info = next(i for i in z.infolist() if i.filename.endswith("/" + mosaico))
+        with z.open(info) as origen, open(local, "wb") as destino:
+            while bloque := origen.read(1 << 22):
+                destino.write(bloque)
+
+    def a_probabilidad(valores):
+        salida = np.round(valores.astype("float32") / 250 * 100)
+        salida[valores == 255] = NODATA
+        return salida.astype("uint8")
+    capa = a_grilla(str(local), zona["bbox"], convertir=a_probabilidad)
+    guardar(capa, zona["bbox"], RECORTES / clave / "natural2020.tif",
+            descripcion="Natural Forests of the World 2020, probabilidad 0-100 (WRI y Google DeepMind, CC BY 4.0)")
+
+
+def altura(clave, zona):
+    """Altura del dosel en 2020 (metros) de la ETH en la grilla común."""
+    oeste, sur = zona["bbox"][0], zona["bbox"][1]
+    lat = int(np.floor(sur / 3) * 3)
+    lon = int(np.floor(oeste / 3) * 3)
+    tesela = f"{'S' if lat < 0 else 'N'}{abs(lat):02d}{'W' if lon < 0 else 'E'}{abs(lon):03d}"
+    with rasterio.Env(GDAL_HTTP_USERPWD=ETH_USUARIO):
+        capa = a_grilla(ETH_ALTURA.format(tesela=tesela), zona["bbox"])
+    guardar(capa, zona["bbox"], RECORTES / clave / "altura2020.tif",
+            descripcion="ETH Global Canopy Height 2020, metros (Lang et al. 2023, CC BY 4.0)")
+
+
 CAPAS = {"jrc": jrc, "worldcover": worldcover, "hansen": hansen, "alertas": glad_s2, "io": impact_observatory,
-         "geobosques": geobosques, "legalidad": legalidad, "s2": sentinel2}
+         "geobosques": geobosques, "legalidad": legalidad, "s2": sentinel2, "natural": natural,
+         "altura": altura}
 
 
 def main():
