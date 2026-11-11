@@ -5,7 +5,7 @@ Estado al cierre del trabajo del agente. ✅ = cumplido · ⏳ = en curso · �
 | # | Punto del enunciado | Estado | Dónde / qué falta |
 |---|---|---|---|
 | 1 | Repo público | ✅ | https://github.com/av-gomez/chacra-clara |
-| 2 | Link en el issue #204 antes del martes 10/11, 11:59 p. m. | ✅ | Comentado el 10/11 a las 8:37 p. m. Hay que actualizarlo con la URL pública y el video. |
+| 2 | Link en el issue #204 antes del martes 10/11, 11:59 p. m. | ✅ | Comentado el 10/11 a las 8:37 p. m. y actualizado por el agente con el video. Falta solo la URL pública: el agente la agrega cuando le pases la URL. |
 | 3 | README con las 9 partes | ✅ / 🙋 | Están las 9 partes. 🙋 Completar **2. Founder** y el resumen de las conversaciones en **3. Problema**. |
 | 4 | LICENSE | ✅ | MIT |
 | 5 | `.env.example` | ✅ | `ANTHROPIC_API_KEY` (opcional) y `LLM_TOPE_USD` |
@@ -15,9 +15,9 @@ Estado al cierre del trabajo del agente. ✅ = cumplido · ⏳ = en curso · �
 | 9 | Demo en URL pública | 🙋 | Hay que desplegarla en Streamlit Community Cloud (pide tu inicio de sesión). Los pasos están en el resumen final del agente y abajo. |
 | 10 | Flujo principal en vivo con datos reales | ✅ | Probado en local con Playwright: dibujar → 5 fuentes → estado, mapa y tabla → ficha PDF y GeoJSON → nota de voz. ⏳ Falta probarlo en la URL pública. |
 | 11 | Dos herramientas del curso dentro del producto | ✅ | Raster (07), GeoPandas y Folium (06), texto a voz con tu voz (15); extra: LLM con salida estructurada (08). README, parte 8. |
-| 12 | Commits en varios días | ⏳ | Martes 10: varios commits. Miércoles 11: seguir con commits pequeños (correcciones, URL, video). |
+| 12 | Commits en varios días | ⏳ | Martes 10: más de 20 commits. Miércoles 11: el agente sigue con commits pequeños (URL pública y correcciones). |
 | 13 | Sin claves en el repo | ✅ | Revisado con `git log -p` (api_key, secret, token): solo aparecen nombres de variables vacías. |
-| 14 | Video de respaldo de 60 a 90 s, con su código en el repo | ✅ | `video/demo_respaldo.mp4` (65 s), generado por `scripts/grabar_video.py` con la narración de `video/narracion.json` y tu voz clonada |
+| 14 | Video de respaldo de 60 a 90 s, con su código en el repo | ✅ (agente) | `video/demo_respaldo.mp4` (65 s). **Automático, sin grabación manual:** Playwright graba la pantalla, Qwen3-TTS sintetiza la narración con tu voz clonada y ffmpeg une ambas. Se regenera con `python scripts/hacer_video.py --python-voz .venv-voz/Scripts/python --desde-cero`. |
 | 15 | Guion de 3 minutos (≤ 380 palabras) | ✅ | `docs/guion-presentacion.md` (351 palabras habladas) |
 | 16 | Ensayo con cronómetro | 🙋 | Dos ensayos completos con la URL pública antes de las 6:00 p. m. del miércoles. |
 | 17 | Accesibilidad revisada con herramienta automática | ✅ | axe-core: 0 violaciones en las 7 páginas (`docs/validacion/axe.json`) |
@@ -40,4 +40,4 @@ Estado al cierre del trabajo del agente. ✅ = cumplido · ⏳ = en curso · �
 
 ## Actualizar el comentario del issue
 
-Con la URL y el video listos, edita el comentario en https://github.com/d2cml-ai/Data-Science-Python/issues/204: menú «···» del comentario → **Edit**. O pídeselo al agente.
+Lo hace el agente con `gh api` (ver `docs/issue-comentario.md`). El video ya está enlazado. Solo falta agregar la URL pública cuando esté desplegada.

@@ -2,7 +2,7 @@
 
 > **Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se convierte en el expediente de debida diligencia que pide la EUDR.**
 
-**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (65 s, narrado con mi voz clonada):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
+**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (65 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
 
 > ⚠️ Chacra Clara es una herramienta de **tamizaje** y apoyo a la debida diligencia. **No es una certificación oficial.** El resultado final lo valida un técnico.
 
@@ -113,6 +113,28 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
   - Las capas satelitales son reales y las parcelas de ejemplo están en **ubicaciones reales** de zonas cafetaleras de Sandia y Carabaya (Puno) y Alto Mayo (San Martín), revisadas a ojo con Sentinel-2.
   - Los **productores son ficticios**: solo tienen códigos.
   - [`docs/research/parcela-real.md`](docs/research/parcela-real.md) queda listo para sumar una parcela real con consentimiento.
+
+### Video de respaldo (plan B): cómo se produce
+
+[`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) dura 65 s y muestra el **software real funcionando**. **Nadie lo grabó a mano.** Todo lo produce código que está en este repo:
+
+| Paso | Qué pasa | Script |
+|---|---|---|
+| 1. Guion de la narración | Seis frases cortas, una por escena | [`video/narracion.json`](video/narracion.json) |
+| 2. Narración | Cada frase se **sintetiza** con mi voz clonada (Qwen3-TTS, sesión 15 del curso) a partir de mi muestra de voz (`voz/voz_ref.wav`, con mi consentimiento). Whisper mide el WER y, si sale mal, la regenera. **Yo no leí ni grabé la narración.** | [`scripts/generar_voz.py`](scripts/generar_voz.py) |
+| 3. Pantalla | **Playwright** abre la app en un navegador sin ventana y hace los clics: portada, dibujar una parcela, resultado y evidencia, antes y después, nota de voz, tablero y descargas. Cada escena dura lo que dura su frase. | [`scripts/grabar_video.py`](scripts/grabar_video.py) (`grabar`) |
+| 4. Unión | **ffmpeg** pone cada frase en el segundo en que empieza su escena, normaliza el volumen y escribe el MP4 (1280 × 720, H.264 + AAC). | [`scripts/grabar_video.py`](scripts/grabar_video.py) (`unir`) |
+| 5. Un solo comando | Hace los pasos 2 a 4 desde cero, levanta la app en local y verifica que dure entre 60 y 90 s. | [`scripts/hacer_video.py`](scripts/hacer_video.py) |
+
+El video muestra todo el tiempo el aviso «voz de Amanda generada con IA».
+
+**Regenerar el video completo desde cero** (por ejemplo, si cambia la app antes de la presentación):
+
+```bash
+python scripts/hacer_video.py --python-voz .venv-voz/Scripts/python --desde-cero
+```
+
+Usa el entorno de la app para Playwright y ffmpeg, y el de voz (`.venv-voz`, ver abajo) para Qwen3-TTS. Toma unos 10 minutos en una laptop sin GPU. Con `--url https://…` graba contra la app publicada en vez de la local.
 
 ### Capturas (celular, 390 px)
 
@@ -271,10 +293,11 @@ Todo esto hay que validarlo con parcelas verificadas en campo por una cooperativ
 
 ### Mi voz
 
-- **De dónde sale:** de una grabación mía de 28,6 s leyendo un texto preparado (`algonuevo.m4a`, no está en el repo). Con ffmpeg recorté 23 s limpios (1,1 s a 24,1 s), filtré los graves y agudos (`highpass` 80 Hz, `lowpass` 11 kHz), reduje el ruido (`afftdn`) y normalicé el volumen (`loudnorm`, −18 LUFS): `voz/voz_ref.wav`. Su transcripción exacta (Whisper large-v3-turbo) está en [`voz/voz_ref.txt`](voz/voz_ref.txt).
+- **De dónde sale:** de **una sola muestra** que grabé antes del proyecto, de 28,6 s, leyendo un texto preparado (`algonuevo.m4a`, no está en el repo). Con ffmpeg recorté 23 s limpios (1,1 s a 24,1 s), filtré los graves y agudos (`highpass` 80 Hz, `lowpass` 11 kHz), reduje el ruido (`afftdn`) y normalicé el volumen (`loudnorm`, −18 LUFS): `voz/voz_ref.wav`. Su transcripción exacta (Whisper large-v3-turbo) está en [`voz/voz_ref.txt`](voz/voz_ref.txt).
 - **Consentimiento:** es mi voz y lo doy. Todas las notas dicen que son de Chacra Clara, y la app indica «voz clonada con IA».
 - **Control de calidad:** cada nota se genera con Qwen3-TTS y se transcribe con Whisper para calcular el WER. Si supera el 20 %, se regenera.
 - **Por qué vienen pregeneradas:** el modelo pesa 2,3 GB y tarda unos 7 s por cada segundo de audio en CPU, demasiado para el servidor gratuito. Hay **notas personales** para cada parcela del demo y **notas generales** por estado y cultivo para las parcelas nuevas.
+- **Todo lo que suena con mi voz es sintético:** las 24 notas y la narración del video. A partir de esa muestra, todo lo genera el modelo; no grabé ninguna otra cosa.
 
 ## 7. Modelo de negocio
 
@@ -327,13 +350,17 @@ Usé **Claude Code** (Claude Opus 5.5) como agente.
 - Escribió todo el código: la app, los módulos de `chacra/` y los scripts.
 - Bajó los datos, eligió las parcelas de prueba, hizo la revisión visual y validó el método.
 - Escribió las pruebas con Playwright y axe, este README, el guion y la guía de archivos.
-- Limpió mi grabación con ffmpeg y generó las notas de voz.
+- Limpió mi muestra de voz con ffmpeg y sintetizó con ella las 24 notas de voz.
+- **Produjo el video de respaldo de punta a punta, sin intervención mía:**
+  - escribió la narración ([`video/narracion.json`](video/narracion.json)) y la sintetizó con mi voz clonada ([`scripts/generar_voz.py`](scripts/generar_voz.py));
+  - grabó la pantalla con Playwright y unió imagen y voz con ffmpeg ([`scripts/grabar_video.py`](scripts/grabar_video.py));
+  - dejó un comando único que lo regenera todo ([`scripts/hacer_video.py`](scripts/hacer_video.py)).
 
 **Lo que decidí yo:**
 
 - El problema, el usuario y el enfoque (EUDR, café y cacao, datos en manos de la cooperativa y del productor).
 - Las prioridades: correcto y honesto, demo en vivo, útil, accesible y profesional.
-- Usar mi voz y dar mi consentimiento.
+- Usar mi voz clonada (en las notas y en la narración del video) y dar mi consentimiento.
 - La propuesta de precio a validar.
 - Las conversaciones con usuarios.
 

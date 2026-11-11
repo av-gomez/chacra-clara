@@ -1,7 +1,7 @@
 # Guion de la presentación (3 minutos)
 
 Unas 360 palabras habladas (unas 130 por minuto). Lo que va entre corchetes es lo que hago en pantalla, no se dice.
-Antes de empezar: la app abierta en **Inicio**, en una ventana limpia, con el volumen activado. Tengo el video de respaldo abierto en otra pestaña.
+Antes de empezar: la app abierta en **Inicio**, en una ventana limpia, con el volumen activado. El video de respaldo (generado automáticamente, ver README) está abierto en otra pestaña.
 
 ---
 
@@ -52,7 +52,7 @@ Antes de empezar: la app abierta en **Inicio**, en una ventana limpia, con el vo
 ## Si algo falla en vivo
 
 - **El mapa no dibuja:** paso directo a **Demo Puno** → elijo la parcela **SAN-01** en Resultados (es el mismo caso).
-- **La app no carga:** pongo el video de respaldo (`video/demo_respaldo.mp4`, 60 a 90 s) y lo narro igual.
+- **La app no carga:** reproduzco el video de respaldo (`video/demo_respaldo.mp4`, 65 s). Ya trae su narración, sintetizada con mi voz clonada, así que no hablo encima: solo presento el problema antes y el negocio después.
 - **No suena el audio:** sigo; la transcripción está en «Texto de la nota».
 
 Cronómetro: ensayar dos veces. Si me paso, recorto la frase de las cinco fuentes.

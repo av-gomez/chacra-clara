@@ -27,7 +27,8 @@ Para explicar el código al profesor. Cada módulo de `chacra/` hace una sola ta
 | `scripts/validar_metodo.py` | Compara el estado de la app con el caso buscado y con mi revisión visual, y escribe `docs/validacion/resultados.md`. |
 | `scripts/generar_voz.py` | Clona mi voz con Qwen3-TTS, mide el WER con Whisper, regenera si sale mal y guarda MP3 livianos en `audios/`. Va en un entorno aparte. |
 | `scripts/probar_app.py` | Abre la app con Playwright en tamaño de celular, recorre el flujo, toma capturas y corre axe (accesibilidad). |
-| `scripts/grabar_video.py` | Graba el video de respaldo: Playwright recorre la app y ffmpeg le pone mi voz clonada. |
+| `scripts/grabar_video.py` | `grabar()`: Playwright recorre la app y graba la pantalla, escena por escena, según lo que dura cada frase. `unir()`: ffmpeg pone cada frase de la narración en el segundo en que empieza su escena. |
+| `scripts/hacer_video.py` | Un solo comando que hace todo el video desde cero: sintetiza la narración con mi voz clonada, levanta la app, graba, une y verifica que dure entre 60 y 90 s. Nadie graba nada a mano. |
 | `tests/test_flujo.py` | Pruebas del flujo sin navegador: estados, fichas, reporte, ZIP, GeoJSON de la UE, informe y notas. |
 
 ## Datos
@@ -38,7 +39,7 @@ Para explicar el código al profesor. Cada módulo de `chacra/` hace una sola ta
 | `datos/parcelas/` | `candidatas.geojson` (89 parcelas de prueba) y `demo.geojson` (las 18 de las cooperativas de demo). |
 | `datos/peru.geojson`, `datos/distritos.geojson` | Contorno del Perú y distritos, para validar que una parcela esté en el país. |
 | `audios/` | Notas de voz en MP3 y `generadas.json` (texto, duración y WER de cada una). |
-| `voz/voz_ref.txt` | El texto exacto de mi grabación de referencia. El audio (`voz_ref.wav`) **no** se sube. |
+| `voz/voz_ref.txt` | El texto exacto de mi muestra de voz (la única grabación real; todo lo demás es sintético). El audio (`voz_ref.wav`) **no** se sube. |
 
 ## Una pregunta probable: «¿cómo decide el estado?»
 

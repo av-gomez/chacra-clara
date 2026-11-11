@@ -3,42 +3,42 @@
     "texto": "Chacra Clara ayuda a las cooperativas de café y cacao del Perú a cumplir la nueva norma europea contra la deforestación, sin dejar fuera a los pequeños productores.",
     "huella": "c4cf713044b5",
     "segundos": 10.6,
-    "wer": 0.0,
+    "wer": 0.071,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_2": {
     "texto": "El técnico de la cooperativa dibuja la parcela de un socio en el mapa, en Sandia, Puno, y pide el análisis.",
     "huella": "c82a005376a5",
-    "segundos": 7.0,
-    "wer": 0.095,
+    "segundos": 6.6,
+    "wer": 0.0,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_3": {
     "texto": "En segundos, la parcela se cruza con cinco fuentes satelitales abiertas. El resultado se muestra con ícono, texto y patrón, y con la evidencia de cada fuente.",
     "huella": "52ab40e0c53e",
-    "segundos": 11.8,
-    "wer": 0.0,
+    "segundos": 9.8,
+    "wer": 0.037,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_4": {
     "texto": "Se ve el antes y el después con imágenes de Sentinel dos. Y el productor recibe una nota de voz que le explica su resultado en palabras simples.",
     "huella": "37d348fb20f0",
-    "segundos": 9.4,
+    "segundos": 8.7,
     "wer": 0.0,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_5": {
     "texto": "Para toda la cooperativa, el tablero muestra cuántas parcelas están listas, qué parte del volumen puede ir hoy a Europa, y en qué orden visitar las parcelas en riesgo.",
     "huella": "6ac9d39e4cfe",
-    "segundos": 10.2,
+    "segundos": 10.1,
     "wer": 0.0,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_6": {
     "texto": "La ficha en PDF, el archivo para la declaración europea y todos los datos se descargan cuando la cooperativa quiera. Es un tamizaje: el resultado final lo valida un técnico.",
     "huella": "d7e07f4d6849",
-    "segundos": 11.1,
-    "wer": 0.0,
+    "segundos": 11.8,
+    "wer": 0.033,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   }
 }
