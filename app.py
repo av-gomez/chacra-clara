@@ -24,6 +24,9 @@ st.set_page_config(page_title="Chacra Clara · EUDR para cooperativas", page_ico
 ONE_LINER = ("Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, "
              "para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se "
              "convierte en el expediente de debida diligencia que pide la EUDR.")
+# Punto donde se abre el mapa para dibujar en cada zona: chacras con cambios visibles desde 2020
+FOCO_ZONA = {"sandia": (-14.19154, -69.21432), "carabaya": (-13.38663, -70.3707), "altomayo": (-5.85933, -77.06168)}
+
 # Cooperativas de demo (ficticias)
 COOPERATIVAS_DEMO = {
     "puno": {"nombre": "Central Demo Valle Alto, Puno (ficticia)"},
@@ -151,10 +154,10 @@ def pagina_ingresar():
         zona = zonas[nombres[zona_nombre]]
         oeste, sur, este, norte = zona["bbox"]
         st.markdown("Use el botón del **pentágono** para dibujar el contorno (haga clic en cada esquina y cierre en "
-                    "el primer punto) o el del **marcador** para una parcela de 4 ha o menos. El recuadro amarillo "
-                    "punteado es la zona con datos.")
-        m = mapas.mapa_ingreso([(sur + norte) / 2, (oeste + este) / 2], 14, st.session_state.parcelas,
-                               st.session_state.ligero)
+                    "el primer punto) o el del **marcador** para una parcela de 4 ha o menos. El mapa abre a escala de "
+                    "chacra: una parcela típica mide de 1 a 3 ha (unos 100 a 170 m de lado).")
+        foco = FOCO_ZONA.get(nombres[zona_nombre], ((sur + norte) / 2, (oeste + este) / 2))
+        m = mapas.mapa_ingreso(list(foco), 16, st.session_state.parcelas, st.session_state.ligero)
         salida = st_folium(m, height=460, use_container_width=True, key=f"dibujo_{nombres[zona_nombre]}",
                            returned_objects=["last_active_drawing"])
         dibujo = (salida or {}).get("last_active_drawing")

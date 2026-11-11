@@ -41,7 +41,9 @@ def agregar_zonas(m):
 
 
 def mapa_ingreso(centro, zoom, parcelas=None, ligero=False):
+    """Mapa para dibujar. Se encuadra a nivel de chacra (~1 km) para que el polígono tenga pocas hectáreas."""
     m = mapa_base(centro, zoom, ligero)
+    m.fit_bounds([[centro[0] - 0.0045, centro[1] - 0.006], [centro[0] + 0.0045, centro[1] + 0.006]])
     agregar_zonas(m)
     if parcelas is not None and len(parcelas):
         folium.GeoJson(parcelas[["codigo_parcela", "geometry"]].to_json(), name="Parcelas cargadas",
