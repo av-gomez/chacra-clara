@@ -2,7 +2,7 @@
 
 > **Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se convierte en el expediente de debida diligencia que pide la EUDR.**
 
-**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (63 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
+**Demo en vivo:** **https://chacra-clara.streamlit.app** (Streamlit Community Cloud) · **Video de respaldo (63 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
 
 > ⚠️ Chacra Clara es una herramienta de **tamizaje** y apoyo a la debida diligencia. **No es una certificación oficial.** El resultado final lo valida un técnico.
 
@@ -115,7 +115,7 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
 
 ## 6. Demo
 
-- **URL pública:** _en preparación_ (Streamlit Community Cloud).
+- **URL pública:** https://chacra-clara.streamlit.app (Streamlit Community Cloud). Probada el 10/11/2026 en tamaño de celular (390 px) y de laptop (1366 px): flujo completo y axe sin violaciones en las 7 páginas.
 - **Flujo del demo (2 minutos):**
   1. En Inicio, pulse **Cargar cooperativa de ejemplo** (o dibuje una parcela, paso opcional).
   2. En Resultados, vea el mapa y la tabla.

@@ -8,8 +8,8 @@ Revisado contra el enunciado del issue #204. ✅ = hecho · 🙋 = te toca a ti,
 |---|---|---|---|
 | 1 | Individual, problema real, de preferencia en el Perú | ✅ | EUDR para café y cacao del Perú |
 | 2 | Repo público con todo el código | ✅ | https://github.com/av-gomez/chacra-clara |
-| 3 | Link en el issue #204 antes del martes 10/11, 11:59 p. m. | ✅ | Comentado el 10/11 a las 8:37 p. m. y actualizado con el video. Cuando avises que la URL cargó, el agente agrega la URL pública. |
-| 4 | Demo en URL pública (7–8 puntos) | 🙋 | Desplegar en Streamlit Community Cloud (pasos abajo) y avisar al agente, que prueba la URL en celular y laptop. |
+| 3 | Link en el issue #204 antes del martes 10/11, 11:59 p. m. | ✅ | Comentado el 10/11 a las 8:37 p. m. Actualizado con la URL pública y el video. |
+| 4 | Demo en URL pública (7–8 puntos) | ✅ | https://chacra-clara.streamlit.app, desplegada el 10/11. Flujo completo probado en celular y laptop. axe: 0 violaciones. |
 | 5 | Flujo principal de principio a fin con datos reales | ✅ | Probado en local con Playwright: dibujar o cargar el ejemplo → 5 fuentes → estado, mapa y tabla → ficha PDF y GeoJSON → nota de voz → tablero. |
 | 6 | Plan B: corre en la laptop (4–6 puntos) | ✅ | `correr_local.bat` (Windows) o `sh correr_local.sh`: un solo comando. |
 | 7 | Plan B: video de 60 a 90 s del software real, con su código en el repo | ✅ | `video/demo_respaldo.mp4` (63 s). **Automático, sin grabación manual:** Playwright graba la pantalla, Qwen3-TTS sintetiza la narración con tu voz clonada y ffmpeg une ambas. Se regenera con `python scripts/hacer_video.py --python-voz .venv-voz/Scripts/python --desde-cero`. |
@@ -43,7 +43,6 @@ Revisado contra el enunciado del issue #204. ✅ = hecho · 🙋 = te toca a ti,
 
 | Hora | Qué |
 |---|---|
-| Lo antes posible | Desplegar en Streamlit Cloud (pasos abajo) y avisar al agente. |
 | Antes de las 3:00 p. m. | Las 3 conversaciones (`mensajes-whatsapp.md`), completar `conversacion-1/2/3.md` y la sección Founder. |
 | 3:00 p. m. | Congelamiento: sin funciones nuevas, solo correcciones. |
 | 4:00 – 5:30 p. m. | Dos ensayos con cronómetro usando la URL pública. |
