@@ -1,170 +1,170 @@
 {
   "general_sin_cafe": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "e23a81f1b52b",
-    "segundos": 22.6,
-    "wer": 0.054,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "54004278f478",
+    "segundos": 23.0,
+    "wer": 0.048,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "general_sin_cacao": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su cacao de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "817b52a8a546",
-    "segundos": 21.2,
-    "wer": 0.107,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su cacao a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "018d64b9ae77",
+    "segundos": 22.4,
+    "wer": 0.048,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "general_revisar_cafe": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su café, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "60f4b6513bfe",
-    "segundos": 25.6,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "bb324cb8efee",
+    "segundos": 27.3,
     "wer": 0.069,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "general_revisar_cacao": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su cacao, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "a8ab2decb735",
-    "segundos": 25.0,
-    "wer": 0.097,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su cacao, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "ba89a92bd3d5",
+    "segundos": 26.8,
+    "wer": 0.028,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "general_posible_cafe": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "2267e1029602",
-    "segundos": 25.8,
-    "wer": 0.072,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos.",
+    "huella": "df5e1c9b76b9",
+    "segundos": 27.9,
+    "wer": 0.041,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "general_posible_cacao": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el cacao de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "8650d1944d6f",
-    "segundos": 25.4,
-    "wer": 0.072,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el cacao de esa parcela no debe ir a Europa. La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos.",
+    "huella": "4497be442016",
+    "segundos": 27.4,
+    "wer": 0.041,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-01": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "999efd440bce",
-    "segundos": 24.7,
-    "wer": 0.085,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos.",
+    "huella": "622e429985c3",
+    "segundos": 28.2,
+    "wer": 0.039,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-02": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 02 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "55635965582f",
-    "segundos": 22.5,
-    "wer": 0.086,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 02 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "1c2fbdac6452",
+    "segundos": 23.3,
+    "wer": 0.092,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-03": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 03 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "1e34b7691837",
-    "segundos": 20.6,
-    "wer": 0.069,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 03 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "a281816131ab",
+    "segundos": 25.4,
+    "wer": 0.015,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-04": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 04 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su café, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "bbfa09922969",
-    "segundos": 26.5,
-    "wer": 0.014,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 04 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "896da9e8f920",
+    "segundos": 27.0,
+    "wer": 0.108,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-05": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 05 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "0f5a46769cc3",
-    "segundos": 20.6,
-    "wer": 0.086,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 05 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "b088b6155e44",
+    "segundos": 23.8,
+    "wer": 0.046,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "SAN-06": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 06 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "943d0935bbd6",
-    "segundos": 24.8,
-    "wer": 0.127,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "SAN-07": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 07 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "683206d0f3d7",
-    "segundos": 22.3,
-    "wer": 0.034,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "CAR-01": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el cacao de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "1b1ef5c06fdb",
-    "segundos": 25.2,
-    "wer": 0.07,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "CAR-02": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 02 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su cacao de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "f8d8807ca52d",
-    "segundos": 21.0,
-    "wer": 0.121,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "CAR-03": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 03 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "0e0ad47a214f",
-    "segundos": 21.0,
-    "wer": 0.069,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "CAR-04": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 04 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su cacao de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "58e397f2fafb",
-    "segundos": 22.0,
-    "wer": 0.069,
-    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-  },
-  "CAR-05": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 05 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su café, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "63c0da937ba9",
-    "segundos": 26.8,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 06 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "e5e463e45d4f",
+    "segundos": 27.2,
     "wer": 0.095,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
+  "SAN-07": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela SAN 07 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "8d1c1594817e",
+    "segundos": 23.8,
+    "wer": 0.077,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
+  "CAR-01": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el cacao de esa parcela no debe ir a Europa. La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos.",
+    "huella": "d4132142f8b2",
+    "segundos": 29.1,
+    "wer": 0.066,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
+  "CAR-02": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 02 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su cacao a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "4430d750ded3",
+    "segundos": 25.0,
+    "wer": 0.062,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
+  "CAR-03": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 03 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "56f8a7a1ed6a",
+    "segundos": 24.3,
+    "wer": 0.077,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
+  "CAR-04": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 04 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su cacao a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "50f6fa095a92",
+    "segundos": 24.1,
+    "wer": 0.062,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
+  "CAR-05": {
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela CAR 05 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "300e916e2ce2",
+    "segundos": 25.9,
+    "wer": 0.054,
+    "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
+  },
   "AMY-01": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. Un técnico la va a visitar para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuéntele y muéstrele fotos o documentos.",
-    "huella": "43a7fd606516",
-    "segundos": 25.3,
-    "wer": 0.042,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 01 con imágenes de satélite. Varias fuentes muestran que una parte del bosque se cortó después del año 2020. Por ahora, el café de esa parcela no debe ir a Europa. La cooperativa le recomienda con prioridad la visita de un técnico para confirmar qué pasó. Si la parte cortada ya era chacra antes, cuénteselo y muéstrele fotos o documentos.",
+    "huella": "9aa481024938",
+    "segundos": 27.9,
+    "wer": 0.053,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "AMY-02": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 02 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "1668b0858b90",
-    "segundos": 22.7,
-    "wer": 0.069,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 02 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "d73222caeec9",
+    "segundos": 24.2,
+    "wer": 0.077,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "AMY-03": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 03 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "89ee3b7b2abb",
-    "segundos": 22.7,
-    "wer": 0.052,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 03 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "050303611f57",
+    "segundos": 24.5,
+    "wer": 0.062,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "AMY-04": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 04 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su café, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "1121b3c3f532",
-    "segundos": 25.2,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 04 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "875277db6c93",
+    "segundos": 28.5,
     "wer": 0.068,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "AMY-05": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 05 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser sombra de su café, una renovación o una poda. Un técnico de la cooperativa la va a visitar. Tenga a la mano fotos antiguas de su chacra, si las tiene. No se preocupe: es solo una revisión.",
-    "huella": "21a1b31ebacf",
-    "segundos": 25.5,
-    "wer": 0.108,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 05 con imágenes de satélite. Vemos un cambio en una parte de la chacra, pero no estamos seguros de qué es. Puede ser la sombra de su café, una renovación o una poda. La cooperativa le recomienda la visita de un técnico. Si renovó o podó su chacra, cuénteselo y muéstrele fotos antiguas. No se preocupe: es solo una revisión.",
+    "huella": "ca6100e0839d",
+    "segundos": 27.1,
+    "wer": 0.095,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "AMY-06": {
-    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 06 con imágenes de satélite de varios años. Buenas noticias: no encontramos pérdida de bosque después del año 2020. Su café de esta parcela puede venderse a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
-    "huella": "49b8d9da0ffe",
-    "segundos": 22.4,
-    "wer": 0.052,
+    "texto": "Hola. Le habla Chacra Clara, de parte de su cooperativa. Revisamos su parcela AMY 06 con imágenes de satélite de varios años. No encontramos pérdida de bosque después del año 2020. Todavía falta revisar otros papeles, como la posesión de la tierra, antes de vender su café a Europa. Guarde este audio. Si cambia el tamaño de su chacra, avise a su técnico.",
+    "huella": "970ec0d36a34",
+    "segundos": 24.0,
+    "wer": 0.046,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   }
 }
