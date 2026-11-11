@@ -115,8 +115,8 @@ def pagina_inicio():
     hoy = cooperativa.resumen(pd.DataFrame({"estado": [], "produccion_kg_anual": []}))
     cifras([(f"{hoy['dias_grandes']}", "días para el 30/12/2026 (exportadoras grandes y medianas)"),
             (f"{hoy['dias_pequenos']}", "días para el 30/06/2027 (micro y pequeñas empresas)"),
-            ("160 mil", "predios de café aún sin geolocalizar, según la Junta Nacional del Café"),
-            ("40 %", "del café peruano exportado en valor va a la Unión Europea")])
+            ("160 mil", "predios de café, cacao y palma aún sin geolocalizar (Junta Nacional del Café, oct. 2026)"),
+            ("40 %", "del valor del café peruano exportado en 2025 fue a la Unión Europea")])
     st.markdown("## Cómo funciona, en tres pasos")
     st.markdown(
         "1. **Ingrese sus parcelas.** Dibújelas en el mapa, suba un GeoJSON o KML, o un Excel con coordenadas.\n"
