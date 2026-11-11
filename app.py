@@ -404,11 +404,12 @@ def tabla_por_estado(r):
     for clave in ["sin", "revisar", "posible"]:
         d = r["por_estado"][clave]
         filas.append({"Estado": ESTADOS[clave]["icono"] + " " + ESTADOS[clave]["corto"],
-                      "Parcelas": d["parcelas"], "% del área": pct(d["pct_ha"]), "% del volumen": pct(d["pct_kg"]),
-                      "Valor estimado (US$)": num(d["usd"], 0)})
+                      "Parcelas": d["parcelas"], "Área": pct(d["pct_ha"]), "Volumen": pct(d["pct_kg"]),
+                      "US$": num(d["usd"], 0)})
     st.table(pd.DataFrame(filas).set_index("Estado"))
     st.markdown(f"**Valor de exportación en riesgo** (parcelas en «Revisar» o «Posible deforestación»): "
-                f"**US$ {num(r['usd_en_riesgo'], 0)}** de US$ {num(r['usd_total'], 0)} al año.")
+                f"**US$ {num(r['usd_en_riesgo'], 0)}** de US$ {num(r['usd_total'], 0)} al año. En la tabla, área y "
+                f"volumen son el porcentaje del total y US$ es el valor de exportación estimado al año.")
     st.caption("Cómo se calcula: volumen = producción declarada (o área × rendimiento promedio: café 671 kg/ha, "
                "Junta Nacional del Café 2025; cacao 678 kg/ha, Recursos 2026) × precio de exportación (café US$ 7,30/kg "
                "= US$ 336 por quintal FOB 2025, Agraria.pe; cacao en grano US$ 8,11/kg 2025, CIEN-ADEX). "
