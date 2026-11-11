@@ -1,8 +1,8 @@
 {
  "escena_1": "Chacra Clara ayuda a las cooperativas de café y cacao del Perú a cumplir la nueva norma europea contra la deforestación, sin dejar fuera a los pequeños productores.",
  "escena_2": "El técnico de la cooperativa dibuja la parcela de un socio en el mapa, en Sandia, Puno, y pide el análisis.",
- "escena_3": "En segundos, la parcela se cruza con cinco fuentes satelitales abiertas. El resultado se muestra con ícono, texto y patrón, y con la evidencia de cada fuente.",
+ "escena_3": "En segundos, la parcela se cruza con dos tipos de satélite y con mapas de bosque natural. El resultado se muestra con ícono, texto y patrón, y con la evidencia de cada fuente.",
  "escena_4": "Se ve el antes y el después con imágenes de Sentinel dos. Y el productor recibe una nota de voz que le explica su resultado en palabras simples.",
- "escena_5": "Para toda la cooperativa, el tablero muestra cuántas parcelas están listas, qué parte del volumen puede ir hoy a Europa, y en qué orden visitar las parcelas en riesgo.",
+ "escena_5": "Para toda la cooperativa, el tablero muestra cuántas parcelas no tienen deforestación detectada, qué parte del valor exportado está en riesgo, y en qué orden visitar las parcelas.",
  "escena_6": "La ficha en PDF, el archivo para la declaración europea y todos los datos se descargan cuando la cooperativa quiera. Es un tamizaje: el resultado final lo valida un técnico."
 }

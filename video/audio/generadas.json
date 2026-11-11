@@ -14,10 +14,10 @@
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_3": {
-    "texto": "En segundos, la parcela se cruza con cinco fuentes satelitales abiertas. El resultado se muestra con ícono, texto y patrón, y con la evidencia de cada fuente.",
-    "huella": "52ab40e0c53e",
-    "segundos": 9.8,
-    "wer": 0.037,
+    "texto": "En segundos, la parcela se cruza con dos tipos de satélite y con mapas de bosque natural. El resultado se muestra con ícono, texto y patrón, y con la evidencia de cada fuente.",
+    "huella": "7534d6001f42",
+    "segundos": 11.8,
+    "wer": 0.03,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_4": {
@@ -28,10 +28,10 @@
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_5": {
-    "texto": "Para toda la cooperativa, el tablero muestra cuántas parcelas están listas, qué parte del volumen puede ir hoy a Europa, y en qué orden visitar las parcelas en riesgo.",
-    "huella": "6ac9d39e4cfe",
-    "segundos": 10.1,
-    "wer": 0.0,
+    "texto": "Para toda la cooperativa, el tablero muestra cuántas parcelas no tienen deforestación detectada, qué parte del valor exportado está en riesgo, y en qué orden visitar las parcelas.",
+    "huella": "bb24261c4c82",
+    "segundos": 11.2,
+    "wer": 0.143,
     "modelo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
   },
   "escena_6": {
