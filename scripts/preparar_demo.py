@@ -24,15 +24,15 @@ ELEGIDAS = {
     "SAN-INT-12": ("SAN-02", "café", False),
     "SAN-CHA-19": ("SAN-03", "café", True),
     "SAN-UNA-8": ("SAN-04", "café", False),
-    "SAN-SOM-24": ("SAN-05", "café", False),
+    "SAN-SOM-27": ("SAN-05", "café", False),
     "SAN-PER-4": ("SAN-06", "café", False),
     "SAN-CHA-22": ("SAN-07", "café", False),
-    "CAR-PER-33": ("CAR-01", "cacao", False),
+    "CAR-PER-36": ("CAR-01", "cacao", False),
     "CAR-INT-43": ("CAR-02", "cacao", True),
     "CAR-REN-56": ("CAR-03", "café", False),
     "CAR-SOM-52": ("CAR-04", "cacao", False),
     "CAR-UNA-40": ("CAR-05", "café", False),
-    "ALT-PER-63": ("AMY-01", "café", False),
+    "ALT-PER-61": ("AMY-01", "café", False),
     "ALT-INT-70": ("AMY-02", "café", False),
     "ALT-CHA-77": ("AMY-03", "café", False),
     "ALT-REN-85": ("AMY-04", "café", False),
@@ -40,6 +40,8 @@ ELEGIDAS = {
     "ALT-CHA-80": ("AMY-06", "café", True),
 }
 RENDIMIENTO = {"café": 700, "cacao": 900}
+# Dos cooperativas ficticias: una central en Puno (Sandia y Carabaya) y una en San Martín (Alto Mayo)
+COOPERATIVA = {"sandia": "puno", "carabaya": "puno", "altomayo": "sanmartin"}
 
 
 def main():
@@ -56,7 +58,8 @@ def main():
         produccion = int(round(area * RENDIMIENTO[cultivo] * rng.uniform(0.8, 1.2), -1))
         filas.append({"codigo_productor": f"PR-{100 + n}", "codigo_parcela": codigo, "cultivo": cultivo,
                       "area_ha": round(area, 2), "produccion_kg_anual": produccion,
-                      "caso_esperado": c["caso_esperado"], "candidata": candidata, "geometry": geom})
+                      "cooperativa": COOPERATIVA[c["zona"]], "caso_esperado": c["caso_esperado"],
+                      "candidata": candidata, "geometry": geom})
     gdf = gpd.GeoDataFrame(filas, crs="EPSG:4326")
     gdf.to_file(RAIZ / "datos" / "parcelas" / "demo.geojson", driver="GeoJSON")
 

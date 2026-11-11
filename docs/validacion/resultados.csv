@@ -1,0 +1,90 @@
+candidata,caso_buscado,estado,confianza,perdida_acordada_ha,referencia_visual,nota,acierta_caso
+SAN-PER-0,perdida_clara,posible,alta,1.309,deforestacion_visible,pérdida forestal clara; claros nuevos en 2025,True
+SAN-PER-1,perdida_clara,posible,alta,0.605,deforestacion_visible,carretera o minería nueva sobre bosque,True
+SAN-PER-2,perdida_clara,posible,alta,0.298,dudoso,cambio leve,True
+SAN-PER-3,perdida_clara,posible,alta,0.788,dudoso,cambio leve,True
+SAN-PER-4,perdida_clara,posible,alta,0.696,deforestacion_visible,claro grande al sur del polígono,True
+SAN-PER-5,perdida_clara,posible,alta,0.613,deforestacion_visible,carretera o minería nueva sobre bosque,True
+SAN-UNA-6,una_fuente,revisar,baja,0.0,sin_perdida_de_bosque_visible,,True
+SAN-UNA-7,una_fuente,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-UNA-8,una_fuente,revisar,media,0.0,dudoso,parches de chacra cerca; no se distingue,True
+SAN-UNA-9,una_fuente,sin,media,0.0,sin_perdida_de_bosque_visible,,True
+SAN-UNA-10,una_fuente,revisar,media,0.0,deforestacion_visible,suelo desnudo nuevo (deslizamiento o trocha),True
+SAN-UNA-11,una_fuente,revisar,media,0.0,dudoso,parches claros cerca del borde,True
+SAN-INT-12,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-INT-13,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-INT-14,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-INT-15,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-INT-16,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-INT-17,intacto,sin,media,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-18,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-19,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-20,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-21,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-22,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-CHA-23,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-24,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-25,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-26,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-27,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-28,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-SOM-29,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+SAN-REN-30,renovacion,revisar,media,0.0,dudoso,zona urbana que crece,True
+CAR-PER-31,perdida_clara,posible,alta,0.258,dudoso,cambio pequeño en el borde,True
+CAR-PER-32,perdida_clara,posible,alta,0.673,dudoso,mosaico; cambio leve,True
+CAR-PER-33,perdida_clara,posible,alta,0.973,dudoso,mosaico; cambio leve,True
+CAR-PER-34,perdida_clara,posible,alta,0.973,dudoso,cambio pequeño en el borde,True
+CAR-PER-35,perdida_clara,posible,alta,0.532,sin_perdida_de_bosque_visible,,True
+CAR-PER-36,perdida_clara,posible,alta,0.582,deforestacion_visible,parche de suelo desnudo nuevo,True
+CAR-UNA-37,una_fuente,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+CAR-UNA-38,una_fuente,sin,media,0.0,sin_perdida_de_bosque_visible,,True
+CAR-UNA-39,una_fuente,revisar,media,0.0,dudoso,parche anaranjado en la punta,True
+CAR-UNA-40,una_fuente,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+CAR-UNA-41,una_fuente,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+CAR-UNA-42,una_fuente,revisar,media,0.0,dudoso,cambio leve,True
+CAR-INT-43,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-INT-44,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-INT-45,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-INT-46,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-INT-47,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-INT-48,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-CHA-49,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-SOM-50,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-SOM-51,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-SOM-52,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-SOM-53,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-REN-54,renovacion,revisar,media,0.0,dudoso,zona urbana que crece,True
+CAR-REN-55,renovacion,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+CAR-REN-56,renovacion,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+CAR-REN-57,renovacion,revisar,media,0.0,dudoso,zona urbana que crece,True
+ALT-PER-58,perdida_clara,posible,alta,0.298,deforestacion_visible,claro nuevo junto a carretera,True
+ALT-PER-59,perdida_clara,posible,alta,0.612,dudoso,cambio leve,True
+ALT-PER-60,perdida_clara,posible,alta,1.037,deforestacion_visible,claro grande dentro del polígono,True
+ALT-PER-61,perdida_clara,posible,alta,1.08,deforestacion_visible,claro grande dentro del polígono,True
+ALT-PER-62,perdida_clara,posible,alta,0.629,dudoso,mosaico; cambio leve,True
+ALT-PER-63,perdida_clara,posible,alta,1.42,sin_perdida_de_bosque_visible,,True
+ALT-UNA-64,una_fuente,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-UNA-65,una_fuente,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-UNA-66,una_fuente,sin,media,0.0,sin_perdida_de_bosque_visible,,True
+ALT-UNA-67,una_fuente,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+ALT-UNA-68,una_fuente,sin,media,0.0,dudoso,cambio leve,True
+ALT-UNA-69,una_fuente,revisar,baja,0.0,dudoso,parche más claro en 2025,True
+ALT-INT-70,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-INT-71,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-INT-72,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-INT-73,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-INT-74,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-INT-75,intacto,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-76,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-77,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-78,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-79,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-80,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-CHA-81,chacra_antigua,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-SOM-82,sombra,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-83,renovacion,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-84,renovacion,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-85,renovacion,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-86,renovacion,revisar,media,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-87,renovacion,sin,alta,0.0,sin_perdida_de_bosque_visible,,True
+ALT-REN-88,renovacion,sin,alta,0.0,sin_perdida_de_bosque_visible,,True

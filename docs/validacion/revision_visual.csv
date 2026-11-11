@@ -1,0 +1,90 @@
+candidata,zona,caso_buscado,referencia_visual,nota
+SAN-PER-0,sandia,perdida_clara,deforestacion_visible,pérdida forestal clara; claros nuevos en 2025
+SAN-PER-1,sandia,perdida_clara,deforestacion_visible,carretera o minería nueva sobre bosque
+SAN-PER-2,sandia,perdida_clara,dudoso,cambio leve
+SAN-PER-3,sandia,perdida_clara,dudoso,cambio leve
+SAN-PER-4,sandia,perdida_clara,deforestacion_visible,claro grande al sur del polígono
+SAN-PER-5,sandia,perdida_clara,deforestacion_visible,carretera o minería nueva sobre bosque
+SAN-UNA-6,sandia,una_fuente,sin_perdida_de_bosque_visible,
+SAN-UNA-7,sandia,una_fuente,sin_perdida_de_bosque_visible,
+SAN-UNA-8,sandia,una_fuente,dudoso,parches de chacra cerca; no se distingue
+SAN-UNA-9,sandia,una_fuente,sin_perdida_de_bosque_visible,
+SAN-UNA-10,sandia,una_fuente,deforestacion_visible,suelo desnudo nuevo (deslizamiento o trocha)
+SAN-UNA-11,sandia,una_fuente,dudoso,parches claros cerca del borde
+SAN-INT-12,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-INT-13,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-INT-14,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-INT-15,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-INT-16,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-INT-17,sandia,intacto,sin_perdida_de_bosque_visible,
+SAN-CHA-18,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-CHA-19,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-CHA-20,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-CHA-21,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-CHA-22,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-CHA-23,sandia,chacra_antigua,sin_perdida_de_bosque_visible,
+SAN-SOM-24,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-SOM-25,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-SOM-26,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-SOM-27,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-SOM-28,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-SOM-29,sandia,sombra,sin_perdida_de_bosque_visible,
+SAN-REN-30,sandia,renovacion,dudoso,zona urbana que crece
+CAR-PER-31,carabaya,perdida_clara,dudoso,cambio pequeño en el borde
+CAR-PER-32,carabaya,perdida_clara,dudoso,mosaico; cambio leve
+CAR-PER-33,carabaya,perdida_clara,dudoso,mosaico; cambio leve
+CAR-PER-34,carabaya,perdida_clara,dudoso,cambio pequeño en el borde
+CAR-PER-35,carabaya,perdida_clara,sin_perdida_de_bosque_visible,
+CAR-PER-36,carabaya,perdida_clara,deforestacion_visible,parche de suelo desnudo nuevo
+CAR-UNA-37,carabaya,una_fuente,sin_perdida_de_bosque_visible,
+CAR-UNA-38,carabaya,una_fuente,sin_perdida_de_bosque_visible,
+CAR-UNA-39,carabaya,una_fuente,dudoso,parche anaranjado en la punta
+CAR-UNA-40,carabaya,una_fuente,sin_perdida_de_bosque_visible,
+CAR-UNA-41,carabaya,una_fuente,sin_perdida_de_bosque_visible,
+CAR-UNA-42,carabaya,una_fuente,dudoso,cambio leve
+CAR-INT-43,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-INT-44,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-INT-45,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-INT-46,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-INT-47,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-INT-48,carabaya,intacto,sin_perdida_de_bosque_visible,
+CAR-CHA-49,carabaya,chacra_antigua,sin_perdida_de_bosque_visible,
+CAR-SOM-50,carabaya,sombra,sin_perdida_de_bosque_visible,
+CAR-SOM-51,carabaya,sombra,sin_perdida_de_bosque_visible,
+CAR-SOM-52,carabaya,sombra,sin_perdida_de_bosque_visible,
+CAR-SOM-53,carabaya,sombra,sin_perdida_de_bosque_visible,
+CAR-REN-54,carabaya,renovacion,dudoso,zona urbana que crece
+CAR-REN-55,carabaya,renovacion,sin_perdida_de_bosque_visible,
+CAR-REN-56,carabaya,renovacion,sin_perdida_de_bosque_visible,
+CAR-REN-57,carabaya,renovacion,dudoso,zona urbana que crece
+ALT-PER-58,altomayo,perdida_clara,deforestacion_visible,claro nuevo junto a carretera
+ALT-PER-59,altomayo,perdida_clara,dudoso,cambio leve
+ALT-PER-60,altomayo,perdida_clara,deforestacion_visible,claro grande dentro del polígono
+ALT-PER-61,altomayo,perdida_clara,deforestacion_visible,claro grande dentro del polígono
+ALT-PER-62,altomayo,perdida_clara,dudoso,mosaico; cambio leve
+ALT-PER-63,altomayo,perdida_clara,sin_perdida_de_bosque_visible,
+ALT-UNA-64,altomayo,una_fuente,sin_perdida_de_bosque_visible,
+ALT-UNA-65,altomayo,una_fuente,sin_perdida_de_bosque_visible,
+ALT-UNA-66,altomayo,una_fuente,sin_perdida_de_bosque_visible,
+ALT-UNA-67,altomayo,una_fuente,sin_perdida_de_bosque_visible,
+ALT-UNA-68,altomayo,una_fuente,dudoso,cambio leve
+ALT-UNA-69,altomayo,una_fuente,dudoso,parche más claro en 2025
+ALT-INT-70,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-INT-71,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-INT-72,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-INT-73,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-INT-74,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-INT-75,altomayo,intacto,sin_perdida_de_bosque_visible,
+ALT-CHA-76,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-CHA-77,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-CHA-78,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-CHA-79,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-CHA-80,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-CHA-81,altomayo,chacra_antigua,sin_perdida_de_bosque_visible,
+ALT-SOM-82,altomayo,sombra,sin_perdida_de_bosque_visible,
+ALT-REN-83,altomayo,renovacion,sin_perdida_de_bosque_visible,
+ALT-REN-84,altomayo,renovacion,sin_perdida_de_bosque_visible,
+ALT-REN-85,altomayo,renovacion,sin_perdida_de_bosque_visible,
+ALT-REN-86,altomayo,renovacion,sin_perdida_de_bosque_visible,
+ALT-REN-87,altomayo,renovacion,sin_perdida_de_bosque_visible,
+ALT-REN-88,altomayo,renovacion,sin_perdida_de_bosque_visible,

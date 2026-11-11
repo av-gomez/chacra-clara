@@ -54,11 +54,15 @@ def contar_decimales(valor):
 
 
 def decimales_minimos_de(geom_dict):
-    """Cuenta los decimales de cada coordenada de un GeoJSON y devuelve el mínimo."""
+    """Precisión de las coordenadas de un GeoJSON: el MÁXIMO de decimales entre sus números.
+
+    Se usa el máximo y no el mínimo porque JSON borra los ceros finales (-14.123450 se guarda como -14.12345):
+    si ningún número llega a 6 decimales, la parcela sí está tomada con poca precisión.
+    """
     numeros = re.findall(r"-?\d+(?:\.\d+)?", json.dumps(geom_dict.get("coordinates", [])))
     if not numeros:
         return 0
-    return min(contar_decimales(n) for n in numeros)
+    return max(contar_decimales(n) for n in numeros)
 
 
 def _normalizar_columnas(df):
@@ -95,7 +99,7 @@ def leer_tabla(archivo, nombre):
             "cultivo": str(fila.get("cultivo") or "café").strip().lower(),
             "area_declarada_ha": pd.to_numeric(str(fila.get("area_ha", "")).replace(",", "."), errors="coerce"),
             "produccion_kg_anual": pd.to_numeric(fila.get("produccion_kg_anual"), errors="coerce"),
-            "decimales": min(contar_decimales(lat_txt), contar_decimales(lon_txt)),
+            "decimales": max(contar_decimales(lat_txt), contar_decimales(lon_txt)),
             "geometry": geom,
         })
     return gpd.GeoDataFrame(filas, geometry="geometry", crs="EPSG:4326")
@@ -160,7 +164,7 @@ def leer_kml(contenido):
                              "geometry": {"type": "Point", "coordinates": [lon, lat]}})
     # Los decimales se cuentan sobre el texto original del KML
     coordenadas = re.findall(r"-?\d+\.\d+", contenido.decode("utf-8", errors="ignore"))
-    decimales_kml = min((contar_decimales(c) for c in coordenadas), default=0)
+    decimales_kml = max((contar_decimales(c) for c in coordenadas), default=0)
     gdf = desde_geojson({"type": "FeatureCollection", "features": features})
     gdf["decimales"] = decimales_kml
     return gdf

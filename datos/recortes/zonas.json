@@ -1,0 +1,71 @@
+{
+  "sandia": {
+    "nombre": "Sandia (Puno): San Juan del Oro y Putina Punco",
+    "region": "Puno",
+    "cultivo": "café",
+    "bbox": [
+      -69.25,
+      -14.3,
+      -69.05,
+      -14.1
+    ],
+    "capas": [
+      "alertas_perdida.tif",
+      "geobosques_perdida.tif",
+      "hansen_cobertura2000.tif",
+      "hansen_perdida.tif",
+      "io_perdida.tif",
+      "jrc_bosque2020.tif",
+      "legalidad.geojson",
+      "s2_antes.jpg",
+      "s2_despues.jpg",
+      "worldcover2020.tif"
+    ]
+  },
+  "carabaya": {
+    "nombre": "Carabaya (Puno): San Gabán",
+    "region": "Puno",
+    "cultivo": "café y cacao",
+    "bbox": [
+      -70.48,
+      -13.5,
+      -70.33,
+      -13.35
+    ],
+    "capas": [
+      "alertas_perdida.tif",
+      "geobosques_perdida.tif",
+      "hansen_cobertura2000.tif",
+      "hansen_perdida.tif",
+      "io_perdida.tif",
+      "jrc_bosque2020.tif",
+      "legalidad.geojson",
+      "s2_antes.jpg",
+      "s2_despues.jpg",
+      "worldcover2020.tif"
+    ]
+  },
+  "altomayo": {
+    "nombre": "Alto Mayo (San Martín): Moyobamba y Rioja",
+    "region": "San Martín",
+    "cultivo": "café",
+    "bbox": [
+      -77.2,
+      -5.95,
+      -77.0,
+      -5.75
+    ],
+    "capas": [
+      "alertas_perdida.tif",
+      "geobosques_perdida.tif",
+      "hansen_cobertura2000.tif",
+      "hansen_perdida.tif",
+      "io_perdida.tif",
+      "jrc_bosque2020.tif",
+      "legalidad.geojson",
+      "s2_antes.jpg",
+      "s2_despues.jpg",
+      "worldcover2020.tif"
+    ]
+  }
+}
