@@ -2,7 +2,7 @@
 
 > **Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se convierte en el expediente de debida diligencia que pide la EUDR.**
 
-**Demo en vivo:** **https://chacra-clara.streamlit.app** (Streamlit Community Cloud) · **Video de respaldo (63 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
+**Demo en vivo:** **https://chacra-clara.streamlit.app** (Streamlit Community Cloud) · **Video de respaldo (66 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
 
 > ⚠️ Chacra Clara es una herramienta de **tamizaje** y apoyo a la debida diligencia. **No es una certificación oficial.** El resultado final lo valida un técnico.
 
@@ -128,7 +128,7 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
 
 ### Video de respaldo (plan B): cómo se produce
 
-[`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) dura 63 s y muestra el **software real funcionando**. **Nadie lo grabó a mano.** Todo lo produce código que está en este repo:
+[`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) dura 66 s y muestra el **software real funcionando**. **Nadie lo grabó a mano.** Todo lo produce código que está en este repo:
 
 | Paso | Qué pasa | Script |
 |---|---|---|

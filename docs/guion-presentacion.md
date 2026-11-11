@@ -100,7 +100,7 @@
 | Momento | Qué pasa | Qué hago |
 |---|---|---|
 | Antes de 0:30 | La URL no carga | Paso a la pestaña de `correr_local.bat` (localhost). Si tampoco carga, al video. |
-| **De 0:30 a 0:45** | El mapa o la app no responden en **10 segundos** | **A más tardar en el segundo 0:45, paso al video de respaldo** y lo reproduzco desde el inicio. Dura 63 s y ya trae su narración, sintetizada con mi voz clonada, así que no hablo encima. Termina hacia 1:50. |
+| **De 0:30 a 0:45** | El mapa o la app no responden en **10 segundos** | **A más tardar en el segundo 0:45, paso al video de respaldo** y lo reproduzco desde el inicio. Dura 66 s y ya trae su narración, sintetizada con mi voz clonada, así que no hablo encima. Termina hacia 1:51. |
 | Después del video (~1:50) | — | Retomo en vivo con el negocio (2:30 – 3:00) o lo adelanto si sobra tiempo. |
 | En cualquier momento | Se cae el internet | Uso el video guardado en la laptop, que no depende de internet. |
 

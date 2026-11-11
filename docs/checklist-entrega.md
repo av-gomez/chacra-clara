@@ -9,15 +9,15 @@ Revisado contra el enunciado del issue #204. ✅ = hecho · 🙋 = te toca a ti,
 | 1 | Individual, problema real, de preferencia en el Perú | ✅ | EUDR para café y cacao del Perú |
 | 2 | Repo público con todo el código | ✅ | https://github.com/av-gomez/chacra-clara |
 | 3 | Link en el issue #204 antes del martes 10/11, 11:59 p. m. | ✅ | Comentado el 10/11 a las 8:37 p. m. Actualizado con la URL pública y el video. |
-| 4 | Demo en URL pública (7–8 puntos) | ✅ | https://chacra-clara.streamlit.app, desplegada el 10/11. Flujo completo probado en celular y laptop. axe: 0 violaciones. |
-| 5 | Flujo principal de principio a fin con datos reales | ✅ | Probado en local con Playwright: dibujar o cargar el ejemplo → 5 fuentes → estado, mapa y tabla → ficha PDF y GeoJSON → nota de voz → tablero. |
+| 4 | Demo en URL pública (7–8 puntos) | ✅ | https://chacra-clara.streamlit.app, desplegada el 10/11 y actualizada con el método v2 el 11/11. Probada de nuevo el 11/11 a mediodía: 7 páginas en celular (390 px), 0 violaciones de axe, sin errores de JavaScript; y el flujo completo en laptop (1280 px) al grabar el video contra la URL pública. |
+| 5 | Flujo principal de principio a fin con datos reales | ✅ | Probado con Playwright en local y en la URL pública: dibujar o cargar el ejemplo → 5 fuentes → estado, mapa y tabla → ficha PDF y GeoJSON → nota de voz → tablero. |
 | 6 | Plan B: corre en la laptop (4–6 puntos) | ✅ | `correr_local.bat` (Windows) o `sh correr_local.sh`: un solo comando. |
-| 7 | Plan B: video de 60 a 90 s del software real, con su código en el repo | ✅ | `video/demo_respaldo.mp4` (63 s). **Automático, sin grabación manual:** Playwright graba la pantalla, Qwen3-TTS sintetiza la narración con tu voz clonada y ffmpeg une ambas. Se regenera con `python scripts/hacer_video.py --python-voz .venv-voz/Scripts/python --desde-cero`. |
+| 7 | Plan B: video de 60 a 90 s del software real, con su código en el repo | ✅ | `video/demo_respaldo.mp4` (66 s, método v2; grabado contra la URL pública el 11/11). **Automático, sin grabación manual:** Playwright graba la pantalla, Qwen3-TTS sintetiza la narración con tu voz clonada y ffmpeg une ambas. Se regenera con `python scripts/hacer_video.py --python-voz .venv-voz/Scripts/python --desde-cero`. |
 | 8 | Dos herramientas del curso dentro del producto | ✅ | Raster (07), GeoPandas y Folium (06), texto a voz con tu voz (15); extra: LLM con salida estructurada (08). README, parte 8. |
 | 9 | README con las 9 partes | ✅ / 🙋 | Están las 9 partes. 🙋 Responder las 5 preguntas de **2. Founder** y resumir las conversaciones en **3. Problema**. |
 | 10 | 3 conversaciones con usuarios en `docs/research/` | 🙋 | Plantillas listas (`conversacion-1.md` a `-3.md`) y mensajes para pedirlas en `docs/research/mensajes-whatsapp.md`. **Faltan las conversaciones reales.** El agente no inventó respuestas. |
 | 11 | Modelo de negocio: quién paga, precio y costo por usuario | ✅ | README, parte 7 |
-| 12 | Commits en varios días | ⏳ | Martes 10: más de 20 commits. Miércoles 11: el agente sigue con commits pequeños. |
+| 12 | Commits en varios días | ✅ | Martes 10: más de 20 commits. Miércoles 11: commits pequeños (notas de voz, video, tablero en celular). |
 | 13 | Sin claves en el repo ni `.env` real | ✅ | Revisado con `git log -p` (api_key, secret, token): solo nombres de variables vacías. `.env` está en `.gitignore`. |
 | 14 | No dejar el README del template | ✅ | README propio |
 | 15 | Datos públicos, sintéticos o propios | ✅ | Capas satelitales públicas; parcelas en lugares reales con productores ficticios; tu voz, con tu consentimiento. |
