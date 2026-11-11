@@ -9,6 +9,8 @@ Por qué estos valores:
     talar 0.3 ha de bosque en ella sí importa aunque no llegue a 0.5 ha.
   - ACUERDO: para "Posible deforestación" se necesitan al menos dos fuentes independientes que vean
     pérdida dentro de lo que era bosque en 2020. Una sola fuente manda la parcela a "Revisar".
+  - PÉRDIDA FUERA DEL BOSQUE 2020: si nadie ve pérdida en bosque, pero sí hay pérdida significativa de árboles
+    donde en 2020 no había bosque, la parcela va a "Revisar" (renovación, poda o quema de una chacra existente).
   - CHACRA_PREVIA = 50 %: si la mitad o más de la pérdida cae en píxeles que ESA WorldCover 2020
     marcó como cultivo, pasto o arbustal, lo más probable es una renovación, poda de sombra o quema
     de una chacra existente. No es deforestación según la EUDR (no había bosque), pero se revisa.
@@ -72,11 +74,12 @@ def es_significativa(perdida_ha, area_parcela_ha):
 
 
 def clasificar(area_parcela_ha, bosque_2020_ha, evidencias, perdida_acordada_ha,
-               perdida_en_chacra_2020_pct, es_punto):
+               perdida_en_chacra_2020_pct, es_punto, perdida_fuera_bosque_ha=0.0):
     """Devuelve el estado, la confianza y las razones en lenguaje claro.
 
     perdida_acordada_ha: pérdida en bosque 2020 donde al menos dos fuentes coinciden píxel a píxel.
     perdida_en_chacra_2020_pct: % de la pérdida que cae en cultivo/pasto/arbustal según WorldCover 2020.
+    perdida_fuera_bosque_ha: la mayor pérdida (entre fuentes) en partes que NO eran bosque en 2020.
     """
     razones = []
     disponibles = [e for e in evidencias if e.disponible]
@@ -96,10 +99,18 @@ def clasificar(area_parcela_ha, bosque_2020_ha, evidencias, perdida_acordada_ha,
         razones.append(f"En 2020 había {bosque_2020_ha:.2f} ha de bosque ({bosque_pct:.0f} % de la parcela) "
                        "según el mapa de referencia de la UE (JRC).")
 
-    if not detectan:
+    if not detectan and es_significativa(perdida_fuera_bosque_ha, area_parcela_ha):
+        estado = REVISAR
+        razones.append(f"Hay {perdida_fuera_bosque_ha:.2f} ha con pérdida de árboles después de 2020 en partes que "
+                       "en 2020 no eran bosque. Si era chacra, no es deforestación según la EUDR: puede ser renovación "
+                       "del cafetal, poda de sombra o quema. Hay que confirmarlo.")
+    elif not detectan:
         estado = SIN
         razones.append("Ninguna fuente ve pérdida de bosque después de 2020 por encima de "
                        f"{PERDIDA_MINIMA_HA} ha.")
+        if bosque_pct > 60:
+            razones.append("La parcela se ve como bosque. Si es café o cacao bajo sombra, guarde pruebas de que el "
+                           "sistema agroforestal existía antes de 2021 (fotos, constancias).")
     elif (len(detectan) >= FUENTES_MINIMAS_DE_ACUERDO
           and es_significativa(perdida_acordada_ha, area_parcela_ha)
           and perdida_en_chacra_2020_pct < CHACRA_PREVIA_PCT):

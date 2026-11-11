@@ -1,0 +1,15 @@
+{
+  "_nota": "No se usan traducciones automáticas. Cada texto lo escribe y lo valida una persona hablante del idioma. Mientras 'texto' sea null, la app muestra 'Pendiente de validación'.",
+  "qu": {
+    "idioma": "Quechua (variante de Puno, Collao)",
+    "sin": {"texto": null, "validado_por": null, "fecha": null},
+    "revisar": {"texto": null, "validado_por": null, "fecha": null},
+    "posible": {"texto": null, "validado_por": null, "fecha": null}
+  },
+  "ay": {
+    "idioma": "Aimara",
+    "sin": {"texto": null, "validado_por": null, "fecha": null},
+    "revisar": {"texto": null, "validado_por": null, "fecha": null},
+    "posible": {"texto": null, "validado_por": null, "fecha": null}
+  }
+}

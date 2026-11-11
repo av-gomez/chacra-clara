@@ -179,6 +179,14 @@ def leer_archivo(archivo_subido):
     raise ValueError("Formato no reconocido. Use GeoJSON, KML, CSV o Excel.")
 
 
+def tiene_agujeros(geom):
+    if isinstance(geom, Polygon):
+        return len(geom.interiors) > 0
+    if isinstance(geom, MultiPolygon):
+        return any(len(p.interiors) > 0 for p in geom.geoms)
+    return False
+
+
 def area_ha(gdf):
     """Área en hectáreas: se calcula en metros (UTM), nunca en grados (EPSG:4326)."""
     utm = gdf.estimate_utm_crs()
@@ -200,6 +208,8 @@ def validar(gdf):
             e.append("Tipo de geometría no aceptado (use punto o polígono).")
         if not geom.is_valid:
             e.append(f"El polígono se cruza consigo mismo o está mal cerrado ({explain_validity(geom)}).")
+        if tiene_agujeros(geom):
+            e.append("El polígono tiene agujeros: el sistema de la UE no los acepta. Divídalo en partes.")
         if not peru.contains(geom.centroid):
             e.append("La parcela está fuera del Perú.")
         if es_punto and pd.notna(area_ref) and area_ref > LIMITE_PUNTO_HA:
