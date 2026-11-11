@@ -29,7 +29,7 @@ NODATA = 255
 FUENTES_PERDIDA = [
     {"clave": "hansen", "nombre": "Hansen/UMD (Landsat, 30 m)", "archivo": "hansen_perdida.tif"},
     {"clave": "alertas", "nombre": "Alertas GLAD-S2 (Sentinel-2, 10 m)", "archivo": "alertas_perdida.tif"},
-    {"clave": "io", "nombre": "Impact Observatory (Sentinel-2, 10 m)", "archivo": "io_perdida.tif"},
+    {"clave": "io", "nombre": "Impact Observatory (Sentinel-2, 10 m, hasta 2023)", "archivo": "io_perdida.tif"},
     {"clave": "geobosques", "nombre": "Geobosques MINAM (Landsat, 30 m)", "archivo": "geobosques_perdida.tif"},
 ]
 

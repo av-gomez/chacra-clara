@@ -20,7 +20,7 @@ Estado al cierre del trabajo del agente. ✅ = cumplido · ⏳ = en curso · �
 | 14 | Video de respaldo de 60 a 90 s, con su código en el repo | ⏳ | `scripts/grabar_video.py`, con narración en `video/narracion.json`. Sale en `video/demo_respaldo.mp4`. |
 | 15 | Guion de 3 minutos (≤ 380 palabras) | ✅ | `docs/guion-presentacion.md` (351 palabras habladas) |
 | 16 | Ensayo con cronómetro | 🙋 | Dos ensayos completos con la URL pública antes de las 6:00 p. m. del miércoles. |
-| 17 | Accesibilidad revisada con herramienta automática | ✅ | axe-core: 0 violaciones en Inicio y Resultados (`docs/validacion/axe.json`) |
+| 17 | Accesibilidad revisada con herramienta automática | ✅ | axe-core: 0 violaciones en las 7 páginas (`docs/validacion/axe.json`) |
 | 18 | Validación del método | ✅ | `docs/validacion/resultados.md` |
 | 19 | Guía de archivos para explicar el código | ✅ | `docs/guia-archivos.md` |
 | 20 | Parcela real con consentimiento (opcional) | 🙋 | `docs/research/parcela-real.md`, si la consigues |

@@ -116,9 +116,11 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
 
 ### Capturas (celular, 390 px)
 
-| Inicio | Resultados | Ficha de una parcela |
+| Inicio | Evidencia de una parcela | Tablero de la cooperativa |
 |---|---|---|
-| ![Portada de Chacra Clara con el one-liner y los días que faltan para la EUDR](docs/capturas/01_inicio.png) | ![Tabla de parcelas con su estado: lista, revisar o posible deforestación](docs/capturas/02_resultados_completo.png) | ![Detalle de la parcela SAN-01 con el estado posible deforestación y la evidencia](docs/capturas/03_tabla.png) |
+| ![Portada de Chacra Clara con el one-liner y los días que faltan para la EUDR](docs/capturas/01_inicio.png) | ![Parcela SAN-01: razones y tabla de evidencia por fuente satelital](docs/capturas/03_evidencia.png) | ![Tablero: 7 parcelas listas, 2 por revisar, 3 con posible deforestación y 48 % del volumen exportable](docs/capturas/04_tablero.png) |
+
+Más capturas de cada página en [`docs/capturas/`](docs/capturas/).
 
 ### Cómo correrlo en local
 
@@ -187,7 +189,7 @@ flowchart LR
 | Bosque en 2020 | **JRC Global Forest Cover 2020 V4**, 10 m, CC BY 4.0 | Es el mapa de referencia que publica la Comisión Europea para la EUDR. La propia Comisión aclara que es **no exclusivo y no vinculante** ([JRC](https://publications.jrc.ec.europa.eu/repository/handle/JRC142855)), por eso no es la única fuente. |
 | Pérdida (1) | **Hansen/UMD Global Forest Change v1.13** (hasta 2025), 30 m, CC BY 4.0 | Es la serie global más usada, con año de pérdida. |
 | Pérdida (2) | **Alertas GLAD-S2** (UMD), 10 m, solo confianza media y alta | Otro sensor (Sentinel-2) con 10 m: ve pérdidas pequeñas, que son la mayoría en el Perú. |
-| Pérdida (3) | **Impact Observatory**, uso del suelo anual (io-lulc-annual-v02), 10 m, CC BY 4.0 | Cambio de «árboles» a cultivo, suelo o pasto que se mantiene hasta 2023. |
+| Pérdida (3) | **Impact Observatory**, uso del suelo anual (io-lulc-annual-v02), 10 m, CC BY 4.0 | Cambio de «árboles» a cultivo, suelo o pasto que se mantiene hasta 2023. **Solo llega a 2023**: no ve las pérdidas de 2024 y 2025. |
 | Pérdida (4) | **Geobosques (MINAM)**, pérdida de bosque húmedo 2021-2025 | Es el dato oficial peruano. El raster original pide registro; uso la imagen pública por año de su servicio de mapas (es una máscara renderizada, no el valor original). |
 | Uso del suelo 2020 | **ESA WorldCover 2020**, 10 m, CC BY 4.0 | Distingue chacra (cultivo, pasto o arbustal) de árboles para detectar renovación, poda o quema. |
 | Evidencia visual | **Sentinel-2 L2A** (Copernicus), mediana de junio a octubre de 2020 y de 2025 | Para que el técnico vea el antes y el después. |
@@ -261,7 +263,10 @@ Todo esto hay que validarlo con parcelas verificadas en campo por una cooperativ
 - **Lectura:** lenguaje claro, sin siglas sin explicar (la Guía explica «EUDR») y texto escalable (`rem`, `clamp`).
 - **Celular primero:** probado a 390 px de ancho. El **modo ligero** quita las imágenes satelitales y las capas raster. Las notas de voz pesan menos de 200 KB.
 - **Audio:** es la alternativa al texto para los productores.
-- **Prueba automática:** **axe-core** (vía Playwright, [`scripts/probar_app.py`](scripts/probar_app.py)) no encontró violaciones en Inicio ni en Resultados ([`docs/validacion/axe.json`](docs/validacion/axe.json)). En la primera pasada encontró 2 problemas (orden de encabezados y regiones con desplazamiento sin acceso por teclado), y los corregí.
+- **Prueba automática:** **axe-core** (vía Playwright, [`scripts/probar_app.py`](scripts/probar_app.py)) revisó las **7 páginas** en tamaño de celular y encontró **0 violaciones** ([`docs/validacion/axe.json`](docs/validacion/axe.json)). En las primeras pasadas encontró 3 problemas y los corregí:
+  - orden de los encabezados;
+  - tablas con desplazamiento sin acceso por teclado;
+  - textos pequeños con contraste de 2,85:1, porque Streamlit les pone 60 % de opacidad. Ahora tienen 7,4:1.
 - **Límite:** axe no revisa dentro del mapa (es un `iframe` de Leaflet). El mapa no es totalmente accesible con lector de pantalla; por eso existe la tabla equivalente.
 
 ### Mi voz
