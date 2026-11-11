@@ -1,6 +1,8 @@
 # Conversación 3: área comercial o de cumplimiento de una exportadora
 
 > **Estado: PENDIENTE.** Es una plantilla sin respuestas. Las respuestas se completan solo con una conversación real; no se inventan.
+>
+> Hipótesis que esta conversación debe confirmar o tumbar: [`investigacion-escritorio.md`](investigacion-escritorio.md), sección 3.
 
 ## Datos de la conversación
 

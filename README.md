@@ -16,7 +16,7 @@ Hacemos que el café y el cacao de los pequeños productores peruanos sigan entr
 
 ## 2. Founder
 
-**Amanda Gomez.** *(Pendiente: Amanda responde cada pregunta en 2 o 3 líneas y borra las preguntas. El agente no inventó ningún dato sobre ella).*
+**Amanda Gomez**, estudiante de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP, 2026). Construyó Chacra Clara como proyecto final, dirigiendo a un agente de IA (ver parte 9). *(Las respuestas siguientes están pendientes: el agente no inventó ningún dato sobre ella).*
 
 - **¿Quién soy y qué hago hoy?** (formación, trabajo actual)
   > _[respuesta]_
@@ -26,8 +26,8 @@ Hacemos que el café y el cacao de los pequeños productores peruanos sigan entr
   > _[respuesta]_
 - **¿Por qué soy la persona indicada para resolverlo ahora?**
   > _[respuesta]_
-- **¿Qué aprendí en las conversaciones con usuarios que me hizo cambiar algo del producto?**
-  > _[respuesta]_
+- **¿Qué aprendí de los usuarios que me hizo cambiar algo del producto?**
+  > Las conversaciones están pendientes. Lo que cambió por la investigación en fuentes públicas: la página «Sus datos» (propiedad de los datos de la cooperativa), la lista de visitas ordenada para el técnico, la nota de voz para el productor y el estado «Revisar» para café bajo sombra. Detalle en [`docs/research/investigacion-escritorio.md`](docs/research/investigacion-escritorio.md).
 
 ## 3. Problema
 
@@ -56,7 +56,13 @@ Hacemos que el café y el cacao de los pequeños productores peruanos sigan entr
 
 **Conversaciones con usuarios:** [`docs/research/`](docs/research/). Hay plantillas para un técnico o gerente de cooperativa ([1](docs/research/conversacion-1.md)), un productor ([2](docs/research/conversacion-2.md)) y alguien de una exportadora ([3](docs/research/conversacion-3.md)), con preguntas sobre hechos pasados según *How to Talk to Users* de YC.
 
-> ✍️ **[PENDIENTE: AMANDA]** Completar las 3 conversaciones reales y resumir aquí lo aprendido en 3 frases. El agente no inventó ninguna respuesta.
+> ⚠️ **Estado honesto: las 3 conversaciones con usuarios todavía no se hicieron.** No se inventó ninguna respuesta. Mientras tanto, el problema se sustenta en lo que ya dicen públicamente los gremios, el Estado y las ONG, reunido en [`docs/research/investigacion-escritorio.md`](docs/research/investigacion-escritorio.md):
+>
+> 1. **Cooperativas:** la Junta Nacional del Café dice que ya se condicionan embarques a Europa y que falta una plataforma confiable para subir los polígonos.
+> 2. **Productores:** AVSF y Ethiquable advierten que los no organizados pueden quedar fuera y que la propiedad de sus datos no está garantizada.
+> 3. **Exportadoras:** una sola parcela con deforestación descalifica todo lo que sale de ella, así que necesitan el expediente por parcela.
+>
+> Cada punto quedó convertido en una hipótesis con lo que la confirmaría o la tumbaría. **Siguiente paso:** hacer las 3 conversaciones con esas preguntas.
 
 Todas las cifras y su verificación (con citas y discrepancias encontradas) están en [`docs/research/fuentes-verificadas.md`](docs/research/fuentes-verificadas.md).
 

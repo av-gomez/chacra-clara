@@ -1,6 +1,8 @@
 # Conversación 2: productor o productora de café o cacao
 
 > **Estado: PENDIENTE.** Es una plantilla sin respuestas. Las respuestas se completan solo con una conversación real; no se inventan.
+>
+> Hipótesis que esta conversación debe confirmar o tumbar: [`investigacion-escritorio.md`](investigacion-escritorio.md), sección 2.
 
 ## Datos de la conversación
 

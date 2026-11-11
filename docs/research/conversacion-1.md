@@ -1,6 +1,8 @@
 # Conversación 1: técnico de campo o gerente de una cooperativa
 
 > **Estado: PENDIENTE.** Es una plantilla sin respuestas. Las respuestas se completan solo con una conversación real; no se inventan.
+>
+> Hipótesis que esta conversación debe confirmar o tumbar: [`investigacion-escritorio.md`](investigacion-escritorio.md), sección 1.
 
 ## Datos de la conversación
 
