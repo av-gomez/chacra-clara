@@ -51,7 +51,7 @@ def main():
         pagina.goto(args.url, wait_until="networkidle", timeout=120_000)
         listo(5000)
         revisar("01_inicio")
-        pagina.get_by_role("button", name="Demo Puno (Sandia y Carabaya)").click()
+        pagina.get_by_role("button", name="Cargar cooperativa de ejemplo").first.click()
         listo(7000)
         assert "Posible deforestación" in pagina.inner_text("body"), "No aparece ningún estado en Resultados"
         revisar("02_resultados")

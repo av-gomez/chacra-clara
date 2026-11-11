@@ -128,23 +128,32 @@ def pagina_inicio():
         "3. **Reciba el estado de cada parcela con su evidencia**, la lista de visitas para el técnico, la ficha "
         "en PDF, el GeoJSON para la declaración y una nota de voz para el productor.")
     st.markdown("## Pruébelo")
-    col1, col2, col3 = st.columns(3)
-    if col1.button("Demo Puno (Sandia y Carabaya)", type="primary", use_container_width=True):
-        cargar_demo("puno")
-        st.switch_page(PAGINAS["resultados"])
-    if col2.button("Demo San Martín (Alto Mayo)", use_container_width=True):
+    st.write("Cargue al instante las 12 parcelas de una cooperativa de ejemplo, o ingrese las suyas (opcional).")
+    boton_cooperativa_ejemplo("inicio")
+    col1, col2 = st.columns(2)
+    if col1.button("Ejemplo de San Martín (Alto Mayo)", use_container_width=True):
         cargar_demo("sanmartin")
         st.switch_page(PAGINAS["resultados"])
-    if col3.button("Ingresar mis parcelas", use_container_width=True):
+    if col2.button("Ingresar mis parcelas", use_container_width=True):
         st.switch_page(PAGINAS["ingresar"])
     aviso_tamizaje()
     st.caption("Las parcelas de demo usan ubicaciones reales de zonas cafetaleras de Puno y San Martín con productores "
                "ficticios. Las capas satelitales son datos reales.")
 
 
+def boton_cooperativa_ejemplo(lugar):
+    """Plan B del demo en vivo: carga al instante las parcelas de ejemplo, sin dibujar nada."""
+    if st.button("Cargar cooperativa de ejemplo", type="primary", use_container_width=True,
+                 key=f"ejemplo_{lugar}", help="12 parcelas reales de Sandia y Carabaya (Puno), productores ficticios"):
+        cargar_demo("puno")
+        st.switch_page(PAGINAS["resultados"])
+
+
 def pagina_ingresar():
     st.title("Ingresar parcelas")
-    st.write("Elija una forma. Todas terminan en el mismo análisis.")
+    st.write("Elija una forma. Todas terminan en el mismo análisis. ¿Solo quiere ver cómo funciona? "
+             "Use el botón de abajo y salte este paso.")
+    boton_cooperativa_ejemplo("ingresar")
     zonas = zonas_disponibles()
     forma = st.radio("¿Cómo quiere ingresar las parcelas?",
                      ["Dibujar en el mapa", "Subir archivo (GeoJSON, KML, Excel o CSV)"], horizontal=True)
@@ -221,7 +230,7 @@ def pagina_resultados():
     gdf = st.session_state.parcelas
     if gdf is None:
         st.info("Aún no hay parcelas. Cargue la cooperativa de demo o ingrese las suyas.")
-        if st.button("Cargar la demo de Puno", type="primary"):
+        if st.button("Cargar cooperativa de ejemplo", type="primary"):
             cargar_demo("puno")
             st.rerun()
         return
@@ -350,7 +359,7 @@ def pagina_tablero():
     gdf = st.session_state.parcelas
     if gdf is None:
         st.info("Cargue parcelas primero.")
-        if st.button("Cargar la demo de Puno", type="primary"):
+        if st.button("Cargar cooperativa de ejemplo", type="primary"):
             cargar_demo("puno")
             st.rerun()
         return

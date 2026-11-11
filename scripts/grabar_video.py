@@ -115,7 +115,7 @@ def grabar(url, salida_cruda):
         t = escena("escena_5")
         pagina.get_by_role("link", name="Inicio").first.click()
         esperar_app(pagina, 2000)
-        pagina.get_by_role("button", name="Demo Puno (Sandia y Carabaya)").click()
+        pagina.get_by_role("button", name="Cargar cooperativa de ejemplo").first.click()
         esperar_app(pagina, 3000)
         pagina.get_by_role("link", name="3. Tablero y visitas").first.click()
         esperar_app(pagina, 2500)

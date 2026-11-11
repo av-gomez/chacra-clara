@@ -2,9 +2,11 @@
 
 > **Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se convierte en el expediente de debida diligencia que pide la EUDR.**
 
-**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (65 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
+**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (63 s, grabado con Playwright y narrado con mi voz clonada por IA):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
 
 > ⚠️ Chacra Clara es una herramienta de **tamizaje** y apoyo a la debida diligencia. **No es una certificación oficial.** El resultado final lo valida un técnico.
+
+> 🔊 **Las notas de voz y la narración del video son sintéticas.** Las generó un modelo de texto a voz (Qwen3-TTS) con la voz de Amanda Gomez clonada, **con su consentimiento**. El repo no contiene su grabación original, el audio de referencia ni archivos del modelo o de la voz (ver [Mi voz](#mi-voz)).
 
 ---
 
@@ -14,7 +16,18 @@ Hacemos que el café y el cacao de los pequeños productores peruanos sigan entr
 
 ## 2. Founder
 
-> ✍️ **[ESPACIO PARA AMANDA GOMEZ]** Quién soy, qué he hecho y por qué soy la persona indicada para este problema. (Este espacio lo completo yo; el agente no inventó datos sobre mí).
+**Amanda Gomez.** *(Pendiente: Amanda responde cada pregunta en 2 o 3 líneas y borra las preguntas. El agente no inventó ningún dato sobre ella).*
+
+- **¿Quién soy y qué hago hoy?** (formación, trabajo actual)
+  > _[respuesta]_
+- **¿Qué he construido antes que se relacione con esto?** (proyectos con datos satelitales, mapas, voz o sector agrario y público)
+  > _[respuesta]_
+- **¿Qué relación tengo con el café, el cacao, la selva alta o las cooperativas?** (familia, trabajo, territorio, contactos)
+  > _[respuesta]_
+- **¿Por qué soy la persona indicada para resolverlo ahora?**
+  > _[respuesta]_
+- **¿Qué aprendí en las conversaciones con usuarios que me hizo cambiar algo del producto?**
+  > _[respuesta]_
 
 ## 3. Problema
 
@@ -104,7 +117,7 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
 
 - **URL pública:** _en preparación_ (Streamlit Community Cloud).
 - **Flujo del demo (2 minutos):**
-  1. En Inicio, entre a **Demo Puno**.
+  1. En Inicio, pulse **Cargar cooperativa de ejemplo** (o dibuje una parcela, paso opcional).
   2. En Resultados, vea el mapa y la tabla.
   3. Elija **SAN-01** (posible deforestación): evidencia por fuente, imágenes de antes y después, nota de voz y descargas.
   4. Pase al **Tablero**: volumen exportable y ruta de visitas.
@@ -116,7 +129,7 @@ La parte satelital es necesaria, pero es la parte fácil. Lo difícil es todo lo
 
 ### Video de respaldo (plan B): cómo se produce
 
-[`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) dura 65 s y muestra el **software real funcionando**. **Nadie lo grabó a mano.** Todo lo produce código que está en este repo:
+[`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) dura 63 s y muestra el **software real funcionando**. **Nadie lo grabó a mano.** Todo lo produce código que está en este repo:
 
 | Paso | Qué pasa | Script |
 |---|---|---|
@@ -146,6 +159,10 @@ Más capturas de cada página en [`docs/capturas/`](docs/capturas/).
 
 ### Cómo correrlo en local
 
+**Un solo comando (plan B en la laptop):** en Windows, doble clic en [`correr_local.bat`](correr_local.bat), o en Linux/Mac `sh correr_local.sh`. La primera vez crea el entorno e instala todo (unos 3 minutos); después abre http://localhost:8501. Funciona sin internet una vez instalado, salvo el mapa base satelital de Esri.
+
+Paso a paso:
+
 ```bash
 git clone https://github.com/av-gomez/chacra-clara.git
 cd chacra-clara
@@ -154,7 +171,18 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Opcional: copie `.env.example` como `.env` y ponga `ANTHROPIC_API_KEY` para que el informe se redacte con Claude. Sin clave, se usa la plantilla.
+Opcional: copie `.env.example` como `.env` y ponga `ANTHROPIC_API_KEY` para que el informe se redacte con Claude. Sin clave, se usa la plantilla. Para Streamlit Cloud, los nombres de los secretos (sin valores) están en [`docs/secretos-streamlit.md`](docs/secretos-streamlit.md). Todos son opcionales.
+
+**¿Cabe en el plan gratuito?** Sí, con margen, así que no hizo falta comprimir ni reducir datos (medido el 10/11/2026):
+
+| Límite | Chacra Clara |
+|---|---|
+| GitHub: ningún archivo de más de 100 MB | El más grande pesa 2 MB (el video). |
+| Tamaño del repo | ~20 MB en total: recortes raster ~9 MB (GeoTIFF con compresión *deflate*), imágenes Sentinel-2 ~5 MB (JPEG), notas de voz ~3,4 MB (MP3 de 48 kbps), video 2 MB. |
+| Memoria de Streamlit Community Cloud (alrededor de 1 GB) | La app usa unos 200 MB con las dos cooperativas cargadas y las fichas PDF generadas. |
+| Datos por pantalla en celular | Mapa de resultados: ~570 KB; en **modo ligero**, ~130 KB. Cada nota de voz pesa menos de 200 KB. |
+
+Como el plan gratuito duerme la app si nadie la usa, hay que abrirla unos minutos antes de presentar (ver el guion).
 
 **Regenerar los datos (reproducible):**
 
@@ -298,6 +326,7 @@ Todo esto hay que validarlo con parcelas verificadas en campo por una cooperativ
 - **Control de calidad:** cada nota se genera con Qwen3-TTS y se transcribe con Whisper para calcular el WER. Si supera el 20 %, se regenera.
 - **Por qué vienen pregeneradas:** el modelo pesa 2,3 GB y tarda unos 7 s por cada segundo de audio en CPU, demasiado para el servidor gratuito. Hay **notas personales** para cada parcela del demo y **notas generales** por estado y cultivo para las parcelas nuevas.
 - **Todo lo que suena con mi voz es sintético:** las 24 notas y la narración del video. A partir de esa muestra, todo lo genera el modelo; no grabé ninguna otra cosa.
+- **Privacidad:** el repo público **no** contiene mi grabación original, el audio de referencia limpio (`voz_ref.wav`) ni archivos del modelo o embeddings de mi voz. Están en `.gitignore`, y revisé que **nunca** se hayan subido en ningún commit. Solo están las notas ya generadas, el video y la transcripción en texto de la muestra (`voz/voz_ref.txt`), que no sirve para clonar una voz. Igual que cualquier audio público, las notas sintéticas sí podrían usarse para imitar mi voz: es un riesgo a tener en cuenta.
 
 ## 7. Modelo de negocio
 

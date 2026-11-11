@@ -51,3 +51,29 @@ Para explicar el código al profesor. Cada módulo de `chacra/` hace una sola ta
    - si ninguna fuente pasa 0,1 ha, la parcela queda **sin deforestación**;
    - si dos fuentes coinciden en una pérdida significativa (0,5 ha, o 0,2 ha que sean al menos el 10 % de la parcela), queda como **posible deforestación**;
    - cualquier otro caso va a **revisar**.
+
+## Para practicar: 3 cambios que el profesor podría pedir
+
+Cada uno toma menos de 5 minutos. Después de cambiar, corra `python tests/test_flujo.py` y `streamlit run app.py` para ver el efecto.
+
+### 1. Cambiar un umbral: que una fuente «vea pérdida» desde 0,2 ha en vez de 0,1 ha
+
+- **Dónde:** `chacra/estado.py`, **línea 20**: `PERDIDA_MINIMA_HA = 0.1`.
+- **Cambio:** `PERDIDA_MINIMA_HA = 0.2`.
+- **Efecto:** menos parcelas en «Revisar» (se ignoran pérdidas muy chicas) y más riesgo de falsos negativos. La Guía de la app y las razones de cada parcela se actualizan solas, porque leen esta constante.
+- **Variante:** exigir que coincidan 3 fuentes en vez de 2 → **línea 25**: `FUENTES_MINIMAS_DE_ACUERDO = 3`.
+
+### 2. Agregar (o quitar) una fuente satelital
+
+- **Dónde:** `chacra/satelite.py`, **líneas 29 a 34**: la lista `FUENTES_PERDIDA`.
+- **Quitar una fuente:** borrar su línea (por ejemplo, la de Impact Observatory, línea 32). La tabla de evidencia y el acuerdo entre fuentes se recalculan solos.
+- **Agregar una fuente:** guardar un raster en `datos/recortes/<zona>/` con el mismo formato (año de pérdida menos 2000; 0 = sin pérdida; 255 = sin dato; misma grilla) y agregar una línea:
+  `{"clave": "nueva", "nombre": "Nombre de la fuente", "archivo": "nueva_perdida.tif"},`
+  Para descargarla, copiar el patrón de `hansen()` en `scripts/preparar_recortes.py`.
+
+### 3. Cambiar un texto que ve el usuario
+
+- **El consejo de un estado:** `chacra/estado.py`, **línea 34** (`"que_hacer"` de «Sin deforestación detectada»). Por ejemplo, agregar «Guarde la ficha por cinco años».
+- **El nombre corto de un estado:** `chacra/estado.py`, **línea 36** (`"texto": "Revisar"`).
+- **Una cifra de la portada:** `app.py`, **línea 119** y siguientes (las tarjetas de `cifras([...])`).
+- **Una nota de voz:** el texto está en `chacra/voz.py` (`PLANTILLAS`). Si cambia, el audio viejo deja de coincidir: la app usa la nota general de ese estado (o solo el texto, si también cambió) hasta regenerarla con `scripts/generar_voz.py`.

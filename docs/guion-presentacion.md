@@ -1,58 +1,98 @@
 # Guion de la presentación (3 minutos)
 
-Unas 360 palabras habladas (unas 130 por minuto). Lo que va entre corchetes es lo que hago en pantalla, no se dice.
-Antes de empezar: la app abierta en **Inicio**, en una ventana limpia, con el volumen activado. El video de respaldo (generado automáticamente, ver README) está abierto en otra pestaña.
+## Antes de presentar (miércoles 11 de noviembre)
+
+| Hora | Qué hacer |
+|---|---|
+| **6:30 p. m.** | **Abrir la URL pública para despertar la app.** Las apps gratuitas de Streamlit se duermen si nadie las usa y tardan 1 o 2 minutos en despertar. Esperar a que cargue Inicio y pulsar **Cargar cooperativa de ejemplo** una vez, para dejarla lista. |
+| 6:35 p. m. | En otra pestaña, dejar abierto el **video de respaldo** (`video/demo_respaldo.mp4`, también guardado en la laptop). |
+| 6:40 p. m. | Plan B local: doble clic en `correr_local.bat`, que abre http://localhost:8501. Dejarlo en una tercera pestaña. |
+| 6:45 p. m. | Si es por **Zoom**: probar **Compartir pantalla** con la casilla **«Compartir sonido»** marcada, reproduciendo una nota de voz. Sin esa casilla, la clase no escucha el audio. |
+| 7:00 p. m. | Conectarse con la app abierta en **Inicio**, ventana limpia y volumen activado. |
 
 ---
 
-## 0:00 – 0:30 · El problema
+## Versión para leer en pantalla (letra grande)
 
-[Pantalla: Inicio, con el one-liner y los días que faltan]
+209 palabras habladas (límite: 380): deja aire para los clics. Entre corchetes va lo que hago, que no se dice.
 
-«En 49 días, Europa exige probar que el café y el cacao no vienen de bosque talado después de 2020. Si una cooperativa no tiene esa información, su café no entra. Y no es un problema chico. La Unión Europea compró 726 millones de dólares de café peruano en 2025, el 40 % del total. Lo producen 223 mil familias, con parcelas de 1,9 hectáreas en promedio, y solo el 30 % está en una cooperativa. Hoy faltan unos 160 mil polígonos y ya se están condicionando embarques.»
+### 0:00 – 0:30 · El problema
 
-## 0:30 – 2:30 · Demo en vivo
+[Pantalla: **Inicio**]
 
-[Clic en **Ingresar mis parcelas**. Zona: Sandia]
+# En 49 días, Europa exige probar que el café y el cacao no vienen de bosque talado después de 2020.
 
-«Soy el técnico de una cooperativa de Sandia, en Puno. Dibujo la parcela de un socio en el mapa.»
+# Sin esa prueba, el café no entra.
 
-[Clic en el pentágono y dibujo cuatro esquinas alrededor del claro del centro del mapa. Cierro en el primer punto. Clic en **Analizar esta parcela**]
+# Europa compró 726 millones de dólares de café peruano en 2025.
 
-«En segundos, la parcela se cruza con cinco fuentes satelitales abiertas: el mapa de bosques 2020 que usa la Unión Europea, Hansen, alertas de Sentinel-2, Impact Observatory y Geobosques del Ministerio del Ambiente.»
+# Lo producen 223 mil familias, con chacras de casi dos hectáreas.
 
-[Bajo hasta la insignia y la tabla de evidencia]
+# Solo el 30 % está en una cooperativa. Y ya se condicionan embarques.
 
-«Resultado: posible deforestación. No es solo un color: tiene ícono, texto y patrón, y muestra qué fuente vio qué y en qué año. Si las fuentes no coinciden, o puede ser café bajo sombra o una poda, la parcela va a "Revisar", no a "deforestación".»
+### 0:30 – 2:30 · Demo en vivo
 
-[Bajo a las imágenes de antes y después]
+[Clic en **Ingresar mis parcelas** → zona **Sandia** → clic en el **pentágono** → cuatro clics alrededor del centro del mapa → clic en el primer punto → **Analizar esta parcela**]
 
-«Aquí está el antes y el después.»
+# Soy el técnico de una cooperativa de Sandia. Dibujo la chacra de un socio.
 
-[Clic en ▶ de la nota de voz, dejo sonar unos 5 segundos]
+> Si el mapa no responde en 10 segundos: clic en **Cargar cooperativa de ejemplo** (arriba, en la misma página) y elijo la parcela **SAN-01** en la lista. Es el mismo caso.
 
-«Y esto es lo que recibe el productor por WhatsApp: un audio con mi voz, clonada con IA, que le explica su resultado sin jerga.»
+[Bajo hasta la insignia roja y la tabla **Evidencia por fuente**]
 
-[Clic en **Ficha PDF de la parcela** y en **GeoJSON para la declaración (UE)**]
+# En segundos se cruza con cinco fuentes satelitales abiertas.
 
-«La ficha en PDF y el GeoJSON con el formato que pide el sistema de la Unión Europea.»
+# Resultado: posible deforestación. Con ícono, texto y patrón, no solo color.
 
-[Inicio → **Demo Puno (Sandia y Carabaya)** → **Ver el tablero y la ruta de visitas**]
+# Si las fuentes no coinciden, o puede ser café bajo sombra, va a «Revisar».
 
-«Para toda la cooperativa: siete parcelas listas, dos por revisar y tres con alerta. Hoy podrían exportar el 48 % de su volumen. Y esta es la ruta del técnico: primero las de mayor riesgo, la más cercana primero. Los datos son de la cooperativa: los descarga todos cuando quiera.»
+[Bajo a **Imágenes Sentinel-2: antes y después**]
 
-## 2:30 – 3:00 · El negocio
+# Este es el antes y el después.
 
-[Pantalla: Tablero o Inicio]
+[Clic en ▶ de **Nota de voz para el productor** y la dejo sonar unos 5 segundos]
 
-«Pagan las exportadoras y las cooperativas que venden a Europa: 5 soles por parcela verificada al año, y gratis para organizaciones de hasta 50 parcelas. El costo tecnológico es de unos 11 céntimos por parcela. Lo que sigue es validar en campo con tres cooperativas de Puno y San Martín. Chacra Clara: que el pequeño productor no se quede fuera de Europa.»
+> ⚠️ **Zoom:** el audio solo se escucha si compartí la pantalla con **«Compartir sonido»** activado. Si no se escucha, sigo hablando: la transcripción está en «Texto de la nota».
+
+# El productor recibe esto por WhatsApp: un audio con mi voz clonada, sin jerga.
+
+[Clic en **Ficha PDF de la parcela** y luego en **GeoJSON para la declaración (UE)**]
+
+# La ficha y el archivo que pide el sistema europeo.
+
+[Inicio → **Cargar cooperativa de ejemplo** → menú **3. Tablero y visitas**]
+
+# Para la cooperativa: siete parcelas listas, dos por revisar, tres con alerta.
+
+# Hoy podrían exportar el 48 % de su volumen. Y esta es la ruta del técnico.
+
+### 2:30 – 3:00 · El negocio
+
+[Pantalla: **Tablero**]
+
+# Pagan exportadoras y cooperativas: 5 soles por parcela al año.
+
+# Gratis hasta 50 parcelas. A nosotros nos cuesta 11 céntimos.
+
+# Siguiente paso: validar en campo con tres cooperativas.
+
+# Chacra Clara: que el pequeño productor no se quede fuera de Europa.
 
 ---
 
-## Si algo falla en vivo
+## Ruta de clics, en una línea
 
-- **El mapa no dibuja:** paso directo a **Demo Puno** → elijo la parcela **SAN-01** en Resultados (es el mismo caso).
-- **La app no carga:** reproduzco el video de respaldo (`video/demo_respaldo.mp4`, 65 s). Ya trae su narración, sintetizada con mi voz clonada, así que no hablo encima: solo presento el problema antes y el negocio después.
-- **No suena el audio:** sigo; la transcripción está en «Texto de la nota».
+**Inicio → Ingresar mis parcelas → Sandia → pentágono → 4 clics y cierre → Analizar → bajar a la evidencia → antes y después → ▶ nota de voz → Ficha PDF → GeoJSON → Inicio → Cargar cooperativa de ejemplo → 3. Tablero y visitas.**
 
-Cronómetro: ensayar dos veces. Si me paso, recorto la frase de las cinco fuentes.
+- **Ruta segura, sin dibujar:** Inicio → **Cargar cooperativa de ejemplo** → parcela **SAN-01** (ya aparece elegida) → evidencia, antes y después, nota de voz y descargas → **3. Tablero y visitas**.
+
+## Si se corta
+
+| Momento | Qué pasa | Qué hago |
+|---|---|---|
+| Antes de 0:30 | La URL no carga | Paso a la pestaña de `correr_local.bat` (localhost). Si tampoco carga, al video. |
+| **De 0:30 a 0:45** | El mapa o la app no responden en **10 segundos** | **A más tardar en el segundo 0:45, paso al video de respaldo** y lo reproduzco desde el inicio. Dura 63 s y ya trae su narración, sintetizada con mi voz clonada, así que no hablo encima. Termina hacia 1:50. |
+| Después del video (~1:50) | — | Retomo en vivo con el negocio (2:30 – 3:00) o lo adelanto si sobra tiempo. |
+| En cualquier momento | Se cae el internet | Uso el video guardado en la laptop, que no depende de internet. |
+
+Cronómetro: ensayar dos veces con la URL pública. Si me paso, recorto la frase «Si las fuentes no coinciden…».
