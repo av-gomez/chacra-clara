@@ -25,7 +25,8 @@ ATRIBUCION_SATELITE = "Imágenes: Esri, Maxar, Earthstar Geographics"
 
 
 def mapa_base(centro, zoom, ligero=False):
-    m = folium.Map(location=centro, zoom_start=zoom, tiles=None, control_scale=True)
+    # Sin zoom con la rueda del mouse: al bajar por la página, el mapa no debe acercarse o alejarse solo
+    m = folium.Map(location=centro, zoom_start=zoom, tiles=None, control_scale=True, scroll_wheel_zoom=False)
     if not ligero:
         folium.TileLayer(SATELITE, attr=ATRIBUCION_SATELITE, name="Imagen satelital", max_zoom=19).add_to(m)
     folium.TileLayer("OpenStreetMap", name="Mapa de calles (más liviano)", show=ligero).add_to(m)
@@ -41,9 +42,9 @@ def agregar_zonas(m):
 
 
 def mapa_ingreso(centro, zoom, parcelas=None, ligero=False):
-    """Mapa para dibujar. Se encuadra a nivel de chacra (~1 km) para que el polígono tenga pocas hectáreas."""
+    """Mapa para dibujar, a escala de chacra (zoom 16, ~1 km) para que el polígono tenga pocas hectáreas.
+    En app.py se le pasa también center y zoom a st_folium, que si no impone su propia vista."""
     m = mapa_base(centro, zoom, ligero)
-    m.fit_bounds([[centro[0] - 0.0045, centro[1] - 0.006], [centro[0] + 0.0045, centro[1] + 0.006]])
     agregar_zonas(m)
     if parcelas is not None and len(parcelas):
         folium.GeoJson(parcelas[["codigo_parcela", "geometry"]].to_json(), name="Parcelas cargadas",

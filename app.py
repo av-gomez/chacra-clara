@@ -159,6 +159,7 @@ def pagina_ingresar():
         foco = FOCO_ZONA.get(nombres[zona_nombre], ((sur + norte) / 2, (oeste + este) / 2))
         m = mapas.mapa_ingreso(list(foco), 16, st.session_state.parcelas, st.session_state.ligero)
         salida = st_folium(m, height=460, use_container_width=True, key=f"dibujo_{nombres[zona_nombre]}",
+                           center=foco, zoom=16,
                            returned_objects=["last_active_drawing"])
         dibujo = (salida or {}).get("last_active_drawing")
         with st.form("datos_parcela"):

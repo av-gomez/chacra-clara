@@ -17,7 +17,7 @@ Estado al cierre del trabajo del agente. ✅ = cumplido · ⏳ = en curso · �
 | 11 | Dos herramientas del curso dentro del producto | ✅ | Raster (07), GeoPandas y Folium (06), texto a voz con tu voz (15); extra: LLM con salida estructurada (08). README, parte 8. |
 | 12 | Commits en varios días | ⏳ | Martes 10: varios commits. Miércoles 11: seguir con commits pequeños (correcciones, URL, video). |
 | 13 | Sin claves en el repo | ✅ | Revisado con `git log -p` (api_key, secret, token): solo aparecen nombres de variables vacías. |
-| 14 | Video de respaldo de 60 a 90 s, con su código en el repo | ⏳ | `scripts/grabar_video.py`, con narración en `video/narracion.json`. Sale en `video/demo_respaldo.mp4`. |
+| 14 | Video de respaldo de 60 a 90 s, con su código en el repo | ✅ | `video/demo_respaldo.mp4` (65 s), generado por `scripts/grabar_video.py` con la narración de `video/narracion.json` y tu voz clonada |
 | 15 | Guion de 3 minutos (≤ 380 palabras) | ✅ | `docs/guion-presentacion.md` (351 palabras habladas) |
 | 16 | Ensayo con cronómetro | 🙋 | Dos ensayos completos con la URL pública antes de las 6:00 p. m. del miércoles. |
 | 17 | Accesibilidad revisada con herramienta automática | ✅ | axe-core: 0 violaciones en las 7 páginas (`docs/validacion/axe.json`) |

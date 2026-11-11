@@ -2,7 +2,7 @@
 
 > **Hacemos que el café y el cacao de los pequeños productores peruanos puedan seguir entrando a Europa, para cooperativas y exportadoras, mediante un tamizaje satelital abierto de cada parcela que se convierte en el expediente de debida diligencia que pide la EUDR.**
 
-**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo:** _en preparación_ · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
+**Demo en vivo:** _URL pública en preparación (Streamlit Community Cloud)._ · **Video de respaldo (65 s, narrado con mi voz clonada):** [`video/demo_respaldo.mp4`](video/demo_respaldo.mp4) · Proyecto final de la Diplomatura de Ciencia de Datos para las Ciencias Sociales y la Gestión Pública (Q-Lab PUCP), noviembre de 2026.
 
 > ⚠️ Chacra Clara es una herramienta de **tamizaje** y apoyo a la debida diligencia. **No es una certificación oficial.** El resultado final lo valida un técnico.
 
