@@ -1,6 +1,6 @@
 /* Chacra Clara: paleta de café, cacao y bosque de la selva alta.
-   Contrastes verificados (WCAG 2.2 AA): texto #2B1D14 sobre #FBF7F0 = 15.6:1;
-   #1F5C45 sobre #FBF7F0 = 7.6:1; #6B4226 sobre #FBF7F0 = 8.0:1. */
+   Contrastes calculados (WCAG 2.2 AA, mínimo 4.5:1): texto #2B1D14 sobre #FBF7F0 = 15.3:1;
+   #1F5C45 = 7.4:1; #6B4226 = 8.1:1; insignias de estado entre 4.5:1 y 6.4:1 (también sobre su patrón). */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@400;600;700&display=swap');
 
 :root {
@@ -55,7 +55,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .estado-revisar { color: #7A4F00; background: repeating-linear-gradient(45deg, #FFF1D6 0 8px, #FBE3B4 8px 12px); }
 .estado-revisar .icono { background: #7A4F00; }
 .estado-posible { color: #A12C2C; background-color: #F9E1E1;
-  background-image: radial-gradient(#E7AFAF 1.6px, transparent 1.7px); background-size: 9px 9px; }
+  background-image: radial-gradient(#F0C8C8 1.8px, transparent 1.9px); background-size: 9px 9px; }
 .estado-posible .icono { background: #A12C2C; }
 
 .aviso { border-left: 5px solid var(--cacao); background: var(--arena); padding: .7rem 1rem; border-radius: 8px; margin: .8rem 0; }
